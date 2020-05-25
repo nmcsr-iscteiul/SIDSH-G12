@@ -10,7 +10,7 @@ stage('Git Checkout') {
     
 stage('Build Docker Image'){
     sh '''
-        sudo docker-compose build
+        docker-compose build
     ''' 
 }
 
