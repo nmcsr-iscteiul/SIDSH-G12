@@ -9,30 +9,30 @@ stage('Git Checkout') {
     }
     
 stage('Build Docker Image'){
-    bash "sudo docker-compose build"
+    terminal "sudo docker-compose build"
     }
     
 stage('Stop Existing Container'){
-    bash "sudo docker-compose stop"
+    terminal "sudo docker-compose stop"
     }
     
 stage('Remove Existing Container'){
-    bash "sudo docker-compose rm"
+    terminal "sudo docker-compose rm"
     }
     
 stage ('Runing Container to test built Docker Image'){
-    bash "sudo docker-compose start"
+    terminal "sudo docker-compose start"
     }
     
 stage('Tag Docker Image'){
-    bash "docker tag ${container} ${env.dockeruser}/${container}"
+    terminal "docker tag ${container} ${env.dockeruser}/${container}"
     }
 
 stage('Docker Login and Push Image'){
     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'dockerpasswd', usernameVariable: 'dockeruser')]) {
-    bash "docker login -u ${dockeruser} -p ${dockerpasswd}"
+    terminal "docker login -u ${dockeruser} -p ${dockerpasswd}"
     }
-    bash "docker push ${dockeruser}/${container}"
+    terminal "docker push ${dockeruser}/${container}"
     }
 
 }
