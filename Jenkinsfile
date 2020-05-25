@@ -14,11 +14,6 @@ stage('Build Docker Image'){
     ''' 
 }
 
-stage('Stop Existing Container'){
-    sh '''
-        docker-compose stop
-    ''' 
-}
 
 stage('Remove Existing Container'){
     sh '''
