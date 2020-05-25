@@ -10,9 +10,9 @@ stage('Git Checkout') {
     
 stage('Build Docker Image'){
      sh '''
-      "sudo docker-compose build
+      sudo docker-compose build
       '''
-    }
+}
     
 stage('Stop Existing Container'){
      powershell "docker stop ${container}"
