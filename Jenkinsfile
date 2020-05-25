@@ -8,8 +8,10 @@ stage('Git Checkout') {
     git 'https://github.com/nmcsr-iscteiul/SIDSH-G12'
     }
     
-stage('Build Docker Imagae'){
-     powershell "docker build -t  ${imagename} ."
+stage('Build Docker Image'){
+     sh '''
+      "sudo docker-compose build
+      '''
     }
     
 stage('Stop Existing Container'){
