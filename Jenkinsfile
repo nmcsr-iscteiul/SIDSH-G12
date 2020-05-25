@@ -1,6 +1,6 @@
-def dockeruser = "nrego"
-def container = "wp_g12"
-
+def dockeruser = "bernardosequeir"
+def imagename = "ubuntu:16"
+def container = "apache2"
 node {
    echo 'Building Apache Docker Image'
 
@@ -8,33 +8,31 @@ stage('Git Checkout') {
     git 'https://github.com/nmcsr-iscteiul/SIDSH-G12'
     }
     
-stage('Build Docker Image'){
-    sh '''
-        docker-compose build
-    ''' 
-}
+stage('Build Docker Imagae'){
+     powershell "docker build -t  ${imagename} ."
+    }
     
-stage ('Running Container'){
-    sh '''
-        sudo docker-compose start
-    ''' 
-}
+stage('Stop Existing Container'){
+     powershell "docker stop ${container}"
+    }
+    
+stage('Remove Existing Container'){
+     powershell "docker rm ${container}"
+    }
+    
+stage ('Runing Container to test built Docker Image'){
+    powershell "docker run -dit --name ${container} -p 80:80 ${imagename}"
+    }
     
 stage('Tag Docker Image'){
-    sh '''
-        docker tag wp_g12 nrego/wp_g12
-    ''' 
-}
+    powershell "docker tag ${imagename} ${env.dockeruser}/ubuntu:16.04"
+    }
 
 stage('Docker Login and Push Image'){
     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'dockerpasswd', usernameVariable: 'dockeruser')]) {
-    sh '''
-        docker login -u ${dockeruser} -p ${dockerpasswd}
-    ''' 
+    powershell "docker login -u ${dockeruser} -p ${dockerpasswd}"
     }
-    sh '''
-        docker push ${dockeruser}/${container}"
-    ''' 
+    powershell "docker push ${dockeruser}/ubuntu:16.04"
     }
 
 }
