@@ -13,13 +13,6 @@ stage('Build Docker Image'){
         docker-compose build
     ''' 
 }
-
-
-stage('Remove Existing Container'){
-    sh '''
-        docker-compose rm
-    ''' 
-}
     
 stage ('Running Container'){
     sh '''
