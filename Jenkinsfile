@@ -9,9 +9,13 @@ stage('Git Checkout') {
     }
     
 stage('Build Docker Image'){
-    terminal "sudo docker-compose build"
+    steps {
+        bash '''
+            sudo docker-compose build
+        '''
     }
-    
+}
+
 stage('Stop Existing Container'){
     terminal "sudo docker-compose stop"
     }
