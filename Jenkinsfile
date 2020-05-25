@@ -15,26 +15,38 @@ stage('Build Docker Image'){
 }
 
 stage('Stop Existing Container'){
-    terminal "sudo docker-compose stop"
-    }
-    
+    sh '''
+        docker-compose stop
+    ''' 
+}
+
 stage('Remove Existing Container'){
-    terminal "sudo docker-compose rm"
-    }
+    sh '''
+        docker-compose rm
+    ''' 
+}
     
-stage ('Runing Container to test built Docker Image'){
-    terminal "sudo docker-compose start"
-    }
+stage ('Running Container'){
+    sh '''
+        docker-compose start
+    ''' 
+}
     
 stage('Tag Docker Image'){
-    terminal "docker tag ${container} ${env.dockeruser}/${container}"
-    }
+    sh '''
+        docker tag wp_g12 nrego/wp_g12
+    ''' 
+}
 
 stage('Docker Login and Push Image'){
     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'dockerpasswd', usernameVariable: 'dockeruser')]) {
-    terminal "docker login -u ${dockeruser} -p ${dockerpasswd}"
+    sh '''
+        docker login -u ${dockeruser} -p ${dockerpasswd}
+    ''' 
     }
-    terminal "docker push ${dockeruser}/${container}"
+    sh '''
+        docker push ${dockeruser}/${container}"
+    ''' 
     }
 
 }
