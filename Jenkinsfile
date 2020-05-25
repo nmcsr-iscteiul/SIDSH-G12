@@ -16,7 +16,7 @@ stage('Build Docker Image'){
     
 stage ('Running Container'){
     sh '''
-        docker-compose start
+        sudo docker-compose start
     ''' 
 }
     
