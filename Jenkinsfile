@@ -1,5 +1,5 @@
 def dockeruser = "bernardosequeir"
-def imagename = "ubuntu:16"
+def imagename = "ubuntu"
 def container = "apache2"
 node {
    echo 'Building Apache Docker Image'
@@ -12,13 +12,6 @@ stage('Build Docker Image'){
      powershell "docker-compose build"
 }
     
-stage('Stop Existing Container'){
-     powershell "docker stop ${container}"
-    }
-    
-stage('Remove Existing Container'){
-     powershell "docker rm ${container}"
-    }
     
 stage ('Runing Container to test built Docker Image'){
     powershell "docker run -dit --name ${container} -p 80:80 ${imagename}"
@@ -35,4 +28,11 @@ stage('Docker Login and Push Image'){
     powershell "docker push ${dockeruser}/ubuntu:16.04"
     }
 
+stage('Stop Existing Container'){
+     powershell "docker stop ${container}"
+    }
+    
+stage('Remove Existing Container'){
+     powershell "docker rm ${container}"
+    }
 }
