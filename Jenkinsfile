@@ -3,25 +3,33 @@ pipeline {
   stages {
     stage('Compile') {
       steps {
-        bat 'javac esii\\src\\main\\java\\JOAO\\esii\\App.java'
-      }
-    }
+        sh '''javac ./java_helloWorld/src/main/java/JOAO/esii/App.java
 
-    stage('Clean') {
-      steps {
-        bat 'cd esii && mvn clean'
+'''
       }
     }
 
     stage('Coverage / Tests') {
       steps {
-        bat 'cd esii && mvn cobertura:cobertura'
+        sh 'cd ./java_helloWorld/ && mvn cobertura:cobertura'
       }
     }
 
     stage('Javadoc') {
       steps {
-        bat 'cd esii && mvn javadoc:javadoc'
+        sh 'cd ./java_helloWorld/ && mvn javadoc:javadoc'
+      }
+    }
+
+    stage('Docker Container Build') {
+      steps {
+        sh 'sudo docker-compose build'
+      }
+    }
+
+    stage('Start Containers') {
+      steps {
+        sh 'sudo docker-compose start'
       }
     }
 
