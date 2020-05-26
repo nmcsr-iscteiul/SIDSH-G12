@@ -11,14 +11,13 @@ pipeline {
 
     stage('Coverage / Tests') {
       steps {
-        sh 'cd esii && mvn cobertura:cobertura'
+        sh 'cd ./java_helloWorld/ && mvn cobertura:cobertura'
       }
     }
 
     stage('Javadoc') {
       steps {
-        bat 'cd esii && mvn javadoc:javadoc'
-        sh 'cd esii && mvn javadoc:javadoc'
+        sh 'cd ./java_helloWorld/ && mvn javadoc:javadoc'
       }
     }
 
