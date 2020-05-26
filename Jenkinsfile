@@ -1,26 +1,29 @@
 pipeline {
-    stages {
-        stage('Git Checkout') {
-            git 'https://github.com/nmcsr-iscteiul/SIDSH-G12'
-        }
-
-        stage('Build Docker Container images for WP'){
-            step {
-                sh '''
-                    sudo docker-compose stop
-                '''
-            }
-            
-        } 
-        
-        stage('Build Docker Container images for WP'){
-            step {
-                sh '''
-                    sudo docker-compose build
-                '''
-            }
-            
-        } 
+  agent any
+  stages {
+    stage('Compile') {
+      steps {
+        bat 'javac esii\\src\\main\\java\\JOAO\\esii\\App.java'
+      }
     }
-    
+
+    stage('Clean') {
+      steps {
+        bat 'cd esii && mvn clean'
+      }
+    }
+
+    stage('Coverage / Tests') {
+      steps {
+        bat 'cd esii && mvn cobertura:cobertura'
+      }
+    }
+
+    stage('Javadoc') {
+      steps {
+        bat 'cd esii && mvn javadoc:javadoc'
+      }
+    }
+
+  }
 }
