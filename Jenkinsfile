@@ -29,7 +29,7 @@ pipeline {
 
     stage('Start Containers') {
       steps {
-        sh 'sudo docker-compose start'
+        sh 'sudo docker-compose up -d'
       }
     }
 
