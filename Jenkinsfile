@@ -23,6 +23,11 @@ pipeline {
 
     stage('Stop existing Containers') {
       steps {
+        sh '''
+
+
+
+sudo docker-compose stop'''
         sh 'sudo docker-compose down'
       }
     }
