@@ -20,12 +20,4 @@ node {
         }
         
     } 
-    
-    stage ('Runing Container'){
-        step {
-            sh '''
-                sudo docker-compose start
-            '''
-        }
-    }    
 }
