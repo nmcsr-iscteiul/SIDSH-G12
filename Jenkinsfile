@@ -3,25 +3,20 @@ pipeline {
   stages {
     stage('Compile') {
       steps {
-        bat 'javac esii\\src\\main\\java\\JOAO\\esii\\App.java'
-      }
-    }
-
-    stage('Clean') {
-      steps {
-        bat 'cd esii && mvn clean'
+        sh 'javac esii/src/main/java/JOAO/esii/App.java'
       }
     }
 
     stage('Coverage / Tests') {
       steps {
-        bat 'cd esii && mvn cobertura:cobertura'
+        sh 'cd esii && mvn cobertura:cobertura'
       }
     }
 
     stage('Javadoc') {
       steps {
         bat 'cd esii && mvn javadoc:javadoc'
+        sh 'cd esii && mvn javadoc:javadoc'
       }
     }
 
