@@ -21,6 +21,12 @@ pipeline {
       }
     }
 
+    stage('Stop existing Containers') {
+      steps {
+        sh 'sudo docker-compose down'
+      }
+    }
+
     stage('Docker Container Build') {
       steps {
         sh 'sudo docker-compose build'
