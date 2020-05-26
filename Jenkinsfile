@@ -3,7 +3,9 @@ pipeline {
   stages {
     stage('Compile') {
       steps {
-        sh 'javac esii/src/main/java/JOAO/esii/App.java'
+        sh '''javac ./java_helloWorld/src/main/java/JOAO/esii/App.java
+
+'''
       }
     }
 
