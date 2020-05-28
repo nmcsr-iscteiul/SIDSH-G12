@@ -3,9 +3,8 @@ pipeline {
   stages {
     stage('Compile') {
       steps {
-        sh '''javac ./java_helloWorld/src/main/java/JOAO/esii/App.java
-
-'''
+        sh '''cd ./java_helloWorld/src/main/java && javac -sourcepath src -d build/classes JOAO/esii/App.java
+        '''
       }
     }
 
@@ -18,6 +17,17 @@ pipeline {
     stage('Javadoc') {
       steps {
         sh 'cd ./java_helloWorld/ && mvn javadoc:javadoc'
+      }
+    }
+
+    stage('Generate JAR') {
+      steps {
+        sh '''cd ./java_helloWorld/src/main/java && cp /JOAO/esii/App.java .
+        '''
+        sh '''cd ./java_helloWorld/src/main/java && echo Main-Class: JOAO.esii.App>myManifest
+        '''
+        sh '''cd ./java_helloWorld/src/main/java && jar cfm build/App.jar myManifest -C build/classes/ .
+        '''
       }
     }
 

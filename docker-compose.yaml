@@ -1,6 +1,12 @@
 version: '3'
 
 services:
+  #Java "Hello-World" Project
+  java:
+    image: openjdk:11
+    volumes: 
+      - ./java_helloWorld/:/usr/src/app/
+    command: bash -c "cd /usr/src/app/src/main/java/ && java -jar build/App.jar"
   # Database
   db:
     image: mysql:5.7
