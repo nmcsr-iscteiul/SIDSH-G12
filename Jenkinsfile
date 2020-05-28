@@ -1,6 +1,7 @@
 pipeline {
   agent any
   stages {
+
     stage('Compile') {
       steps {
         sh '''cd ./java_helloWorld/src/main/java && javac -sourcepath src -d build/classes JOAO/esii/App.java
@@ -31,11 +32,6 @@ pipeline {
 
     stage('Stop existing Containers') {
       steps {
-        sh '''
-
-
-
-sudo docker-compose stop'''
         sh 'sudo docker-compose down'
       }
     }
@@ -48,7 +44,7 @@ sudo docker-compose stop'''
 
     stage('Start Containers') {
       steps {
-        sh 'sudo docker-compose up -d'
+        sh 'sudo docker-compose up'
       }
     }
 
