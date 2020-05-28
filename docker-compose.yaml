@@ -33,7 +33,6 @@ services:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
-    command: bash -c "cd /var/www/ && chown www-data:www-data ./html/ && chown www-data:wwww-data ./html/*"
     networks:
       - wpsite
 networks:
