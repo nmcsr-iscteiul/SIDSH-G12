@@ -22,11 +22,9 @@ pipeline {
 
     stage('Generate JAR') {
       steps {
-        sh '''cd ./java_helloWorld/src/main/java && cp /JOAO/esii/App.java .
+        sh '''cd ./java_helloWorld/src/main/java && echo Main-Class: JOAO.esii.App>main
         '''
-        sh '''cd ./java_helloWorld/src/main/java && echo Main-Class: JOAO.esii.App>myManifest
-        '''
-        sh '''cd ./java_helloWorld/src/main/java && jar cfm build/App.jar myManifest -C build/classes/ .
+        sh '''cd ./java_helloWorld/src/main/java && jar cfm build/App.jar main -C build/classes/ .
         '''
       }
     }
