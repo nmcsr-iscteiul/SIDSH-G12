@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"covid_sci_discoveries.covid_sci_discoveries","l":"App"},{"p":"covid_sci_discoveries.covid_sci_discoveries","l":"Main"}]
