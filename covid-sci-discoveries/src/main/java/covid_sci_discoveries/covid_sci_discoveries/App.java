@@ -50,12 +50,12 @@ public class App{
 		String headerColumn = "<table> <tr> <th>Title</th> <th>Journal</th> <th>Year</th> <th>Author</th> </tr>";
 		list.add(headerColumn);
 		for(int i=0; i < title2.size(); i++) {
-		String htmlColumn = "<tr>"+ "<td><a href="+filep2.get(i)+">"+ title2.get(i)+"</a></td> <td>"+journal2.get(i)+"<td>"+year2.get(i)+"<td>"+authorToS2.get(i)+"</td>";
+		String htmlColumn = "<tr>"+ "<td><a href="+ "Covid19ScientificArticles/" + filep2.get(i)+">"+ title2.get(i)+"</a></td> <td>"+journal2.get(i)+"<td>"+year2.get(i)+"<td>"+authorToS2.get(i)+"</td>";
 		list.add(htmlColumn);
 		}
 		String documentPost = " </table></body></html>";
 		list.add(documentPost );
-		File f = new File("Covid19ScientificArticles/data.html");
+		File f = new File("HTML/data.html");
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
 
 		    for (String html : list) {
@@ -69,7 +69,7 @@ public class App{
 	
 	public static void main( String[] args ) throws AnalysisException, IOException, TimeoutException, TransformationException, InterruptedException {
 		App a = new App();
-		File f = new File("Covid19ScientificArticles/");
+		File f = new File("HTML/Covid19ScientificArticles/");
 		File[] listOfFiles = f.listFiles();		
 		for(File ff:listOfFiles) {
 			a.startExtract(ff);
