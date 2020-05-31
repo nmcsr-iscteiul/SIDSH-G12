@@ -34,37 +34,25 @@ public class App{
 	List<String> authorToS = new ArrayList<String>();
 	int i=0;
 	
-	
 	public void startExtract(File f) throws AnalysisException, IOException, TimeoutException, TransformationException, InterruptedException{
 		ContentExtractor extractor = new ContentExtractor();
         InputStream inputStream=new FileInputStream(f);
         extractor.setPDF(inputStream);
-        //TimeUnit.SECONDS.sleep(60);
-        //System.out.println(extractor.getMetadata().getTitle());
         title.add(extractor.getMetadata().getTitle());
-        //System.out.println(extractor.getMetadata().getJournal());
         journal.add(extractor.getMetadata().getJournal());
-       // System.out.println(extractor.getMetadata().getDate(DateType.PUBLISHED).getYear());
         year.add(extractor.getMetadata().getDate(DateType.PUBLISHED).getYear());
         authors.add(extractor.getMetadata().getAuthors());
 	}
 	public void getHtml(List<String> title2, List<String> journal2, List<String> year2, List<String> authorToS2, List<String> filep2){
 		List<String> list = new ArrayList<String>();
-
 		String documentPre = "<html><style> table, th, td { border: 1px solid black; </style> </head> <body>";
 		list.add(documentPre);
-
 		String headerColumn = "<table> <tr> <th>Title</th> <th>Journal</th> <th>Year</th> <th>Author</th> </tr>";
 		list.add(headerColumn);
-
 		for(int i=0; i < title2.size(); i++) {
-			
-
-		String htmlColumn = "<tr> <a href="+ filep2.get(i)+">"+ "<td>"+title2.get(i)+"</td></a> <td>"+journal2.get(i)+"<td>"+year2.get(i)+"<td>"+authorToS2.get(i)+"</td>";
+		String htmlColumn = "<tr>"+ "<td><a href="+filep2.get(i)+">"+ title2.get(i)+"</a></td> <td>"+journal2.get(i)+"<td>"+year2.get(i)+"<td>"+authorToS2.get(i)+"</td>";
 		list.add(htmlColumn);
-
 		}
-
 		String documentPost = " </table></body></html>";
 		list.add(documentPost );
 		File f = new File("Covid19ScientificArticles/data.html");
@@ -79,7 +67,6 @@ public class App{
 		}
 	}
 	
-	
 	public static void main( String[] args ) throws AnalysisException, IOException, TimeoutException, TransformationException, InterruptedException {
 		App a = new App();
 		File f = new File("Covid19ScientificArticles/");
@@ -89,21 +76,13 @@ public class App{
 			a.filep.add(ff.getName());
 		}
 		for(int i=0; i<a.authors.size(); i++) {
-			System.out.println(a.title.get(i));
-			System.out.println(a.journal.get(i));
-			System.out.println(a.year.get(i));
 			String s = "";
 			for(DocumentAuthor auth:a.authors.get(i)) {
-				System.out.println(auth.getName());
 				s = (s + auth.getName() + ". ");
 				
 			}
 			a.authorToS.add(s);
-			System.out.println(a.authorToS.get(i));
-			System.out.println(a.filep.get(i));
 		}
 		a.getHtml(a.title, a.journal, a.year, a.authorToS, a.filep);
-        System.out.println( "Hello World!" );	
-    
 	}
 }
