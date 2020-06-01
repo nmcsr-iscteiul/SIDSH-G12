@@ -87,6 +87,7 @@ public class App{
 	}
 	
 	/**This method will create a HTML table receiving every String Arraylist so it can populate the table in a readable format.
+	 * The code of HTML table will be written in a new file thats in the HTML folder of the project folder.
 	 * 
 	 * @param title2 List of titles of each PDF document extracted to be added in the title column of the HTML table.
 	 * @param journal2 List of journal name of each PDF document extracted to be added in the journal column of the HTML table.
