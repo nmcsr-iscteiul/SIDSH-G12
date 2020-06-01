@@ -2,11 +2,11 @@ version: '3'
 
 services:
   #Java "Hello-World" Project
-  java:
+  java-requisites:
     image: openjdk:11
     volumes: 
-      - ./java_helloWorld/:/usr/src/app/
-    command: bash -c "cd /usr/src/app/src/main/java/ && java -jar build/App.jar"
+      - ./covid-sci-discoveries/:/usr/src/app/
+    command: bash -c "cd /usr/src/app/ && ./run.sh"
   # Database
   db:
     image: mysql:5.7
