@@ -29,7 +29,7 @@ services:
         
   # Wordpress
   wordpress:
-    image: wordpress:latest
+    build: ./web/
     depends_on:
       - db
     ports:
