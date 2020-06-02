@@ -1,3 +1,3 @@
 # SIDSH - G12
 A project
-<img src="/Images/image.png"/>
+<img src="/images/image.png"/>
