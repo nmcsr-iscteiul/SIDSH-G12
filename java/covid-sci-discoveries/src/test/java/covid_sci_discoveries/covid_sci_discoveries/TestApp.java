@@ -18,43 +18,43 @@ class TestApp {
 	@Test
 	void test() throws TimeoutException, AnalysisException, IOException, TransformationException, InterruptedException {
 		App a = new App();
-		a.startExtract(new File("HTML/Covid19ScientificArticles/178-1-53.pdf"));
+		a.startExtract(new File("HTML/Covid Scientific Discoveries Repository/178-1-53.pdf"));
 		assertEquals(0, a.getI());
 		assertEquals("Pandemic versus Epidemic Influenza Mortality: A Pattern of Changing Age Distribution", a.getTitle(0));		
 	}
 	@Test
 	void test1() throws TimeoutException, AnalysisException, IOException, TransformationException, InterruptedException {
 		App a = new App();
-		a.startExtract(new File("HTML/Covid19ScientificArticles/178-1-53.pdf"));
+		a.startExtract(new File("HTML/Covid Scientific Discoveries Repository/178-1-53.pdf"));
 		assertEquals("The Journal of Infectious Diseases", a.getJournal(0));
 		
 	}
 	@Test
 	void test2() throws TimeoutException, AnalysisException, IOException, TransformationException, InterruptedException {
 		App a = new App();
-		a.startExtract(new File("HTML/Covid19ScientificArticles/178-1-53.pdf"));
+		a.startExtract(new File("HTML/Covid Scientific Discoveries Repository/178-1-53.pdf"));
 		assertEquals("1998", a.getYear(0));
 		
 	}
 	@Test
 	void test3() throws TimeoutException, AnalysisException, IOException, TransformationException, InterruptedException {
 		App a = new App();
-		a.startExtract(new File("HTML/Covid19ScientificArticles/178-1-53.pdf"));
+		a.startExtract(new File("HTML/Covid Scientific Discoveries Repository/178-1-53.pdf"));
 		assertEquals("Lone Simonsen", a.getAuthors(0, 0));
 	}
 	@Test
 	void test4() throws TimeoutException, AnalysisException, IOException, TransformationException, InterruptedException {
 		App a = new App();
-		File f = new File("HTML/Covid19ScientificArticles/178-1-53.pdf");
+		File f = new File("HTML/Covid Scientific Discoveries Repository/178-1-53.pdf");
 		a.filep.add(f.getName());
-		a.startExtract(new File("HTML/Covid19ScientificArticles/178-1-53.pdf"));
+		a.startExtract(new File("HTML/Covid Scientific Discoveries Repository/178-1-53.pdf"));
 		assertEquals("178-1-53.pdf", a.getFilep(0));
 	}
 	
 	@Test
 	void test5() throws TimeoutException, AnalysisException, IOException, TransformationException, InterruptedException {
 		App a = new App();
-		a.startExtract(new File("HTML/Covid19ScientificArticles/178-1-53.pdf"));
+		a.startExtract(new File("HTML/Covid Scientific Discoveries Repository/178-1-53.pdf"));
 		for(int i=0; i<a.authors.size(); i++) {
 			String s = "";
 			for(DocumentAuthor auth:a.authors.get(i)) {
@@ -68,9 +68,9 @@ class TestApp {
 	@Test
 	void test6() throws TimeoutException, AnalysisException, IOException, TransformationException, InterruptedException {
 		App a = new App();
-		File f = new File("HTML/Covid19ScientificArticles/178-1-53.pdf");
+		File f = new File("HTML/Covid Scientific Discoveries Repository/178-1-53.pdf");
 		a.filep.add(f.getName());
-		a.startExtract(new File("HTML/Covid19ScientificArticles/178-1-53.pdf"));
+		a.startExtract(new File("HTML/Covid Scientific Discoveries Repository/178-1-53.pdf"));
 		for(int i=0; i<a.authors.size(); i++) {
 			String s = "";
 			for(DocumentAuthor auth:a.authors.get(i)) {
