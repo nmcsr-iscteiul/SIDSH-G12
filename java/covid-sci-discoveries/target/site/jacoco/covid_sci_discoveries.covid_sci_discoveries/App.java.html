@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>App.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">covid-sci-discoveries</a> &gt; <a href="index.source.html" class="el_package">covid_sci_discoveries.covid_sci_discoveries</a> &gt; <span class="el_source">App.java</span></div><h1>App.java</h1><pre class="source lang-java linenums">package covid_sci_discoveries.covid_sci_discoveries;
+
+import org.jdom.Element;
+import pl.edu.icm.cermine.ContentExtractor;
+import pl.edu.icm.cermine.content.model.ContentStructure;
+import pl.edu.icm.cermine.exception.AnalysisException;
+import pl.edu.icm.cermine.exception.TransformationException;
+import pl.edu.icm.cermine.metadata.affiliation.CRFAffiliationParser;
+import pl.edu.icm.cermine.metadata.model.DateType;
+import pl.edu.icm.cermine.metadata.model.DocumentAuthor;
+import pl.edu.icm.cermine.tools.timeout.TimeoutException;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+/**This Class Extracts the metadata of PDFs in a directory and builds a HTML table with the extracted data.
+ * @author Frederico Correia
+ *
+ */
+<span class="fc" id="L29">public class App{</span>
+	/**
+	 * Array List with the titles of each PDF file
+	 */
+<span class="fc" id="L33">	List&lt;String&gt; title = new ArrayList&lt;String&gt;();</span>
+	/**
+	 * Array List with the journal name of each PDF file
+	 */
+<span class="fc" id="L37">	List&lt;String&gt; journal = new ArrayList&lt;String&gt;();</span>
+	/**
+	 * Array List with the year of publishment of each PDF file
+	 */
+<span class="fc" id="L41">	List&lt;String&gt; year = new ArrayList&lt;String&gt;();</span>
+	/**
+	 * Array List of Lists of the Authors of each PDF file
+	 */
+<span class="fc" id="L45">	List&lt;List&lt;DocumentAuthor&gt;&gt; authors = new ArrayList&lt;List&lt;DocumentAuthor&gt;&gt;();</span>
+	/**
+	 * Array List of path of each file
+	 */
+<span class="fc" id="L49">	List&lt;String&gt; filep = new ArrayList&lt;String&gt;();</span>
+	/**
+	 * Array List of Authors of each PDF file parsed into Strings
+	 */
+<span class="fc" id="L53">	List&lt;String&gt; authorToS = new ArrayList&lt;String&gt;();</span>
+	/**
+	 * Int thats used to iterate in for loops
+	 */
+<span class="fc" id="L57">	int i=0;</span>
+	/**
+	 * String to test if HTML body is working
+	 */
+	String htmlBegin;
+	/**
+	 * String to test if HTML is working
+	 */
+	String htmlEnd;
+	
+	/**This method will receive a file extract the desired metadata and separate them in their own specified List&lt;p&gt; 
+	 * The PDF title metadata will go to the title arraylist.&lt;p&gt;
+	 * The PDF journal name metadata will go to the journal arraylist.&lt;p&gt;
+	 * The PDF year of publishment metadata will go to the year arraylist.&lt;p&gt;
+	 * The PDF authors metadata will go to the author arraylist.&lt;p&gt; 
+	 * The format of PDF authors isnt String so we have to create a different string of each member of every list of the ArrayList for it to be in a readable format
+	 * 
+	 * @param f PDF file to be extracted 
+	 * @throws AnalysisException
+	 * @throws IOException
+	 * @throws TimeoutException
+	 * @throws TransformationException
+	 * @throws InterruptedException
+	 */
+	public void startExtract(File f) throws AnalysisException, IOException, TimeoutException, TransformationException, InterruptedException{
+<span class="fc" id="L82">		ContentExtractor extractor = new ContentExtractor();</span>
+<span class="fc" id="L83">        InputStream inputStream=new FileInputStream(f);</span>
+<span class="fc" id="L84">        extractor.setPDF(inputStream);</span>
+<span class="fc" id="L85">        title.add(extractor.getMetadata().getTitle());</span>
+<span class="fc" id="L86">        journal.add(extractor.getMetadata().getJournal());</span>
+<span class="fc" id="L87">        year.add(extractor.getMetadata().getDate(DateType.PUBLISHED).getYear());</span>
+<span class="fc" id="L88">        authors.add(extractor.getMetadata().getAuthors());</span>
+<span class="fc" id="L89">	}</span>
+	
+	/**This method will create a HTML table receiving every String Arraylist so it can populate the table in a readable format.
+	 * The code of HTML table will be written in a new file thats in the HTML folder of the project folder.
+	 * 
+	 * @param title2 List of titles of each PDF document extracted to be added in the title column of the HTML table.
+	 * @param journal2 List of journal name of each PDF document extracted to be added in the journal column of the HTML table.
+	 * @param year2 List of year of publishment of each PDF document extracted to be added in the year column of the HTML table.
+	 * @param authorToS2 List of authors (already parsed into Sting) of each PDF documents to be added in the authors column of the HTML table.
+	 * @param filep2 List of file path of each PDF document extracted to be used to open the document in the HTML table.
+	 * @throws IOException 
+	 */
+	public void getHtml(List&lt;String&gt; title2, List&lt;String&gt; journal2, List&lt;String&gt; year2, List&lt;String&gt; authorToS2, List&lt;String&gt; filep2) throws IOException{
+<span class="fc" id="L102">		List&lt;String&gt; list = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L103">		String header = Files.readString(Paths.get(&quot;HTML/header.html&quot;));</span>
+<span class="fc" id="L104">		String documentPre = &quot;&lt;html&gt;&lt;style&gt; table, th, td { border: 1px solid black; &lt;/style&gt; &lt;/head&gt; &lt;body&gt;&quot;;</span>
+<span class="fc" id="L105">		htmlBegin= documentPre;</span>
+<span class="fc" id="L106">		list.add(header);</span>
+<span class="fc" id="L107">		list.add(documentPre);</span>
+<span class="fc" id="L108">		String headerColumn = &quot;&lt;table style=\&quot;background-color: rgba(0, 0, 0, 0.6); color: white\&quot;&gt; &lt;tr&gt; &lt;th&gt;Article title&lt;/th&gt; &lt;th&gt;Journal name&lt;/th&gt; &lt;th&gt;Publication year&lt;/th&gt; &lt;th&gt;Authors&lt;/th&gt; &lt;/tr&gt;&quot;;</span>
+<span class="fc" id="L109">		list.add(headerColumn);</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">		for(int i=0; i &lt; title2.size(); i++) {</span>
+<span class="fc" id="L111">		String htmlColumn = &quot;&lt;tr&gt;&quot;+ &quot;&lt;td&gt;&lt;a href=&quot;+ &quot;Covid%20Scientific%20Discoveries%20Repository/&quot; + filep2.get(i)+&quot;&gt;&quot;+ title2.get(i)+&quot;&lt;/a&gt;&lt;/td&gt; &lt;td&gt;&quot;+journal2.get(i)+&quot;&lt;td&gt;&quot;+year2.get(i)+&quot;&lt;td&gt;&quot;+authorToS2.get(i)+&quot;&lt;/td&gt;&quot;;</span>
+<span class="fc" id="L112">		list.add(htmlColumn);</span>
+		}
+<span class="fc" id="L114">		String documentPost = &quot; &lt;/table&gt;&lt;/body&gt;&lt;/html&gt;&quot;;</span>
+<span class="fc" id="L115">		htmlEnd= documentPost;</span>
+<span class="fc" id="L116">		list.add(documentPost );</span>
+<span class="fc" id="L117">		String footer = Files.readString(Paths.get(&quot;HTML/footer.html&quot;));</span>
+<span class="fc" id="L118">		list.add(footer);</span>
+<span class="fc" id="L119">		File f = new File(&quot;HTML/data.html&quot;);</span>
+<span class="fc" id="L120">		try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {</span>
+
+<span class="fc bfc" id="L122" title="All 2 branches covered.">		    for (String html : list) {</span>
+<span class="fc" id="L123">		        bw.write(html);</span>
+<span class="fc" id="L124">		    }</span>
+
+<span class="nc" id="L126">		} catch (IOException e) {</span>
+<span class="nc" id="L127">		    e.printStackTrace();</span>
+<span class="fc" id="L128">		}</span>
+<span class="fc" id="L129">	}</span>
+	
+	/**Getter for PDF title in x position of Arraylist 
+	 * 
+	 * @param i Postion to look for in Arraylist
+	 * @return Title of PDF document in given position
+	 */
+	public String getTitle(int i) {
+<span class="fc" id="L137">		return title.get(i);</span>
+	}
+
+	/**Getter for PDF journal name in x position of Arraylist 
+	 * 
+	 * @param i Postion to look for in Arraylist
+	 * @return Journal name of PDF document in given position
+	 */
+	public String getJournal(int i) {
+<span class="fc" id="L146">		return journal.get(i);</span>
+	}
+
+	/**Getter for PDF year of publishment in x position of ArrayList
+	 * 
+	 * @param i Position to look for in ArrayList
+	 * @return Year of publishment of PDF document in given position
+	 */
+	public String getYear(int i) {
+<span class="fc" id="L155">		return year.get(i);</span>
+	}
+
+	/**Getter for PDF author in y position of DocumentAuthor in x position of ArrayList
+	 * 
+	 * @param i Position to look for in ArrayList
+	 * @param ii Position to look for in DocumentAuthor List
+	 * @return Name of author in given position of the DocumentAuthor list of a PDF document in given position
+	 */
+	public String getAuthors(int i, int ii) {
+<span class="fc" id="L165">		return authors.get(i).get(ii).getName();</span>
+	}
+
+	/**Getter for PDF path in x position of ArrayList
+	 * 
+	 * @param i Position to look for in ArrayList
+	 * @return Path of PDF document in given position
+	 */
+	public String getFilep(int i) {
+<span class="fc" id="L174">		return filep.get(i);</span>
+	}
+
+	/**Getter for PDF authors in a readable format in x position of ArrayList
+	 * 
+	 * @param i Position to look for in ArrayList
+	 * @return Fully concated String of all authors of a DocumentAuthor list of a PDF document in given position
+	 */
+	public String getAuthorToS(int i) {
+<span class="fc" id="L183">		return authorToS.get(i);</span>
+	}
+	
+	/**Getter to check current value of i
+	 * 
+	 * @return Value of i
+	 */
+	public int getI() {
+<span class="fc" id="L191">		return i;</span>
+	}
+
+	/**Getter to check start of HTML code
+	 * 
+	 * @return String of HTML code
+	 */
+	public String getHtmlBegin() {
+<span class="fc" id="L199">		return htmlBegin;</span>
+	}
+	
+	/**Getter to check end of HTML code
+	 * 
+	 * @return String of HTML code
+	 */
+	public String getHtmlEnd() {
+<span class="fc" id="L207">		return htmlEnd;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

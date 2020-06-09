@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="covid_sci_discoveries.covid_sci_discoveries.TestApp" time="38.362" tests="7" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="sun.desktop" value="windows"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.specification.version" value="11"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\fred8\Desktop\Maven\covid-sci-discoveries\target\test-classes;C:\Users\fred8\Desktop\Maven\covid-sci-discoveries\target\classes;C:\Users\fred8\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.5.2\junit-jupiter-engine-5.5.2.jar;C:\Users\fred8\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\fred8\.m2\repository\org\junit\platform\junit-platform-engine\1.5.2\junit-platform-engine-1.5.2.jar;C:\Users\fred8\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\fred8\.m2\repository\org\junit\platform\junit-platform-commons\1.5.2\junit-platform-commons-1.5.2.jar;C:\Users\fred8\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.5.2\junit-jupiter-api-5.5.2.jar;C:\Users\fred8\.m2\repository\org\junit\platform\junit-platform-runner\1.5.2\junit-platform-runner-1.5.2.jar;C:\Users\fred8\.m2\repository\junit\junit\4.12\junit-4.12.jar;C:\Users\fred8\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\fred8\.m2\repository\org\junit\platform\junit-platform-launcher\1.5.2\junit-platform-launcher-1.5.2.jar;C:\Users\fred8\.m2\repository\org\junit\platform\junit-platform-suite-api\1.5.2\junit-platform-suite-api-1.5.2.jar;C:\Users\fred8\.m2\repository\pl\edu\icm\cermine\cermine-impl\1.13\cermine-impl-1.13.jar;C:\Users\fred8\.m2\repository\tw\edu\ntu\csie\libsvm\3.17\libsvm-3.17.jar;C:\Users\fred8\.m2\repository\org\jdom\jdom\1.1.3\jdom-1.1.3.jar;C:\Users\fred8\.m2\repository\jaxen\jaxen\1.1.6\jaxen-1.1.6.jar;C:\Users\fred8\.m2\repository\commons-lang\commons-lang\2.6\commons-lang-2.6.jar;C:\Users\fred8\.m2\repository\com\google\guava\guava\19.0\guava-19.0.jar;C:\Users\fred8\.m2\repository\commons-collections\commons-collections\3.2.2\commons-collections-3.2.2.jar;C:\Users\fred8\.m2\repository\commons-cli\commons-cli\1.3.1\commons-cli-1.3.1.jar;C:\Users\fred8\.m2\repository\edu\umass\cs\mallet\mallet\0.1.3\mallet-0.1.3.jar;C:\Users\fred8\.m2\repository\edu\umass\cs\mallet\grmm-deps\0.1.3\grmm-deps-0.1.3.jar;C:\Users\fred8\.m2\repository\com\itextpdf\itextpdf\5.5.11\itextpdf-5.5.11.jar;C:\Users\fred8\.m2\repository\org\bouncycastle\bcprov-jdk15on\1.54\bcprov-jdk15on-1.54.jar;C:\Users\fred8\.m2\repository\commons-io\commons-io\2.5\commons-io-2.5.jar;C:\Users\fred8\.m2\repository\commons-configuration\commons-configuration\1.10\commons-configuration-1.10.jar;C:\Users\fred8\.m2\repository\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;C:\Users\fred8\.m2\repository\xerces\xercesImpl\2.11.0\xercesImpl-2.11.0.jar;C:\Users\fred8\.m2\repository\xml-apis\xml-apis\1.4.01\xml-apis-1.4.01.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="user.timezone" value="Europe/London"/>
+    <property name="java.vm.specification.version" value="11"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="C:\Program Files (x86)\Java\jdk-11\bin"/>
+    <property name="sun.java.command" value="C:\Users\fred8\AppData\Local\Temp\surefire14774905160052114424\surefirebooter15856023284709077366.jar C:\Users\fred8\AppData\Local\Temp\surefire14774905160052114424 2020-06-09T17-25-02_030-jvmRun1 surefire8693701119670326893tmp surefire_02609710604988075057tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\fred8\Desktop\Maven\covid-sci-discoveries\target\test-classes;C:\Users\fred8\Desktop\Maven\covid-sci-discoveries\target\classes;C:\Users\fred8\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.5.2\junit-jupiter-engine-5.5.2.jar;C:\Users\fred8\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\fred8\.m2\repository\org\junit\platform\junit-platform-engine\1.5.2\junit-platform-engine-1.5.2.jar;C:\Users\fred8\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\fred8\.m2\repository\org\junit\platform\junit-platform-commons\1.5.2\junit-platform-commons-1.5.2.jar;C:\Users\fred8\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.5.2\junit-jupiter-api-5.5.2.jar;C:\Users\fred8\.m2\repository\org\junit\platform\junit-platform-runner\1.5.2\junit-platform-runner-1.5.2.jar;C:\Users\fred8\.m2\repository\junit\junit\4.12\junit-4.12.jar;C:\Users\fred8\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\fred8\.m2\repository\org\junit\platform\junit-platform-launcher\1.5.2\junit-platform-launcher-1.5.2.jar;C:\Users\fred8\.m2\repository\org\junit\platform\junit-platform-suite-api\1.5.2\junit-platform-suite-api-1.5.2.jar;C:\Users\fred8\.m2\repository\pl\edu\icm\cermine\cermine-impl\1.13\cermine-impl-1.13.jar;C:\Users\fred8\.m2\repository\tw\edu\ntu\csie\libsvm\3.17\libsvm-3.17.jar;C:\Users\fred8\.m2\repository\org\jdom\jdom\1.1.3\jdom-1.1.3.jar;C:\Users\fred8\.m2\repository\jaxen\jaxen\1.1.6\jaxen-1.1.6.jar;C:\Users\fred8\.m2\repository\commons-lang\commons-lang\2.6\commons-lang-2.6.jar;C:\Users\fred8\.m2\repository\com\google\guava\guava\19.0\guava-19.0.jar;C:\Users\fred8\.m2\repository\commons-collections\commons-collections\3.2.2\commons-collections-3.2.2.jar;C:\Users\fred8\.m2\repository\commons-cli\commons-cli\1.3.1\commons-cli-1.3.1.jar;C:\Users\fred8\.m2\repository\edu\umass\cs\mallet\mallet\0.1.3\mallet-0.1.3.jar;C:\Users\fred8\.m2\repository\edu\umass\cs\mallet\grmm-deps\0.1.3\grmm-deps-0.1.3.jar;C:\Users\fred8\.m2\repository\com\itextpdf\itextpdf\5.5.11\itextpdf-5.5.11.jar;C:\Users\fred8\.m2\repository\org\bouncycastle\bcprov-jdk15on\1.54\bcprov-jdk15on-1.54.jar;C:\Users\fred8\.m2\repository\commons-io\commons-io\2.5\commons-io-2.5.jar;C:\Users\fred8\.m2\repository\commons-configuration\commons-configuration\1.10\commons-configuration-1.10.jar;C:\Users\fred8\.m2\repository\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;C:\Users\fred8\.m2\repository\xerces\xercesImpl\2.11.0\xercesImpl-2.11.0.jar;C:\Users\fred8\.m2\repository\xml-apis\xml-apis\1.4.01\xml-apis-1.4.01.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\fred8"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2018-09-25"/>
+    <property name="java.home" value="C:\Program Files (x86)\Java\jdk-11"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\fred8\Desktop\Maven\covid-sci-discoveries"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="C:\Users\fred8\AppData\Local\Temp\surefire14774905160052114424\surefirebooter15856023284709077366.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="11+28"/>
+    <property name="user.name" value="fred8"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="18.9"/>
+    <property name="localRepository" value="C:\Users\fred8\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\fred8\AppData\Local\Temp\"/>
+    <property name="java.version" value="11"/>
+    <property name="user.dir" value="C:\Users\fred8\Desktop\Maven\covid-sci-discoveries"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.library.path" value="C:\Program Files (x86)\Java\jdk-11\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jre1.8.0_251/bin/server;C:/Program Files/Java/jre1.8.0_251/bin;C:/Program Files/Java/jre1.8.0_251/lib/amd64;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\PuTTY\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk1.8.0_181;C:\Program Files\apache-maven-3.6.3\bin;C:\Program Files\Java\jdk1.8.0_181\bin;C:\xampp\mysql\bin;C:\Program Files\MongoDB\Server\4.2\bin;C:\Users\fred8\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\fred8\AppData\Local\Programs\Python\Python37-32\;C:\Users\fred8\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm 2018.3.4\bin;;C:\Program Files\MongoDB\Server\4.2\bin;;C:\Program Files\Docker Toolbox;C:\Users\fred8\eclipse\eclipse;;."/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vm.version" value="11+28"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="55.0"/>
+  </properties>
+  <testcase name="test" classname="covid_sci_discoveries.covid_sci_discoveries.TestApp" time="8.784"/>
+  <testcase name="test1" classname="covid_sci_discoveries.covid_sci_discoveries.TestApp" time="5.31"/>
+  <testcase name="test2" classname="covid_sci_discoveries.covid_sci_discoveries.TestApp" time="5.001"/>
+  <testcase name="test3" classname="covid_sci_discoveries.covid_sci_discoveries.TestApp" time="4.902"/>
+  <testcase name="test4" classname="covid_sci_discoveries.covid_sci_discoveries.TestApp" time="4.759"/>
+  <testcase name="test5" classname="covid_sci_discoveries.covid_sci_discoveries.TestApp" time="4.841"/>
+  <testcase name="test6" classname="covid_sci_discoveries.covid_sci_discoveries.TestApp" time="4.753"/>
+</testsuite>

@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: covid_sci_discoveries.covid_sci_discoveries.TestApp
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 38.362 s - in covid_sci_discoveries.covid_sci_discoveries.TestApp
