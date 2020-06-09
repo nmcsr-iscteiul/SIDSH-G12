@@ -1,0 +1,6 @@
+#!/bin/bash
+mvn exec:java -Dexec.mainClass=covid_sci_discoveries.covid_sci_discoveries.Main
+cd ..
+cd ..
+rm ./templates/Covid Scientific Discoveries Repository/.
+cp -a ./covid-sci-discoveries/HTML/. ./templates/
