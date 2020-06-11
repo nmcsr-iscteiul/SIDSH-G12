@@ -5,9 +5,16 @@ import os
 app = Flask(__name__)
 api = Api(app)
 
+
 @app.route("/covid-sci-discoveries")
 def get():
     os.system('./covid-sci-discoveries/run.sh')
+    return render_template('data.html')
+
+
+@app.route("/covid-evolution-diff")
+def get():
+    os.system('./covid-evolution-diff/run.sh')
     return render_template('data.html')
 
 
