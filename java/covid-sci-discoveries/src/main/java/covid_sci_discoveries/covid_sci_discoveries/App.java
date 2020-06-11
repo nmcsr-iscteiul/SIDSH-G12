@@ -116,7 +116,7 @@ public class App{
 		list.add(documentPost );
 		String footer = Files.readString(Paths.get("HTML/footer.html"));
 		list.add(footer);
-		File f = new File("HTML/data.html");
+		File f = new File("HTML/covid-sci-discoveries.html");
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
 
 		    for (String html : list) {
