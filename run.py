@@ -8,25 +8,25 @@ api = Api(app)
 # Frederico
 @app.route('/covid-sci-discoveries', methods=['GET'])
 def discoveries():
-    os.system('./covid-sci-discoveries/run.sh')
+    os.system('./java/covid-sci-discoveries/run.sh')
     return render_template('covid-sci-discoveries.html')
 
 # Bernardo
 @app.route("/covid-evolution-diff", methods=['GET'])
 def diff():
-    os.system('./covid-evolution-diff/run.sh')
+    os.system('./java/covid-evolution-diff/run.sh')
     return render_template('covid-evolution-diff.html')
 
 # Pinto
 @app.route("/covid-graph-spread", methods=['GET'])
 def spread():
-    os.system('cd /usr/src/app && ./covid-graph-spread/run.sh')
+    os.system('cd /usr/src/app && ./java/covid-graph-spread/run.sh')
     return render_template('covid-graph-spread.html')
 
 # Tomas
 @app.route("/covid-query", methods=['GET'])
 def query():
-    os.system('./covid-query/run.sh')
+    os.system('./java/covid-query/run.sh')
     return render_template('covid-query.html')
 
 if __name__ == '__main__':

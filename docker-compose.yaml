@@ -3,11 +3,11 @@ version: '3'
 services:
   #Java Projects
   java-projects:
-    build: ./java
+    build: ./
     ports:
       - '8001:80'
     volumes: 
-      - ./java/:/usr/src/app/
+      - ./:/usr/src/app/
     networks:
       wpsite:
         aliases: 
