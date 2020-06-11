@@ -6,5 +6,5 @@ pwd
 mvn exec:java -Dexec.mainClass=covid_sci_discoveries.covid_sci_discoveries.Main
 cd ..
 pwd
-rm /templates/Covid_Scientific_Discoveries_Repository/*
+rm ./templates/Covid_Scientific_Discoveries_Repository/*
 cp -a /usr/src/app/covid-sci-discoveries/HTML/* /usr/src/app/templates/
