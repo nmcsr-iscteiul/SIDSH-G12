@@ -108,7 +108,7 @@ public class App{
 		String headerColumn = "<table style=\"background-color: rgba(0, 0, 0, 0.6); color: white\"> <tr> <th>Article title</th> <th>Journal name</th> <th>Publication year</th> <th>Authors</th> </tr>";
 		list.add(headerColumn);
 		for(int i=0; i < title2.size(); i++) {
-		String htmlColumn = "<tr>"+ "<td><a href="+ "Covid%20Scientific%20Discoveries%20Repository/" + filep2.get(i)+">"+ title2.get(i)+"</a></td> <td>"+journal2.get(i)+"<td>"+year2.get(i)+"<td>"+authorToS2.get(i)+"</td>";
+		String htmlColumn = "<tr>"+ "<td><a href="+ "Covid_Scientific_Discoveries_Repository/" + filep2.get(i)+">"+ title2.get(i)+"</a></td> <td>"+journal2.get(i)+"<td>"+year2.get(i)+"<td>"+authorToS2.get(i)+"</td>";
 		list.add(htmlColumn);
 		}
 		String documentPost = " </table></body></html>";

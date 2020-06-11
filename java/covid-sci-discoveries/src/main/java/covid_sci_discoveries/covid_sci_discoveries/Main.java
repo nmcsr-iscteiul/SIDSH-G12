@@ -27,7 +27,7 @@ public class Main {
 	 */
 	public static void main( String[] args ) throws AnalysisException, IOException, TimeoutException, TransformationException, InterruptedException {
 		App a = new App();
-		File f = new File("HTML/Covid Scientific Discoveries Repository/");
+		File f = new File("HTML/Covid_Scientific_Discoveries_Repository/");
 		File[] listOfFiles = f.listFiles();		
 		for(File ff:listOfFiles) {
 			a.startExtract(ff);
