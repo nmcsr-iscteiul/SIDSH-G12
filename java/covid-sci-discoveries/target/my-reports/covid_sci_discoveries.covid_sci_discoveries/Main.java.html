@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">covid-sci-discoveries</a> &gt; <a href="index.source.html" class="el_package">covid_sci_discoveries.covid_sci_discoveries</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package covid_sci_discoveries.covid_sci_discoveries;
+
+import java.io.File;
+import java.io.IOException;
+
+import pl.edu.icm.cermine.exception.AnalysisException;
+import pl.edu.icm.cermine.exception.TransformationException;
+import pl.edu.icm.cermine.metadata.model.DocumentAuthor;
+import pl.edu.icm.cermine.tools.timeout.TimeoutException;
+
+/**This Class will start the extract the PDF files in a directory and put their metadata in a generated HTML table to create a HTML file 
+ * @author Frederico Correia
+ *
+ */
+<span class="nc" id="L15">public class Main {</span>
+	/**This is the Main method. It will create a new App and excute its methods of extracting the PDFs and creating the HTML table.&lt;p&gt;
+	 * It will first have to check the directory to see how many files there are and then it will start extracting the desired metadata and saving the path of each file. &lt;p&gt;
+	 * After the extraction it will create a String of all the authors of the DocumentAuthor class extracted for it to be in a readable format.&lt;p&gt;
+	 * Finally it will generate the HTML table of every document by iterating the lists of saved information from the extraction and parsing into String.
+	 * 
+	 * @param args
+	 * @throws AnalysisException
+	 * @throws IOException
+	 * @throws TimeoutException
+	 * @throws TransformationException
+	 * @throws InterruptedException
+	 */
+	public static void main( String[] args ) throws AnalysisException, IOException, TimeoutException, TransformationException, InterruptedException {
+<span class="nc" id="L29">		App a = new App();</span>
+<span class="nc" id="L30">		File f = new File(&quot;HTML/Covid Scientific Discoveries Repository/&quot;);</span>
+<span class="nc" id="L31">		File[] listOfFiles = f.listFiles();		</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">		for(File ff:listOfFiles) {</span>
+<span class="nc" id="L33">			a.startExtract(ff);</span>
+<span class="nc" id="L34">			a.filep.add(ff.getName());</span>
+		}
+<span class="nc bnc" id="L36" title="All 2 branches missed.">		for(int i=0; i&lt;a.authors.size(); i++) {</span>
+<span class="nc" id="L37">			String s = &quot;&quot;;</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">			for(DocumentAuthor auth:a.authors.get(i)) {</span>
+<span class="nc" id="L39">				s = (s + auth.getName() + &quot;. &quot;);</span>
+				
+<span class="nc" id="L41">			}</span>
+<span class="nc" id="L42">			a.authorToS.add(s);</span>
+		}
+<span class="nc" id="L44">		a.getHtml(a.title, a.journal, a.year, a.authorToS, a.filep);</span>
+<span class="nc" id="L45">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
