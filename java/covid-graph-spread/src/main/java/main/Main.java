@@ -16,11 +16,7 @@ public class Main {
 		try {
 			partialList = rd.createRepository();
 			CreateHTMLTable ct = new CreateHTMLTable();
-			List<String> list4 = new ArrayList<String>();
-			list4.add(" 1" );
-			list4.add(" 2" );
-			list4.add(" 3" );
-			ct.getHtml(partialList.get(0), partialList.get(1), partialList.get(2), partialList.get(3), list4);
+			ct.getHtml(partialList.get(0), partialList.get(1), partialList.get(2), partialList.get(3), partialList.get(4));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
