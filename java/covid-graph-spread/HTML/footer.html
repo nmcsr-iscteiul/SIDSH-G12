@@ -1,32 +1,33 @@
+
 <footer id="site-footer" role="contentinfo" class="header-footer-group">
 
-	<div class="section-inner">
+    <div class="section-inner">
 
-		<div class="footer-credits">
+        <div class="footer-credits">
 
-			<p class="footer-copyright">&copy;
-				2020 <a href="http://localhost:8000/">G12 Content Management</a>
-			</p><!-- .footer-copyright -->
+            <p class="footer-copyright">&copy;
+                2020							<a href="http://ubuntu:8000/">G12 Content Management</a>
+            </p><!-- .footer-copyright -->
 
-			<p class="powered-by-wordpress">
-				<a href="https://wordpress.org/">
-					Powered by WordPress </a>
-			</p><!-- .powered-by-wordpress -->
+            <p class="powered-by-wordpress">
+                <a href="https://wordpress.org/">
+                    Powered by WordPress							</a>
+            </p><!-- .powered-by-wordpress -->
 
-		</div><!-- .footer-credits -->
+        </div><!-- .footer-credits -->
 
-		<a class="to-the-top" href="#site-header">
-			<span class="to-the-top-long">
-				To the top <span class="arrow" aria-hidden="true">&uarr;</span> </span><!-- .to-the-top-long -->
-			<span class="to-the-top-short">
-				Up <span class="arrow" aria-hidden="true">&uarr;</span> </span><!-- .to-the-top-short -->
-		</a><!-- .to-the-top -->
+        <a class="to-the-top" href="#site-header">
+            <span class="to-the-top-long">
+                To the top <span class="arrow" aria-hidden="true">&uarr;</span>						</span><!-- .to-the-top-long -->
+            <span class="to-the-top-short">
+                Up <span class="arrow" aria-hidden="true">&uarr;</span>						</span><!-- .to-the-top-short -->
+        </a><!-- .to-the-top -->
 
-	</div><!-- .section-inner -->
+    </div><!-- .section-inner -->
 
-</footer><!-- #site-footer -->
+			</footer><!-- #site-footer -->
 
-<script type="text/template" id="tmpl-elementor-templates-modal__header">
+		<script type="text/template" id="tmpl-elementor-templates-modal__header">
 	<div class="elementor-templates-modal__header__logo-area"></div>
 	<div class="elementor-templates-modal__header__menu-area"></div>
 	<div class="elementor-templates-modal__header__items-area">
@@ -95,283 +96,29 @@
 <script src='http://ubuntu:8000/wp-includes/js/jquery/ui/draggable.min.js?ver=1.11.4'></script>
 <script src='http://ubuntu:8000/wp-includes/js/underscore.min.js?ver=1.8.3'></script>
 <script src='http://ubuntu:8000/wp-includes/js/backbone.min.js?ver=1.4.0'></script>
-<script
-	src='http://ubuntu:8000/wp-content/plugins/elementor/assets/lib/backbone/backbone.marionette.min.js?ver=2.4.5'></script>
-<script
-	src='http://ubuntu:8000/wp-content/plugins/elementor/assets/lib/backbone/backbone.radio.min.js?ver=1.0.4'></script>
+<script src='http://ubuntu:8000/wp-content/plugins/elementor/assets/lib/backbone/backbone.marionette.min.js?ver=2.4.5'></script>
+<script src='http://ubuntu:8000/wp-content/plugins/elementor/assets/lib/backbone/backbone.radio.min.js?ver=1.0.4'></script>
 <script src='http://ubuntu:8000/wp-content/plugins/elementor/assets/js/common-modules.min.js?ver=2.9.11'></script>
 <script src='http://ubuntu:8000/wp-includes/js/jquery/ui/position.min.js?ver=1.11.4'></script>
 <script src='http://ubuntu:8000/wp-content/plugins/elementor/assets/lib/dialog/dialog.min.js?ver=4.7.6'></script>
 <script>
-	const elementorCommonConfig = {
-		version: '2.9.11',
-		isRTL: false,
-		isDebug: false,
-		activeModules: ['ajax', 'finder', 'connect'],
-		urls: { assets: 'http://ubuntu:8000/wp-content/plugins/elementor/assets/' },
-		ajax: {
-			url: 'http://ubuntu:8000/wp-admin/admin-ajax.php',
-			nonce: '9be688025f',
-		},
-		finder: {
-			data: {
-				edit: { title: 'Edit', dynamic: true, name: 'edit' },
-				general: {
-					title: 'General',
-					dynamic: false,
-					items: {
-						'saved-templates': {
-							title: 'Saved Templates',
-							icon: 'library-save',
-							url:
-								'http://ubuntu:8000/wp-admin/edit.php?post_type=elementor_library&tabs_group=library',
-							keywords: ['template', 'section', 'page', 'library'],
-						},
-						'system-info': {
-							title: 'System Info',
-							icon: 'info-circle-o',
-							url:
-								'http://ubuntu:8000/wp-admin/admin.php?page=elementor-system-info',
-							keywords: ['system', 'info', 'environment', 'elementor'],
-						},
-						'role-manager': {
-							title: 'Role Manager',
-							icon: 'person',
-							url:
-								'http://ubuntu:8000/wp-admin/admin.php?page=elementor-role-manager',
-							keywords: ['role', 'manager', 'user', 'elementor'],
-						},
-						'knowledge-base': {
-							title: 'Knowledge Base',
-							url:
-								'http://ubuntu:8000/wp-admin/admin.php?page=go_knowledge_base_site',
-							keywords: ['help', 'knowledge', 'docs', 'elementor'],
-						},
-					},
-					name: 'general',
-				},
-				create: {
-					title: 'Create',
-					dynamic: false,
-					items: {
-						post: {
-							title: 'Add New Post',
-							icon: 'plus-circle-o',
-							url:
-								'http://ubuntu:8000/wp-admin/edit.php?action=elementor_new_post&post_type=post&_wpnonce=b459269fc6',
-							keywords: ['post', 'page', 'template', 'new', 'create'],
-						},
-						page: {
-							title: 'Add New Page',
-							icon: 'plus-circle-o',
-							url:
-								'http://ubuntu:8000/wp-admin/edit.php?action=elementor_new_post&post_type=page&_wpnonce=b459269fc6',
-							keywords: ['post', 'page', 'template', 'new', 'create'],
-						},
-						elementor_library: {
-							title: 'Add New Template',
-							icon: 'plus-circle-o',
-							url:
-								'http://ubuntu:8000/wp-admin/edit.php?post_type=elementor_library#add_new',
-							keywords: ['post', 'page', 'template', 'new', 'create'],
-						},
-					},
-					name: 'create',
-				},
-				site: {
-					title: 'Site',
-					dynamic: false,
-					items: {
-						homepage: {
-							title: 'Homepage',
-							url: 'http://ubuntu:8000',
-							icon: 'home-heart',
-							keywords: ['home', 'page'],
-						},
-						'wordpress-dashboard': {
-							title: 'Dashboard',
-							icon: 'dashboard',
-							url: 'http://ubuntu:8000/wp-admin/',
-							keywords: ['dashboard', 'wordpress'],
-						},
-						'wordpress-menus': {
-							title: 'Menus',
-							icon: 'wordpress',
-							url: 'http://ubuntu:8000/wp-admin/nav-menus.php',
-							keywords: ['menu', 'wordpress'],
-						},
-						'wordpress-themes': {
-							title: 'Themes',
-							icon: 'wordpress',
-							url: 'http://ubuntu:8000/wp-admin/themes.php',
-							keywords: ['themes', 'wordpress'],
-						},
-						'wordpress-customizer': {
-							title: 'Customizer',
-							icon: 'wordpress',
-							url: 'http://ubuntu:8000/wp-admin/customize.php',
-							keywords: ['customizer', 'wordpress'],
-						},
-						'wordpress-plugins': {
-							title: 'Plugins',
-							icon: 'wordpress',
-							url: 'http://ubuntu:8000/wp-admin/plugins.php',
-							keywords: ['plugins', 'wordpress'],
-						},
-						'wordpress-users': {
-							title: 'Users',
-							icon: 'wordpress',
-							url: 'http://ubuntu:8000/wp-admin/users.php',
-							keywords: ['users', 'profile', 'wordpress'],
-						},
-					},
-					name: 'site',
-				},
-				settings: {
-					title: 'Settings',
-					dynamic: false,
-					items: {
-						'general-settings': {
-							title: 'General Settings',
-							url: 'http://ubuntu:8000/wp-admin/admin.php?page=elementor',
-							keywords: ['general', 'settings', 'elementor'],
-						},
-						style: {
-							title: 'Style',
-							url:
-								'http://ubuntu:8000/wp-admin/admin.php?page=elementor#tab-style',
-							keywords: ['style', 'settings', 'elementor'],
-						},
-						advanced: {
-							title: 'Advanced',
-							url:
-								'http://ubuntu:8000/wp-admin/admin.php?page=elementor#tab-advanced',
-							keywords: ['advanced', 'settings', 'elementor'],
-						},
-					},
-					name: 'settings',
-				},
-				tools: {
-					title: 'Tools',
-					dynamic: false,
-					items: {
-						tools: {
-							title: 'Tools',
-							icon: 'tools',
-							url: 'http://ubuntu:8000/wp-admin/admin.php?page=elementor-tools',
-							keywords: [
-								'tools',
-								'regenerate css',
-								'safe mode',
-								'debug bar',
-								'sync library',
-								'elementor',
-							],
-						},
-						'replace-url': {
-							title: 'Replace URL',
-							icon: 'tools',
-							url:
-								'http://ubuntu:8000/wp-admin/admin.php?page=elementor-tools#tab-replace_url',
-							keywords: ['tools', 'replace url', 'domain', 'elementor'],
-						},
-						'version-control': {
-							title: 'Version Control',
-							icon: 'time-line',
-							url:
-								'http://ubuntu:8000/wp-admin/admin.php?page=elementor-tools#tab-versions',
-							keywords: [
-								'tools',
-								'version',
-								'control',
-								'rollback',
-								'beta',
-								'elementor',
-							],
-						},
-						'maintenance-mode': {
-							title: 'Maintenance Mode',
-							icon: 'tools',
-							url:
-								'http://ubuntu:8000/wp-admin/admin.php?page=elementor-tools#tab-maintenance_mode',
-							keywords: ['tools', 'maintenance', 'coming soon', 'elementor'],
-						},
-					},
-					name: 'tools',
-				},
-			},
-			i18n: { finder: 'Finder' },
-		},
-		connect: [],
-	};
+var elementorCommonConfig = {"version":"2.9.11","isRTL":false,"isDebug":false,"activeModules":["ajax","finder","connect"],"urls":{"assets":"http:\/\/ubuntu:8000\/wp-content\/plugins\/elementor\/assets\/"},"ajax":{"url":"http:\/\/ubuntu:8000\/wp-admin\/admin-ajax.php","nonce":"9be688025f"},"finder":{"data":{"edit":{"title":"Edit","dynamic":true,"name":"edit"},"general":{"title":"General","dynamic":false,"items":{"saved-templates":{"title":"Saved Templates","icon":"library-save","url":"http:\/\/ubuntu:8000\/wp-admin\/edit.php?post_type=elementor_library&tabs_group=library","keywords":["template","section","page","library"]},"system-info":{"title":"System Info","icon":"info-circle-o","url":"http:\/\/ubuntu:8000\/wp-admin\/admin.php?page=elementor-system-info","keywords":["system","info","environment","elementor"]},"role-manager":{"title":"Role Manager","icon":"person","url":"http:\/\/ubuntu:8000\/wp-admin\/admin.php?page=elementor-role-manager","keywords":["role","manager","user","elementor"]},"knowledge-base":{"title":"Knowledge Base","url":"http:\/\/ubuntu:8000\/wp-admin\/admin.php?page=go_knowledge_base_site","keywords":["help","knowledge","docs","elementor"]}},"name":"general"},"create":{"title":"Create","dynamic":false,"items":{"post":{"title":"Add New Post","icon":"plus-circle-o","url":"http:\/\/ubuntu:8000\/wp-admin\/edit.php?action=elementor_new_post&post_type=post&_wpnonce=b459269fc6","keywords":["post","page","template","new","create"]},"page":{"title":"Add New Page","icon":"plus-circle-o","url":"http:\/\/ubuntu:8000\/wp-admin\/edit.php?action=elementor_new_post&post_type=page&_wpnonce=b459269fc6","keywords":["post","page","template","new","create"]},"elementor_library":{"title":"Add New Template","icon":"plus-circle-o","url":"http:\/\/ubuntu:8000\/wp-admin\/edit.php?post_type=elementor_library#add_new","keywords":["post","page","template","new","create"]}},"name":"create"},"site":{"title":"Site","dynamic":false,"items":{"homepage":{"title":"Homepage","url":"http:\/\/ubuntu:8000","icon":"home-heart","keywords":["home","page"]},"wordpress-dashboard":{"title":"Dashboard","icon":"dashboard","url":"http:\/\/ubuntu:8000\/wp-admin\/","keywords":["dashboard","wordpress"]},"wordpress-menus":{"title":"Menus","icon":"wordpress","url":"http:\/\/ubuntu:8000\/wp-admin\/nav-menus.php","keywords":["menu","wordpress"]},"wordpress-themes":{"title":"Themes","icon":"wordpress","url":"http:\/\/ubuntu:8000\/wp-admin\/themes.php","keywords":["themes","wordpress"]},"wordpress-customizer":{"title":"Customizer","icon":"wordpress","url":"http:\/\/ubuntu:8000\/wp-admin\/customize.php","keywords":["customizer","wordpress"]},"wordpress-plugins":{"title":"Plugins","icon":"wordpress","url":"http:\/\/ubuntu:8000\/wp-admin\/plugins.php","keywords":["plugins","wordpress"]},"wordpress-users":{"title":"Users","icon":"wordpress","url":"http:\/\/ubuntu:8000\/wp-admin\/users.php","keywords":["users","profile","wordpress"]}},"name":"site"},"settings":{"title":"Settings","dynamic":false,"items":{"general-settings":{"title":"General Settings","url":"http:\/\/ubuntu:8000\/wp-admin\/admin.php?page=elementor","keywords":["general","settings","elementor"]},"style":{"title":"Style","url":"http:\/\/ubuntu:8000\/wp-admin\/admin.php?page=elementor#tab-style","keywords":["style","settings","elementor"]},"advanced":{"title":"Advanced","url":"http:\/\/ubuntu:8000\/wp-admin\/admin.php?page=elementor#tab-advanced","keywords":["advanced","settings","elementor"]}},"name":"settings"},"tools":{"title":"Tools","dynamic":false,"items":{"tools":{"title":"Tools","icon":"tools","url":"http:\/\/ubuntu:8000\/wp-admin\/admin.php?page=elementor-tools","keywords":["tools","regenerate css","safe mode","debug bar","sync library","elementor"]},"replace-url":{"title":"Replace URL","icon":"tools","url":"http:\/\/ubuntu:8000\/wp-admin\/admin.php?page=elementor-tools#tab-replace_url","keywords":["tools","replace url","domain","elementor"]},"version-control":{"title":"Version Control","icon":"time-line","url":"http:\/\/ubuntu:8000\/wp-admin\/admin.php?page=elementor-tools#tab-versions","keywords":["tools","version","control","rollback","beta","elementor"]},"maintenance-mode":{"title":"Maintenance Mode","icon":"tools","url":"http:\/\/ubuntu:8000\/wp-admin\/admin.php?page=elementor-tools#tab-maintenance_mode","keywords":["tools","maintenance","coming soon","elementor"]}},"name":"tools"}},"i18n":{"finder":"Finder"}},"connect":[]};
 </script>
 <script src='http://ubuntu:8000/wp-content/plugins/elementor/assets/js/common.min.js?ver=2.9.11'></script>
 <script src='http://ubuntu:8000/wp-includes/js/wp-embed.min.js?ver=5.4.1'></script>
 <script src='http://ubuntu:8000/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=2.9.11'></script>
 <script src='http://ubuntu:8000/wp-content/plugins/elementor/assets/lib/waypoints/waypoints.min.js?ver=4.0.2'></script>
 <script src='http://ubuntu:8000/wp-content/plugins/elementor/assets/lib/swiper/swiper.min.js?ver=5.3.6'></script>
-<script
-	src='http://ubuntu:8000/wp-content/plugins/elementor/assets/lib/share-link/share-link.min.js?ver=2.9.11'></script>
+<script src='http://ubuntu:8000/wp-content/plugins/elementor/assets/lib/share-link/share-link.min.js?ver=2.9.11'></script>
 <script>
-	const elementorFrontendConfig = {
-		environmentMode: { edit: false, wpPreview: true },
-		i18n: {
-			shareOnFacebook: 'Share on Facebook',
-			shareOnTwitter: 'Share on Twitter',
-			pinIt: 'Pin it',
-			downloadImage: 'Download image',
-		},
-		is_rtl: false,
-		breakpoints: { xs: 0, sm: 480, md: 768, lg: 1025, xl: 1440, xxl: 1600 },
-		version: '2.9.11',
-		urls: { assets: 'http://ubuntu:8000/wp-content/plugins/elementor/assets/' },
-		settings: {
-			page: [],
-			general: {
-				elementor_global_image_lightbox: 'yes',
-				elementor_lightbox_enable_counter: 'yes',
-				elementor_lightbox_enable_fullscreen: 'yes',
-				elementor_lightbox_enable_zoom: 'yes',
-				elementor_lightbox_enable_share: 'yes',
-				elementor_lightbox_title_src: 'title',
-				elementor_lightbox_description_src: 'description',
-			},
-			editorPreferences: [],
-		},
-		post: {
-			id: 24,
-			title:
-				'Covid%20Scientific%20Discoveries%20%E2%80%93%20G12%20Content%20Management',
-			excerpt: '',
-			featuredImage: false,
-		},
-		user: { roles: ['administrator'] },
-	};
+var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":true},"i18n":{"shareOnFacebook":"Share on Facebook","shareOnTwitter":"Share on Twitter","pinIt":"Pin it","downloadImage":"Download image"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"version":"2.9.11","urls":{"assets":"http:\/\/ubuntu:8000\/wp-content\/plugins\/elementor\/assets\/"},"settings":{"page":[],"general":{"elementor_global_image_lightbox":"yes","elementor_lightbox_enable_counter":"yes","elementor_lightbox_enable_fullscreen":"yes","elementor_lightbox_enable_zoom":"yes","elementor_lightbox_enable_share":"yes","elementor_lightbox_title_src":"title","elementor_lightbox_description_src":"description"},"editorPreferences":[]},"post":{"id":24,"title":"Covid%20Scientific%20Discoveries%20%E2%80%93%20G12%20Content%20Management","excerpt":"","featuredImage":false},"user":{"roles":["administrator"]}};
 </script>
 <script src='http://ubuntu:8000/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=2.9.11'></script>
-<script>
-	/(trident|msie)/i.test(navigator.userAgent) &&
-		document.getElementById &&
-		window.addEventListener &&
-		window.addEventListener(
-			'hashchange',
-			function () {
-				let t;
-				const e = location.hash.substring(1);
-				/^[A-z0-9_-]+$/.test(e) &&
-					(t = document.getElementById(e)) &&
-					(/^(?:a|select|input|button|textarea)$/i.test(t.tagName) ||
-						(t.tabIndex = -1),
-						t.focus());
-			},
-			!1
-		);
-</script>
-<script type="text/javascript">
-	jQuery('.wpmem_loginout').html(
-		'<a class="login_button" href="/covid-scientific-discoveries/?preview_id=24&#038;preview_nonce=2307d82fd6&#038;preview=true&#038;a=logout">Log Out</a>'
-	);
-</script>
-</body>
-
+	<script>
+	/(trident|msie)/i.test(navigator.userAgent)&&document.getElementById&&window.addEventListener&&window.addEventListener("hashchange",function(){var t,e=location.hash.substring(1);/^[A-z0-9_-]+$/.test(e)&&(t=document.getElementById(e))&&(/^(?:a|select|input|button|textarea)$/i.test(t.tagName)||(t.tabIndex=-1),t.focus())},!1);
+	</script>
+	<script type="text/javascript">
+			jQuery('.wpmem_loginout').html('<a class="login_button" href="/covid-scientific-discoveries/?preview_id=24&#038;preview_nonce=2307d82fd6&#038;preview=true&#038;a=logout">Log Out</a>');
+		</script>
+	</body>
 </html>

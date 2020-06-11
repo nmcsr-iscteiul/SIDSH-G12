@@ -43,11 +43,11 @@ public class ReadFileFromRepository {
 
 	public List<List<String>> createRepository() throws IOException {
 		// prepare a new folder for the cloned repository
-		List<List<String>> listToHTMLTable = new ArrayList<List<String>>() ;
+		List<List<String>> listToHTMLTable = new ArrayList<List<String>>();
 		List<String> fileTimeStamp = new ArrayList<String>();
-		List<String> fileName= new ArrayList<String>();
-		List<String> fileTag= new ArrayList<String>();
-		List<String> tagDescription= new ArrayList<String>();
+		List<String> fileName = new ArrayList<String>();
+		List<String> fileTag = new ArrayList<String>();
+		List<String> tagDescription = new ArrayList<String>();
 		File localPath = null;
 		try {
 			localPath = File.createTempFile("TestGitRepository", "");
@@ -66,58 +66,47 @@ public class ReadFileFromRepository {
 			// Note: the call() returns an opened repository already which needs to be
 			// closed to avoid file handle leaks!
 			showTags(result);
-			 Iterable<RevCommit> commits = result.log().all().call();
-			 List<Ref> list = showTags(result);
-             int count = 0;
-             for (RevCommit commit : commits) {
-            	 
-                 //System.out.println("LogCommit: " + commit.getId().getName());
-                 for(Ref call : list) {
-                	 if(call.getObjectId().getName().equals(commit.getId().getName())) {
-                		 //ObjectLoader loader = result.getRepository().open(call.getObjectId());
-                        // loader.copyTo(System.out);
-                         //System.out.println("tag description: " + call.getId().getName());
-                		// System.out.println("Commits com tags: " + commit.getId().getName());
-                		 try (RevWalk walk = new RevWalk(result.getRepository())) {
-                             
-                			
-                             
+			Iterable<RevCommit> commits = result.log().all().call();
+			List<Ref> list = showTags(result);
+			int count = 0;
+			for (RevCommit commit : commits) {
 
-                             // finally try to print out the tag-content
-                             System.out.println("\nTag-Content: \n");
-                             ObjectLoader loader = result.getRepository().open(call.getObjectId());
-                             System.out.println("INICIO *******************************************");
-                             OutputStream os = null;
-                             loader.copyTo(os);
-                             String s = new OutputStreamWriter(os).toString();
-                             String parsed = s;
-                             System.out.println(parsed);
-                             System.out.println("FIM *******************************************");
+				// System.out.println("LogCommit: " + commit.getId().getName());
+				for (Ref call : list) {
+					if (call.getObjectId().getName().equals(commit.getId().getName())) {
+						try (RevWalk walk = new RevWalk(result.getRepository())) {
 
-                             walk.dispose();
-                         }
-                		 
-                	
-                		 Timestamp ts = new Timestamp(commit.getCommitTime());
-                		 PersonIdent authorIdent = commit.getAuthorIdent();
-                		 Date authorDate = authorIdent.getWhen();
-                		 fileTimeStamp.add(authorDate.toGMTString());
-                		 fileName.add("covid19spreading.rdf");
-                		 fileTag.add(call.getObjectId().getName());
-                		 tagDescription.add(call.getObjectId().getName());
-                	     
-                	 }
-                 }
-               
-                 count++;
-             }
-             
-             listToHTMLTable.add(fileTimeStamp);
-             listToHTMLTable.add(fileName);
-             listToHTMLTable.add(fileTag);
-             listToHTMLTable.add(tagDescription);
-             return listToHTMLTable;
-         
+							// finally try to print out the tag-content
+							//System.out.println("\nTag-Content: \n");
+							ObjectLoader loader = result.getRepository().open(call.getObjectId());
+							//System.out.println("INICIO *******************************************");
+							
+							String string = new String(loader.getBytes());
+							tagDescription.add(string.substring(string.lastIndexOf("----") + 1).replace("---", "").trim().replaceAll(" +", " "));
+							
+							//System.out.println("FIM *******************************************");
+							
+						}
+
+						Timestamp ts = new Timestamp(commit.getCommitTime());
+						PersonIdent authorIdent = commit.getAuthorIdent();
+						Date authorDate = authorIdent.getWhen();
+						fileTimeStamp.add(authorDate.toGMTString());
+						fileName.add("covid19spreading.rdf");
+						fileTag.add(call.getObjectId().getName());
+						break;
+					}
+				}
+
+				count++;
+			}
+
+			listToHTMLTable.add(fileTimeStamp);
+			listToHTMLTable.add(fileName);
+			listToHTMLTable.add(fileTag);
+			listToHTMLTable.add(tagDescription);
+			return listToHTMLTable;
+
 		} catch (InvalidRemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,7 +125,7 @@ public class ReadFileFromRepository {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
 		return null;
 	}
 
@@ -166,8 +155,8 @@ public class ReadFileFromRepository {
 			return false;
 		}
 	}
-	
-	public  List<Ref> showTags(Git git) {
+
+	public List<Ref> showTags(Git git) {
 		List<Ref> call = null;
 		try {
 			call = git.tagList().call();
@@ -175,23 +164,24 @@ public class ReadFileFromRepository {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        for (Ref ref : call) {
-            
-            // fetch all commits for this tag
-            LogCommand log = git.log();
+		for (Ref ref : call) {
 
-            Ref peeledRef;
+			// fetch all commits for this tag
+			LogCommand log = git.log();
+
+			Ref peeledRef;
 			try {
 				peeledRef = git.getRepository().getRefDatabase().peel(ref);
-				if(peeledRef.getPeeledObjectId() != null) {
-	            	log.add(peeledRef.getPeeledObjectId());
-	            	Iterable<RevCommit> logs = log.call();
-	    			for (RevCommit rev : logs) {
-	    				System.out.println("Commit: " + rev  + ", name: " + rev.getName() + ", id: " + rev.getId().getName() );
-	    			}
-	            } else {
-	            	log.add(ref.getObjectId());
-	            }
+				if (peeledRef.getPeeledObjectId() != null) {
+					log.add(peeledRef.getPeeledObjectId());
+					Iterable<RevCommit> logs = log.call();
+					for (RevCommit rev : logs) {
+						System.out.println(
+								"Commit: " + rev + ", name: " + rev.getName() + ", id: " + rev.getId().getName());
+					}
+				} else {
+					log.add(ref.getObjectId());
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -202,12 +192,11 @@ public class ReadFileFromRepository {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            
 
-			
-        }
+		}
 		return call;
 	}
+
 	public static void main(String[] args) throws IOException {
 		new ReadFileFromRepository().createRepository();
 	}

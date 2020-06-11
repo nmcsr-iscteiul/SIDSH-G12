@@ -22,7 +22,7 @@ public class CreateHTMLTable {
 		htmlBegin= documentPre;
 		list.add(header);
 		list.add(documentPre);
-		String headerColumn = "<table style=\"background-color: rgba(0, 0, 0, 0.6); color: white\"> <tr> <th>Article title</th> <th>Journal name</th> <th>Publication year</th> <th>Authors</th> <th>Authors</th> </tr>";
+		String headerColumn = "<table style=\"background-color: rgba(0, 0, 0, 0.6); color: white\"> <tr> <th>Data Ficheiro</th> <th>Nome Ficheiro</th> <th>Tag ID</th> <th>Descrição Tag</th> <th>Authors</th> </tr>";
 		list.add(headerColumn);
 		for(int i=0; i < fileTimeStamp.size(); i++) {
 		String htmlColumn = "<tr>"+ "<td>"+ fileTimeStamp.get(i) +"</td>"+ "<td>" +fileName.get(i)+"</td> <td>"+fileTag.get(i)+"<td>"+tagDescription.get(i)+"<td>"+spreadVisualizationLink.get(i)+"</td>";
@@ -33,7 +33,7 @@ public class CreateHTMLTable {
 		list.add(documentPost );
 		String footer = Files.readString(Paths.get("HTML/footer.html"));
 		list.add(footer);
-		File f = new File("HTML/data.html");
+		File f = new File("HTML/covid-graph-spread.html");
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
 
 		    for (String html : list) {
