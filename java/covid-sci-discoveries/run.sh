@@ -1,10 +1,10 @@
 #!/bin/bash
-cd ..
+cp /usr/src/app/templates/header.html /usr/src/app/covid-sci-discoveries/HTML/
+cp /usr/src/app/templates/footer.html /usr/src/app/covid-sci-discoveries/HTML/
+cd /usr/src/app/covid-sci-discoveries/
 pwd
-cp ./templates/header.html ./covid-sci-discoveries/HTML/
-cp ./templates/footer.html ./covid-sci-discoveries/HTML/
-cd ./covid-sci-discoveries/
 mvn exec:java -Dexec.mainClass=covid_sci_discoveries.covid_sci_discoveries.Main
 cd ..
-rm ./templates/Covid_Scientific_Discoveries_Repository/*
-cp -a ./covid-sci-discoveries/HTML/. ./templates/
+pwd
+rm /templates/Covid_Scientific_Discoveries_Repository/*
+cp -a /usr/src/app/covid-sci-discoveries/HTML/* /usr/src/app/templates/
