@@ -20,7 +20,7 @@ def diff():
 # Pinto
 @app.route("/covid-graph-spread", methods=['GET'])
 def spread():
-    os.system('./covid-graph-spread/run.sh')
+    os.system('cd /usr/src/app && ./covid-graph-spread/run.sh')
     return render_template('covid-graph-spread.html')
 
 # Tomas

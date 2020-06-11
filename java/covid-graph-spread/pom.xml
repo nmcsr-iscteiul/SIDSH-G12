@@ -13,5 +13,15 @@
 			<artifactId>org.eclipse.jgit</artifactId>
 			<version>5.7.0.202003110725-r</version>
 		</dependency>
+		<dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+		</dependency>
 	</dependencies>
+
+	<properties>
+        <maven.compiler.source>1.11</maven.compiler.source>
+        <maven.compiler.target>1.11</maven.compiler.target>
+    </properties>
 </project>
