@@ -48,6 +48,7 @@ public class ReadFileFromRepository {
 		List<String> fileName = new ArrayList<String>();
 		List<String> fileTag = new ArrayList<String>();
 		List<String> tagDescription = new ArrayList<String>();
+		List<String> spreadVisualizationlink = new ArrayList<>();
 		File localPath = null;
 		try {
 			localPath = File.createTempFile("TestGitRepository", "");
@@ -65,46 +66,38 @@ public class ReadFileFromRepository {
 				.setProgressMonitor(new SimpleProgressMonitor()).call()) {
 			// Note: the call() returns an opened repository already which needs to be
 			// closed to avoid file handle leaks!
-			showTags(result);
 			Iterable<RevCommit> commits = result.log().all().call();
 			List<Ref> list = showTags(result);
-			int count = 0;
 			for (RevCommit commit : commits) {
 
-				// System.out.println("LogCommit: " + commit.getId().getName());
 				for (Ref call : list) {
 					if (call.getObjectId().getName().equals(commit.getId().getName())) {
 						try (RevWalk walk = new RevWalk(result.getRepository())) {
-
-							// finally try to print out the tag-content
-							//System.out.println("\nTag-Content: \n");
+							Map<ObjectId, String> names = result.nameRev().add(call.getObjectId())
+									.addPrefix("refs/tags/").call();
 							ObjectLoader loader = result.getRepository().open(call.getObjectId());
-							//System.out.println("INICIO *******************************************");
-							
 							String string = new String(loader.getBytes());
-							tagDescription.add(string.substring(string.lastIndexOf("----") + 1).replace("---", "").trim().replaceAll(" +", " "));
-							
-							//System.out.println("FIM *******************************************");
-							
-						}
+							tagDescription.add(string.substring(string.lastIndexOf("----") + 1).replace("---", "")
+									.trim().replaceAll(" +", " "));
 
-						Timestamp ts = new Timestamp(commit.getCommitTime());
-						PersonIdent authorIdent = commit.getAuthorIdent();
-						Date authorDate = authorIdent.getWhen();
-						fileTimeStamp.add(authorDate.toGMTString());
-						fileName.add("covid19spreading.rdf");
-						fileTag.add(call.getObjectId().getName());
-						break;
+							Timestamp ts = new Timestamp(commit.getCommitTime());
+							PersonIdent authorIdent = commit.getAuthorIdent();
+							Date authorDate = authorIdent.getWhen();
+							fileTimeStamp.add(authorDate.toGMTString());
+							fileName.add("covid19spreading.rdf");
+							fileTag.add(names.get(call.getObjectId()));
+							spreadVisualizationlink.add("http://visualdataweb.de/webvowl/#iri=https://raw.githubusercontent.com/vbasto-iscte/ESII1920/" + call.getObjectId().getName()+"/covid19spreading.rdf");
+						}
 					}
 				}
 
-				count++;
 			}
 
 			listToHTMLTable.add(fileTimeStamp);
 			listToHTMLTable.add(fileName);
 			listToHTMLTable.add(fileTag);
 			listToHTMLTable.add(tagDescription);
+			listToHTMLTable.add(spreadVisualizationlink);
 			return listToHTMLTable;
 
 		} catch (InvalidRemoteException e) {
