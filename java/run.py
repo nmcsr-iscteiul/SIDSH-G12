@@ -23,7 +23,7 @@ def get():
     os.system('./covid-graph-spread/run.sh')
     return render_template('covid-graph-spread.html')
 
-# Tomás
+# Tomas
 @app.route("/covid-query")
 def get():
     os.system('./covid-query/run.sh')

@@ -1,6 +1,7 @@
 #!bin/bash
 
 cd ..
+pwd
 cp ./templates/header.html ./covid-sci-discoveries/HTML/
 cp ./templates/footer.html ./covid-sci-discoveries/HTML/
 cd ./covid-sci-discoveries/
