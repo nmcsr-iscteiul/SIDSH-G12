@@ -2,33 +2,54 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import covid_graph_spread.ReadFileFromRepository;
 
 class ReadFileFromRepositoryTest {
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
+	@Test
+	void testGetHtmlTable() {
+		ReadFileFromRepository rd = new ReadFileFromRepository();
+		assertDoesNotThrow(
+	            ()->{
+	            	rd.getHtmlTable();
+	            //do whatever you want to do here
+	            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+	            });
 	}
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testCloneRepository() {
+		ReadFileFromRepository rd = new ReadFileFromRepository();
+		assertDoesNotThrow(
+	            ()->{
+	            	rd.cloneRepository();
+	            //do whatever you want to do here
+	            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+	            });
+	}
+
+	@Test
+	void testShowTags() {
+		ReadFileFromRepository rd = new ReadFileFromRepository();
+		assertThrows(Exception.class,
+	            ()->{
+	            	rd.showTags();
+	            //do whatever you want to do here
+	            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+	            });
+	}
+
+	@Test
+	void testCheckIfCommitHasTags() {
+		ReadFileFromRepository rd = new ReadFileFromRepository();
+		assertThrows(Exception.class,
+	            ()->{
+	            	rd.checkIfCommitHasTags(null, null);
+	            //do whatever you want to do here
+	            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+	            });
 	}
 
 }

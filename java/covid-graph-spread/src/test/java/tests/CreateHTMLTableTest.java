@@ -1,14 +1,15 @@
 package tests;
 
-import static org.junit.jupiter.api.Assertions.*;
 
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import covid_graph_spread.CreateHTMLTable;
@@ -22,16 +23,12 @@ class CreateHTMLTableTest {
 	private List<String> spreadVisualizationlink = new ArrayList<>();
 
 	@Test
-	void testBuildHtmlPage() {
-		CreateHTMLTable chtml = new CreateHTMLTable();
-		chtml.buildHtmlPage(fileTimeStamp, fileName, fileTag, tagDescription, spreadVisualizationlink);
+	void test1() {
+		CreateHTMLTable ct = new CreateHTMLTable();
+		assertDoesNotThrow(() -> ct.buildHtmlPage(fileTimeStamp, fileName,fileTag,
+				tagDescription,spreadVisualizationlink));
 		
-		
-	}
 
-	@Test
-	void testWriteHtmlPage() {
-		fail("Not yet implemented");
 	}
 
 }
