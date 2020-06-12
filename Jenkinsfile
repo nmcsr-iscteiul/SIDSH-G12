@@ -2,49 +2,54 @@ pipeline {
   agent any
   stages {
 
-    stage('Compile') {
+    stage('Compile Java Programs') {
       steps {
-        sh '''cd ./java_helloWorld/src/main/java && javac -sourcepath src -d build/classes JOAO/esii/App.java
+        //sh '''cd ./java/covid-evolution-diff && mvn compile
+        //'''
+        //sh '''cd ./java/covid-graph-spread ../ && mvn compile
+        //'''
+        sh '''cd ./java/covid-sci-discoveries ../ && mvn compile
         '''
+        //sh '''cd ./java/covid-query ../ && mvn compile
+        //'''
       }
     }
 
     stage('Coverage / Tests') {
       steps {
-        sh 'cd ./java_helloWorld/ && mvn cobertura:cobertura'
+        //sh '''cd ./java/covid-evolution-diff mvn cobertura:cobertura
+        //'''
+        //sh '''cd ./java/covid-graph-spread ../ && mvn cobertura:cobertura
+        //'''
+        sh '''cd ./java/covid-sci-discoveries ../ && mvn test
+        '''
+        //sh '''cd ./java/covid-query ../ && mvn cobertura:cobertura
+        //'''
       }
     }
 
     stage('Javadoc') {
       steps {
-        sh 'cd ./java_helloWorld/ && mvn javadoc:javadoc'
-      }
-    }
-
-    stage('Generate JAR') {
-      steps {
-        sh '''cd ./java_helloWorld/src/main/java && echo Main-Class: JOAO.esii.App>main
+        //sh '''cd ./java/covid-evolution-diff && mvn javadoc:javadoc
+        //'''
+        //sh '''cd ./java/covid-graph-spread ../ && mvn javadoc:javadoc
+        //'''
+        sh '''cd ./java/covid-sci-discoveries ../ && mvn javadoc:javadoc
         '''
-        sh '''cd ./java_helloWorld/src/main/java && jar cfm build/App.jar main -C build/classes/ .
-        '''
+        //sh '''cd ./java/covid-query ../ && mvn compile
+        //'''
       }
     }
 
     stage('Stop existing Containers') {
       steps {
-        sh 'sudo docker-compose down'
-      }
-    }
-
-    stage('Docker Container Build') {
-      steps {
-        sh 'sudo docker-compose build'
+        sh 'cd /home/nrego/Documents/Code/SIDSH-G12/ && sudo docker-compose down'
       }
     }
 
     stage('Start Containers') {
       steps {
-        sh 'sudo docker-compose up -d'
+        sh 'cd /home/nrego/Documents/Code/SIDSH-G12/ && sudo docker-compose up -d'
       }
     }
 
