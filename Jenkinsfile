@@ -47,12 +47,6 @@ pipeline {
       }
     }
 
-    stage('Docker Container Build') {
-      steps {
-        sh 'sudo docker-compose build'
-      }
-    }
-
     stage('Start Containers') {
       steps {
         sh 'sudo docker-compose up -d'
