@@ -43,13 +43,13 @@ pipeline {
 
     stage('Stop existing Containers') {
       steps {
-        sh 'sudo docker-compose down'
+        sh 'cd /home/nrego/Documents/Code/SIDSH-G12/ && sudo docker-compose down'
       }
     }
 
     stage('Start Containers') {
       steps {
-        sh 'sudo docker-compose up -d'
+        sh 'cd /home/nrego/Documents/Code/SIDSH-G12/ && sudo docker-compose up -d'
       }
     }
 
