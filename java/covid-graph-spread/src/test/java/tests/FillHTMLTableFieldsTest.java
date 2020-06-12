@@ -2,11 +2,15 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import covid_graph_spread.FillHTMLTableFields;
 
 class FillHTMLTableFieldsTest {
 
@@ -28,17 +32,35 @@ class FillHTMLTableFieldsTest {
 
 	@Test
 	void testGetListToHTMLTable() {
-		fail("Not yet implemented");
+		FillHTMLTableFields ft = new FillHTMLTableFields();
+		assertDoesNotThrow(
+	            ()->{
+	            	ft.getListToHTMLTable();
+	            //do whatever you want to do here
+	            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+	            });
 	}
 
 	@Test
 	void testCleanAndCorrectFileFromRepo() {
-		fail("Not yet implemented");
+		FillHTMLTableFields ft = new FillHTMLTableFields();
+		assertThrows(Exception.class,
+	            ()->{
+	            	ft.cleanAndCorrectFileFromRepo(null, null, null);
+	            //do whatever you want to do here
+	            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+	            });
 	}
 
 	@Test
 	void testFillTables() {
-		fail("Not yet implemented");
+		FillHTMLTableFields ft = new FillHTMLTableFields();
+		assertDoesNotThrow(
+	            ()->{
+	            	ft.fillTables() ;
+	            //do whatever you want to do here
+	            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
+	            });
 	}
 
 }
