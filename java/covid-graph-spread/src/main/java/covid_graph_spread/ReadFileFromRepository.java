@@ -2,178 +2,133 @@ package covid_graph_spread;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-
-import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.LogCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
-import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.api.errors.TransportException;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.lib.ProgressMonitor;
 import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevTag;
-import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.filter.PathFilter;
 
+/**
+ * Gets the remote repository and created a local temporary one. It will get all
+ * the commits from that repository and all the tags. It will compare both of
+ * those and if they have a same id, meaning that a commit has a tag then it
+ * will call the responsible class to deal with the Tags.
+ * 
+ * @author João Pinto
+ *
+ */
 public class ReadFileFromRepository {
 
-	private static final String REMOTE_URL = "https://github.com/vbasto-iscte/ESII1920";
+	private Git git;
+	private FillHTMLTableFields prepareHTMLFields = new FillHTMLTableFields();
+	private static final String REMOTE_REPOSITORY_URL = "https://github.com/vbasto-iscte/ESII1920";
 
-	@SuppressWarnings({ "deprecation" })
-	public List<List<String>> createRepository() throws IOException, InvalidRemoteException, TransportException, GitAPIException {
-		// prepare a new folder for the cloned repository
-		List<List<String>> listToHTMLTable = new ArrayList<List<String>>();
-		List<String> fileTimeStamp = new ArrayList<String>();
-		List<String> fileName = new ArrayList<String>();
-		List<String> fileTag = new ArrayList<String>();
-		List<String> tagDescription = new ArrayList<String>();
-		List<String> spreadVisualizationlink = new ArrayList<>();
-		File localPath = null;
+	/**
+	 * It will do all the necessary operations in order to get the complete HTML
+	 * table, including cloning the remote repository, getting all commits that have
+	 * tags associated to them and fills the table.
+	 * 
+	 * @return List ready to be inserted into an HTML table
+	 */
+	public List<List<String>> getHtmlTable() {
 		try {
-			localPath = File.createTempFile("TestGitRepository", "");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			git = cloneRepository();
+			Iterable<RevCommit> commits = git.log().all().call();
+			List<Ref> list = showTags();
+			checkIfCommitHasTags(commits, list);
+			prepareHTMLFields.fillTables();
+			return prepareHTMLFields.getListToHTMLTable();
+		} catch (GitAPIException | IOException e) {
+			System.err.println("Could not call the commits from the repo: " + git);
+			e.printStackTrace();
 		}
-		if (!localPath.delete()) {
-			throw new IOException("Could not delete temporary file " + localPath);
-		}
+		return null;
+	}
 
-		Git result = Git.cloneRepository().setURI(REMOTE_URL).setDirectory(localPath)
-				.setProgressMonitor(null).call();
-			// TODO Note: the call() returns an opened repository already which needs to be
-			// closed to avoid file handle leaks!
-			Iterable<RevCommit> commits = result.log().all().call();
-			List<Ref> list = showTags(result);
-			for (RevCommit commit : commits) {
+	/**
+	 * Clones the remote repository and makes a local, temporary one in the local
+	 * machine.
+	 * 
+	 * @return The now temporary local repository
+	 */
+	public Git cloneRepository() {
+		File localPath;
+		try {
 
-				for (Ref call : list) {
-					if (call.getObjectId().getName().equals(commit.getId().getName())) {
-						try (RevWalk walk = new RevWalk(result.getRepository())) {
-							Map<ObjectId, String> names = result.nameRev().add(call.getObjectId())
-									.addPrefix("refs/tags/").call();
-							ObjectLoader loader = result.getRepository().open(call.getObjectId());
-							String string = new String(loader.getBytes());
-							tagDescription.add(string.substring(string.lastIndexOf("----") + 1).replace("---", "")
-									.trim().replaceAll(" +", " "));
-
-							PersonIdent authorIdent = commit.getAuthorIdent();
-							Date authorDate = authorIdent.getWhen();
-							fileTimeStamp.add(authorDate.toGMTString());
-							fileName.add("covid19spreading.rdf");
-							fileTag.add(names.get(call.getObjectId()));
-							spreadVisualizationlink.add("http://visualdataweb.de/webvowl/#iri=https://raw.githubusercontent.com/vbasto-iscte/ESII1920/" + call.getObjectId().getName()+"/covid19spreading.rdf");
-						}
-					}
-				}
-
+			localPath = File.createTempFile("TemporaryGitRepository", "");
+			if (!localPath.delete()) {
+				throw new IOException("Could not delete temporary file " + localPath);
 			}
-
-			listToHTMLTable.add(fileTimeStamp);
-			listToHTMLTable.add(fileName);
-			listToHTMLTable.add(fileTag);
-			listToHTMLTable.add(tagDescription);
-			listToHTMLTable.add(spreadVisualizationlink);
-			//FileUtils.deleteDirectory(localPath);
-			return listToHTMLTable;
-
-
-		// clean up here to not keep using more and more disk-space for these samples
-		
-		
+			return Git.cloneRepository().setURI(REMOTE_REPOSITORY_URL).setDirectory(localPath).setProgressMonitor(null)
+					.call();
+		} catch (IOException e) {
+			System.err.println("Error creating file temporary git repository at:" + REMOTE_REPOSITORY_URL);
+			e.printStackTrace();
+		} catch (InvalidRemoteException e) {
+			System.err
+					.println("Invalid Remote when trying to clone the Remote Repository at: " + REMOTE_REPOSITORY_URL);
+			e.printStackTrace();
+		} catch (TransportException e) {
+			System.err.println("Error in the transport operation  when trying to clone the Remote Repository at: "
+					+ REMOTE_REPOSITORY_URL);
+			e.printStackTrace();
+		} catch (GitAPIException e) {
+			System.err.println("Error when trying to clone the Remote Repository at: " + REMOTE_REPOSITORY_URL);
+			e.printStackTrace();
+		}
+		return null;
 	}
 
-	private static class SimpleProgressMonitor implements ProgressMonitor {
-		@Override
-		public void start(int totalTasks) {
-			System.out.println("Starting work on " + totalTasks + " tasks");
-		}
-
-		@Override
-		public void beginTask(String title, int totalWork) {
-			System.out.println("Start " + title + ": " + totalWork);
-		}
-
-		@Override
-		public void update(int completed) {
-			System.out.print(completed + "-");
-		}
-
-		@Override
-		public void endTask() {
-			System.out.println("Done");
-		}
-
-		@Override
-		public boolean isCancelled() {
-			return false;
-		}
-	}
-
-	public List<Ref> showTags(Git git) {
+	/**
+	 * It will get all tags from the repository - including the id.
+	 * 
+	 * @return List of tags
+	 */
+	public List<Ref> showTags() {
 		List<Ref> call = null;
 		try {
 			call = git.tagList().call();
-		} catch (GitAPIException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		for (Ref ref : call) {
-
-			// fetch all commits for this tag
-			LogCommand log = git.log();
-
-			Ref peeledRef;
-			try {
-				peeledRef = git.getRepository().getRefDatabase().peel(ref);
+			for (Ref ref : call) {
+				LogCommand log = git.log();
+				Ref peeledRef = git.getRepository().getRefDatabase().peel(ref);
 				if (peeledRef.getPeeledObjectId() != null) {
 					log.add(peeledRef.getPeeledObjectId());
-					Iterable<RevCommit> logs = log.call();
-					for (RevCommit rev : logs) {
-						System.out.println(
-								"Commit: " + rev + ", name: " + rev.getName() + ", id: " + rev.getId().getName());
-					}
 				} else {
 					log.add(ref.getObjectId());
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoHeadException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (GitAPIException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-
+			return call;
+		} catch (GitAPIException e) {
+			System.err.println("Git exception from this git: " + git);
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.err.println("I/O exception from the git repository " + git);
+			e.printStackTrace();
 		}
-		return call;
+		return null;
 	}
 
-	public static void main(String[] args) throws IOException, InvalidRemoteException, TransportException, GitAPIException {
-		new ReadFileFromRepository().createRepository();
+	/**
+	 * Compares a list of all the commits with the tags - if it has a tag
+	 * associated, it will call the method responsible to add to the list that will
+	 * in the end be a line in the html table.
+	 * 
+	 * @param commits List of the commits from the repository
+	 * @param tags    List of tags from the repository
+	 */
+	public void checkIfCommitHasTags(Iterable<RevCommit> commits, List<Ref> tags) {
+		for (RevCommit commit : commits) {
+			for (Ref tag : tags) {
+				if (tag.getObjectId().getName().equals(commit.getId().getName())) {
+					try (RevWalk walk = new RevWalk(this.git.getRepository())) {
+						prepareHTMLFields.cleanAndCorrectFileFromRepo(this.git, tag, commit);
+					}
+				}
+			}
+		}
 	}
 }
