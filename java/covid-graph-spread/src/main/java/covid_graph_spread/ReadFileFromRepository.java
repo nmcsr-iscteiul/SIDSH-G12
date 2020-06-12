@@ -41,7 +41,8 @@ public class ReadFileFromRepository {
 
 	private static final String REMOTE_URL = "https://github.com/vbasto-iscte/ESII1920";
 
-	public List<List<String>> createRepository() throws IOException {
+	@SuppressWarnings({ "deprecation" })
+	public List<List<String>> createRepository() throws IOException, InvalidRemoteException, TransportException, GitAPIException {
 		// prepare a new folder for the cloned repository
 		List<List<String>> listToHTMLTable = new ArrayList<List<String>>();
 		List<String> fileTimeStamp = new ArrayList<String>();
@@ -60,11 +61,9 @@ public class ReadFileFromRepository {
 			throw new IOException("Could not delete temporary file " + localPath);
 		}
 
-		// then clone
-		System.out.println("Cloning from " + REMOTE_URL + " to " + localPath);
-		try (Git result = Git.cloneRepository().setURI(REMOTE_URL).setDirectory(localPath)
-				.setProgressMonitor(new SimpleProgressMonitor()).call()) {
-			// Note: the call() returns an opened repository already which needs to be
+		Git result = Git.cloneRepository().setURI(REMOTE_URL).setDirectory(localPath)
+				.setProgressMonitor(null).call();
+			// TODO Note: the call() returns an opened repository already which needs to be
 			// closed to avoid file handle leaks!
 			Iterable<RevCommit> commits = result.log().all().call();
 			List<Ref> list = showTags(result);
@@ -80,7 +79,6 @@ public class ReadFileFromRepository {
 							tagDescription.add(string.substring(string.lastIndexOf("----") + 1).replace("---", "")
 									.trim().replaceAll(" +", " "));
 
-							Timestamp ts = new Timestamp(commit.getCommitTime());
 							PersonIdent authorIdent = commit.getAuthorIdent();
 							Date authorDate = authorIdent.getWhen();
 							fileTimeStamp.add(authorDate.toGMTString());
@@ -98,28 +96,13 @@ public class ReadFileFromRepository {
 			listToHTMLTable.add(fileTag);
 			listToHTMLTable.add(tagDescription);
 			listToHTMLTable.add(spreadVisualizationlink);
+			//FileUtils.deleteDirectory(localPath);
 			return listToHTMLTable;
 
-		} catch (InvalidRemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransportException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (GitAPIException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		// clean up here to not keep using more and more disk-space for these samples
-		try {
-			FileUtils.deleteDirectory(localPath);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return null;
+		
+		
 	}
 
 	private static class SimpleProgressMonitor implements ProgressMonitor {
@@ -190,7 +173,7 @@ public class ReadFileFromRepository {
 		return call;
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InvalidRemoteException, TransportException, GitAPIException {
 		new ReadFileFromRepository().createRepository();
 	}
 }
