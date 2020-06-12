@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,request
 from flask_restful import Resource, Api
 import os
 
@@ -24,9 +24,10 @@ def spread():
     return render_template('covid-graph-spread.html')
 
 # Tomas
-@app.route("/covid-query", methods=['GET'])
+@app.route("/covid-query", methods=['GET','POST'])
 def query():
-    os.system('./java/covid-query/run.sh')
+    data = request.form['data']
+    os.system('./java/covid-query/run.sh ' + request.form['data'])
     return render_template('covid-query.html')
 
 if __name__ == '__main__':
