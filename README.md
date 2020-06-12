@@ -10,7 +10,7 @@ In other words, the company wants:
 - Anybody can get fast, automated feedback on the production readiness of the software
 products, any time somebody makes a change to them;
 - Perform push button deployments of any version of the software, to any customer
-environment, on demand. 
+environment, on demand.
 
 &nbsp;SIDSH has to automate the full software production pipeline, including the build process, testing,
 releases, configuration changes, etc.
@@ -20,6 +20,28 @@ configuration, scripts, documentation, etc.
 
 &nbsp;The company adopts the software production principle of ‘Done’ means released, i.e., a feature is done
 only when it is in production.
+
+## Group members
+- Nuno Rego 82137 [1 - Wordpress CM]
+- Frederico Correia 82006 [3 - Covid Scientific Discoveries]
+- João Pinto 79196 [4 - Covid Graph Spread]
+- Tomás Godinho 65245 [5 - Covid Queries]
+- Bernardo Sequeira 82223 [6 - Covid Evolution Diff]
+
+## Errors and faults in the Implementation
+### 1. Wordpress CM
+
+### 3. Covid Scientific Discoveries
+
+### 4. Covid Graph Spread
+
+### 5. Covid Queries
+
+### 6. Covid Evolution Diff
+
+
+## Installation Steps
+
 
 ## Python API Explained
 &nbsp;This simple Python API uses the Flask module to enable the Wordpress Website to "trigger" the Java Applications.
