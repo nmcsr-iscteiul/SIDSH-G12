@@ -4,8 +4,8 @@ pipeline {
 
     stage('Compile Java Programs') {
       steps {
-        sh '''cd ./java/covid-evolution-diff && mvn compile
-        '''
+        //sh '''cd ./java/covid-evolution-diff && mvn compile
+        //'''
         sh '''cd ./java/covid-graph-spread ../ && mvn compile
         '''
         sh '''cd ./java/covid-sci-discoveries ../ && mvn compile
