@@ -6,8 +6,8 @@ pipeline {
       steps {
         //sh '''cd ./java/covid-evolution-diff && mvn compile
         //'''
-        sh '''cd ./java/covid-graph-spread ../ && mvn compile
-        '''
+        //sh '''cd ./java/covid-graph-spread ../ && mvn compile
+        //'''
         sh '''cd ./java/covid-sci-discoveries ../ && mvn compile
         '''
         //sh '''cd ./java/covid-query ../ && mvn compile
