@@ -31,7 +31,7 @@ only when it is in production.
 ## Errors and faults in the Implementation
 ### 1. Wordpress CM
 
-&nbsp;There was a general problem with plugins: there were some things that could not be done through wordpress plugins, some could but had to be payed and some could, were free, but I coulnd't find a way to make them work as it was supposed too.
+&nbsp;There was a general problem with plugins: I couldn't find plugins that did exactly what was asked in the requirement. I found some that were payed and some that were free but I coulnd't find a way to make them work as they were supposed too.
 
 - Covid Wiki isn't using a plugin, but regular Wordpress posts. However it allows for pretty much everyting that is asked in the requirement.
 - Join Us: I could not find a way to make the plugin (Pie register) to allow the user to add Keywords of interest - he can only choose from the predefined ones.
