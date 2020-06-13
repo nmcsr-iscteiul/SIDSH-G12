@@ -54,10 +54,10 @@ only when it is in production.
 
 ## Wordpress Users
 
-&nbsp;Admin username: 'nuno-admin'
-&nbsp;Admin password: 'nuno-admin'
-&nbsp;Member username: 'nuno-member'
-&nbsp;Member password: 'nuno-member'
+- Admin username: 'nuno-admin'
+- Admin password: 'nuno-admin'
+- Member username: 'nuno-member'
+- Member password: 'nuno-member'
 
 ## Python API Explained
 &nbsp;This simple Python API uses the Flask module to enable the Wordpress Website to "trigger" the Java Applications.
