@@ -1,4 +1,3 @@
-import org.bouncycastle.tsp.TSPUtil;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
@@ -24,9 +23,10 @@ import java.util.stream.Collectors;
  */
 public class DiffGenerator {
     private Git git;
-    private final String repositoryUrl;
+    private String repositoryUrl;
 
     /**
+     *
      * @param URL The url of the repository that will be used to calculate the diff.
      */
     public DiffGenerator(String URL) {
@@ -36,7 +36,6 @@ public class DiffGenerator {
 
     /**
      * Getter for the repo's url.
-     *
      * @return the repo's url.
      */
     public String getRepositoryUrl() {
@@ -44,8 +43,7 @@ public class DiffGenerator {
     }
 
     /**
-     * Getter for the jGit Git object.
-     *
+     *  Getter for the jGit Git object.
      * @return the git repository jGit Object.
      */
     public Git getGit() {
@@ -54,10 +52,9 @@ public class DiffGenerator {
 
     /**
      * Getter for the jGit Repository object
-     *
      * @return the jGit Repository being currently used.
      */
-    public Repository getRepo() {
+    public Repository getRepo(){
         return git.getRepository();
     }
 
@@ -87,15 +84,16 @@ public class DiffGenerator {
 
     /**
      * Gets a list of all the tags in the repository
-     *
      * @return a list with the ref of each tag in the repository.
      */
     public List<Ref> getTags() {
         List<Ref> call = null;
         try {
             call = getGit().tagList().call();
+
+            for (Ref ref : call) {
+            }
         } catch (GitAPIException e) {
-            System.out.println("Wasn't able to find the tags of the provided repository");
             e.printStackTrace();
         }
         return call;
@@ -103,53 +101,52 @@ public class DiffGenerator {
 
     /**
      * Gets the text content of a specific file of a specific commit.
-     *
      * @param fileName the name of the file that will be retrieved.
-     * @param tree     tree iterator of the specific commit from which the file will be retrieved.
+     * @param tree tree iterator of the specific commit from which the file will be retrieved.
      * @return A string with all the text content of the file.
+     * @throws IOException if the file is not found.
      */
-    public String getFileText(String fileName, AbstractTreeIterator tree) {
+    public String getFileText(String fileName, AbstractTreeIterator tree) throws IOException {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         TreeWalk treeWalk = new TreeWalk(getRepo());
         treeWalk.addTree(tree);
         treeWalk.setRecursive(true);
         treeWalk.setFilter(PathFilter.create(fileName));
-        try {
-            if (!treeWalk.next()) {
-                throw new IllegalStateException("Did not find expected file '" + fileName + "'");
-            }
-            ObjectId objectId = treeWalk.getObjectId(0);
-            ObjectLoader loader = getRepo().open(objectId);
-            loader.copyTo(stream);
-        } catch (IOException e) {
-            System.out.println("Couldn't open the requested file");
-            e.printStackTrace();
+        if (!treeWalk.next()) {
+            throw new IllegalStateException("Did not find expected file '" + fileName + "'");
         }
+
+        ObjectId objectId = treeWalk.getObjectId(0);
+        ObjectLoader loader = getRepo().open(objectId);
+        loader.copyTo(stream);
         return stream.toString();
     }
 
     /**
      * Generates the Text of both versions of the file, with the diff information already marked (old lines start with -, new lines start with +).
      * Gets the diff of the last two commits that have tags associated.
-     *
-     * @param tagList  a list of all the tag refs associated with the repository
+     * @param tagList a list of all the tag refs associated with the repository
      * @param fileName the name of the file that will be "diffed"
      * @return the Lists of strings of both the new file and the old one.
      */
     public List<List<String>> calculateDiff(ArrayList<Ref> tagList, String fileName) {
         List<String> oldLinesFromString = new ArrayList<>();
         List<String> newLinesFromString = new ArrayList<>();
+        try {
+            AbstractTreeIterator oldTreeParser = prepareTreeParser(getRepo(), tagList.get(2).getObjectId().getName());
+            AbstractTreeIterator newTreeParser = prepareTreeParser(getRepo(), tagList.get(1).getObjectId().getName());
 
-        AbstractTreeIterator oldTreeParser = prepareTreeParser(getRepo(), tagList.get(2).getObjectId().getName());
-        AbstractTreeIterator newTreeParser = prepareTreeParser(getRepo(), tagList.get(1).getObjectId().getName());
-
-        oldLinesFromString = getFileText(fileName, oldTreeParser).lines().collect(Collectors.toList());
-        newLinesFromString = getFileText(fileName, newTreeParser).lines().collect(Collectors.toList());
-        List<String> diffStringStream = getDiffText(oldTreeParser, newTreeParser, fileName);
-        generateFormattedTexts(diffStringStream, oldLinesFromString, newLinesFromString);
-        HtmlGenerator generator = new HtmlGenerator(newLinesFromString, oldLinesFromString);
-        generator.htmlFormatter();
-
+            oldLinesFromString = getFileText(fileName, oldTreeParser).lines().collect(Collectors.toList());
+            newLinesFromString = getFileText(fileName, newTreeParser).lines().collect(Collectors.toList());
+            List<String> diffStringStream = getDiffText(oldTreeParser,newTreeParser, fileName);
+            generateFormattedTexts(diffStringStream,oldLinesFromString,newLinesFromString);
+            HtmlGenerator generator = new HtmlGenerator(newLinesFromString, oldLinesFromString);
+            generator.htmlFormatter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
         List<List<String>> formattedStringLists = new ArrayList<>();
         formattedStringLists.add(oldLinesFromString);
         formattedStringLists.add(newLinesFromString);
@@ -158,46 +155,34 @@ public class DiffGenerator {
 
     /**
      *
-     * Calls the jGit functions that create the diff text, and formats it so it's easier to parse.
-     *
-     * @param oldTreeParser tree iterator of the oldest commit from where the diff will be calculated.
-     * @param newTreeParser tree iterator fo the newest commit from where the diff will be calculated.
-     * @param fileName the name of the file from where the diff will be calculated.
-     * @return a list of strings containing the text content of the diff.
+     * @param oldTreeParser
+     * @param newTreeParser
+     * @param fileName
+     * @return
+     * @throws IOException
+     * @throws GitAPIException
      */
-    public List<String> getDiffText(AbstractTreeIterator oldTreeParser, AbstractTreeIterator newTreeParser, String fileName) {
+    public List <String> getDiffText(AbstractTreeIterator oldTreeParser,AbstractTreeIterator newTreeParser, String fileName) throws IOException, GitAPIException {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        List<DiffEntry> diff;
-        try {
-            diff = git.diff().
-                    setOldTree(oldTreeParser).
-                    setNewTree(newTreeParser).
-                    setPathFilter(PathFilter.create(fileName)).call();
-
-            for (DiffEntry entry : diff) {
-                DiffFormatter formatter = new DiffFormatter(stream);
-                formatter.setRepository(getRepo());
-                formatter.format(entry);
-            }
-        } catch (GitAPIException e) {
-            System.out.println("Couldn't execute the diff");
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("Wasn't able to format the diff");
-            e.printStackTrace();
+        List<DiffEntry> diff = git.diff().
+                setOldTree(oldTreeParser).
+                setNewTree(newTreeParser).
+                setPathFilter(PathFilter.create(fileName)).call();
+        for (DiffEntry entry : diff) {
+            DiffFormatter formatter = new DiffFormatter(stream);
+            formatter.setRepository(getRepo());
+            formatter.format(entry);
         }
         return stream.toString().lines().collect(Collectors.toList());
     }
 
-    /** Because the generated diff only presents us with the lines that have changed
-     * and not the entire file, this method combines the diff text and both versions
-     * of the file, and marks the differences on the entire files, so that the html
-     * can present the whole of the files and their differences.
-     * @param diffStringStream the text generated from the diff.
-     * @param oldLinesFromString the text from the oldest file.
-     * @param newLinesFromString the text from the newest file.
+    /**
+     *
+     * @param diffStringStream
+     * @param oldLinesFromString
+     * @param newLinesFromString
      */
-    public void generateFormattedTexts(List<String> diffStringStream, List<String> oldLinesFromString, List<String> newLinesFromString) {
+    public void generateFormattedTexts(List<String> diffStringStream, List<String> oldLinesFromString, List<String> newLinesFromString){
         for (String s : diffStringStream) {
             if (s.startsWith("-   ")) {
                 String stringToReplace = null;
@@ -224,28 +209,27 @@ public class DiffGenerator {
     }
 
     /**
-     * @param repository The repository that you need the iterator from.
-     * @param commitId The commit that you want the iterator from.
-     * @return an AbstractTreeIterator that allows you to access the files from a desired commit and repo.
+     *
+     * @param repository
+     * @param objectId
+     * @return
+     * @throws IOException
      */
-    private static AbstractTreeIterator prepareTreeParser(Repository repository, String commitId) {
+    private static AbstractTreeIterator prepareTreeParser(Repository repository, String objectId) throws IOException {
+        // from the commit we can build the tree which allows us to construct the TreeParser
+        //noinspection Duplicates
         try (RevWalk walk = new RevWalk(repository)) {
-            RevCommit commit = walk.parseCommit(ObjectId.fromString(commitId));
+            RevCommit commit = walk.parseCommit(ObjectId.fromString(objectId));
             RevTree tree = walk.parseTree(commit.getTree().getId());
 
             CanonicalTreeParser treeParser = new CanonicalTreeParser();
-            ObjectReader reader = repository.newObjectReader();
-
-            treeParser.reset(reader, tree.getId());
-
+            try (ObjectReader reader = repository.newObjectReader()) {
+                treeParser.reset(reader, tree.getId());
+            }
 
             walk.dispose();
 
             return treeParser;
-        } catch (IOException e) {
-            System.out.println("Couldn't find the tree for the commit tag");
-            e.printStackTrace();
         }
-        return null;
     }
 }
