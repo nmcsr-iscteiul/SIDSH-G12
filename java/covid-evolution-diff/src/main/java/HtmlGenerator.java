@@ -36,7 +36,6 @@ public class HtmlGenerator {
      * This method adds the header of the wordpress site to match the other pages of
      * the site, also creates the html table and styles it.
      * 
-     * @throws IOException If the header file doesn't exist.
      */
     public void addHeader() {
         String header = null;
@@ -61,7 +60,7 @@ public class HtmlGenerator {
      *
      */
     public void htmlFormatter() {
-        try {
+
             addHeader();
             HtmlFormattedStrings.add("<table>\n<tr><th>Old File</th><th>New File</th></tr>");
             HtmlFormattedStrings.add("<tr><td>");
@@ -78,16 +77,14 @@ public class HtmlGenerator {
             for (String s : HtmlFormattedStrings)
                 System.out.println(s);
             generateHtmlFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     /**
      * This method adds the footer of the wordpress site to match the other pages of
      * the site, also ends the html table and the body of the html.
      * 
-     * @throws IOException If the footer file doesn't exist.
+     *
      */
     public void addFooter() {
         String footer = null;
@@ -127,8 +124,7 @@ public class HtmlGenerator {
     /**
      * Writes the contents of the html page to a file in disk.
      * 
-     * @throws IOException If it's unable to create the file or if it can't write to
-     *                     it.
+     *
      */
     public void generateHtmlFile() {
         File f = new File("HTML/covid-evolution-diff.html");
@@ -142,7 +138,7 @@ public class HtmlGenerator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        bw.close();
+
     }
 
 }
