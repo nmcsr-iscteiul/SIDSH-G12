@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CreateHTMLTable.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">covid-graph-spread</a> &gt; <a href="index.source.html" class="el_package">covid_graph_spread</a> &gt; <span class="el_source">CreateHTMLTable.java</span></div><h1>CreateHTMLTable.java</h1><pre class="source lang-java linenums">package covid_graph_spread;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * This class will make an HTML table from a concatenation of a given header, a table that it will build and a footer. It will also do some tweaking of the HTML style of the page.
+ * @author Frederico Correia, Jo�o Pinto
+ *
+ */
+<span class="fc" id="L17">public class CreateHTMLTable {</span>
+
+<span class="fc" id="L19">	public final String headerPath = &quot;HTML/header.html&quot;;</span>
+<span class="fc" id="L20">	public final String footerPath = &quot;HTML/footer.html&quot;;</span>
+<span class="fc" id="L21">	public final String dataPath = &quot;HTML/covid-graph-spread.html&quot;;</span>
+
+	/**
+	 * 
+	 * Creates an html page containing a table which it will build according to the
+	 * entry parameters. It will construct the HTML page with the help of a
+	 * concatenation of a header and a footer that will get from a defined Path,
+	 * along with some html formatation. It will fill the table according to the
+	 * number of different tags received.
+	 * 
+	 * @author Frederico Correia, Jo�o Pinto
+	 * @param fileTimeStamp Timestamps of the files
+	 * @param fileName Names of the files
+	 * @param fileTag Tags that have files in the commit the file was created/modified
+	 * @param tagDescription Description of the Tag 
+	 * @param spreadVisualizationLink Links to an external website to visualize the contents of the File
+	 */
+	public void buildHtmlPage(List&lt;String&gt; fileTimeStamp, List&lt;String&gt; fileName, List&lt;String&gt; fileTag,
+			List&lt;String&gt; tagDescription, List&lt;String&gt; spreadVisualizationLink) {
+		try {
+<span class="fc" id="L41">			List&lt;String&gt; htmlContentsListlist = new ArrayList&lt;String&gt;();</span>
+
+<span class="fc" id="L43">			String header = Files.readString(Paths.get(headerPath));</span>
+<span class="fc" id="L44">			String correctedHeader = header.replaceAll(&quot;Scientific Discoveries&quot;, &quot;Graph Spread&quot;);</span>
+<span class="fc" id="L45">			String documentPre = &quot;&lt;html&gt;&lt;style&gt; table, th, td { border: 1px solid black; &lt;/style&gt; &lt;/head&gt; &lt;body&gt;&quot;;</span>
+<span class="fc" id="L46">			htmlContentsListlist.add(correctedHeader);</span>
+<span class="fc" id="L47">			htmlContentsListlist.add(documentPre);</span>
+<span class="fc" id="L48">			String headerColumn = &quot;&lt;table style=\&quot;background-color: rgba(0, 0, 0, 0.6); color: white\&quot;&gt; &lt;tr&gt; &lt;th&gt;File Timestamp&lt;/th&gt; &lt;th&gt;File Name&lt;/th&gt; &lt;th&gt;File Tag&lt;/th&gt; &lt;th&gt;Tag Description&lt;/th&gt; &lt;th&gt;Spread Visualization Link&lt;/th&gt; &lt;/tr&gt;&quot;;</span>
+<span class="fc" id="L49">			htmlContentsListlist.add(headerColumn);</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">			for (int i = 0; i &lt; fileTimeStamp.size(); i++) {</span>
+<span class="nc" id="L51">				String htmlColumn = &quot;&lt;tr&gt;&quot; + &quot;&lt;td&gt;&quot; + fileTimeStamp.get(i) + &quot;&lt;/td&gt;&quot; + &quot;&lt;td&gt;&quot; + fileName.get(i)</span>
+<span class="nc" id="L52">						+ &quot;&lt;/td&gt; &lt;td&gt;&quot; + fileTag.get(i) + &quot;&lt;td&gt;&quot; + tagDescription.get(i) + &quot;&lt;td&gt;&lt;a href=&quot;</span>
+<span class="nc" id="L53">						+ spreadVisualizationLink.get(i) + &quot;&gt;&quot; + &quot;Link&quot; + &quot;&lt;/a&gt;&lt;/td&gt;&quot;;</span>
+<span class="nc" id="L54">				htmlContentsListlist.add(htmlColumn);</span>
+			}
+<span class="fc" id="L56">			String documentPost = &quot; &lt;/table&gt;&lt;/body&gt;&lt;/html&gt;&quot;;</span>
+<span class="fc" id="L57">			htmlContentsListlist.add(documentPost);</span>
+<span class="fc" id="L58">			String footer = Files.readString(Paths.get(footerPath));</span>
+<span class="fc" id="L59">			htmlContentsListlist.add(footer);</span>
+<span class="fc" id="L60">			writeHtmlPage(htmlContentsListlist);</span>
+<span class="pc" id="L61">		} catch (IOException e1) {</span>
+<span class="nc" id="L62">			System.err.println(</span>
+<span class="nc" id="L63">					&quot;Error reading the header/footer in one of these directory : &quot; + headerPath + &quot; or &quot; + footerPath);</span>
+<span class="nc" id="L64">			e1.printStackTrace();</span>
+		}
+
+<span class="fc" id="L67">	}</span>
+
+	/**
+	 * Writes to a new HTML file the concatenation of the contents in the list received.
+	 * @param htmlContentslist Contents of the html page in String form and &lt;b&gt;not&lt;/b&gt; concatenated.
+	 */
+	public void writeHtmlPage(List&lt;String&gt; htmlContentslist) {
+<span class="fc" id="L74">		File f = new File(dataPath);</span>
+<span class="fc" id="L75">		try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {</span>
+
+<span class="fc bfc" id="L77" title="All 2 branches covered.">			for (String html : htmlContentslist) {</span>
+<span class="fc" id="L78">				bw.write(html);</span>
+			}
+
+<span class="nc" id="L81">		} catch (IOException e) {</span>
+<span class="nc" id="L82">			System.err.println(&quot;Failed in writing the HTML file: &quot; + f.getName());</span>
+<span class="nc" id="L83">			e.printStackTrace();</span>
+		}
+<span class="fc" id="L85">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

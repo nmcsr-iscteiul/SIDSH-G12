@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FillHTMLTableFields.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">covid-graph-spread</a> &gt; <a href="index.source.html" class="el_package">covid_graph_spread</a> &gt; <span class="el_source">FillHTMLTableFields.java</span></div><h1>FillHTMLTableFields.java</h1><pre class="source lang-java linenums">package covid_graph_spread;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.JGitInternalException;
+import org.eclipse.jgit.errors.MissingObjectException;
+import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.ObjectLoader;
+import org.eclipse.jgit.lib.PersonIdent;
+import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.revwalk.RevCommit;
+
+/**
+ * Fills the HTML table with the contents it receives from the files in the
+ * remote repository. It will add per each tag one file timestamp, one file
+ * name, one file tag, one tag description and one spread visualization link.
+ * 
+ * @author Jo�o Pinto
+ *
+ */
+<span class="fc" id="L27">public class FillHTMLTableFields {</span>
+
+<span class="fc" id="L29">	private List&lt;List&lt;String&gt;&gt; listToHTMLTable = new ArrayList&lt;List&lt;String&gt;&gt;();</span>
+<span class="fc" id="L30">	private List&lt;String&gt; fileTimeStamp = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L31">	private List&lt;String&gt; fileName = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L32">	private List&lt;String&gt; fileTag = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L33">	private List&lt;String&gt; tagDescription = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L34">	private List&lt;String&gt; spreadVisualizationlink = new ArrayList&lt;&gt;();</span>
+
+	/**
+	 * Returns the complete HTML table.
+	 * 
+	 * @return Complete HTML table
+	 */
+	public List&lt;List&lt;String&gt;&gt; getListToHTMLTable() {
+<span class="fc" id="L42">		return listToHTMLTable;</span>
+	}
+
+	/**
+	 * For one tag (that has an associated commit) it will add to a list that it
+	 * will in the future become a line of the table in the HTML page. It will
+	 * &quot;format&quot; the data in a way that can be visualized in an easy way for the
+	 * user. It will concatenate a link from the data of a single file to show in a
+	 * graphical manner the Covid Information. It will have to use the deprecated
+	 * toGMTString() to show in a readable way to the user. It will get the complete
+	 * tag description.
+	 * 
+	 * @param repository Repository that has the file(s) needed for the list
+	 * @param tag Tag that has a commit associated to it
+	 * @param commit Commit that has a tag associated to it.
+	 */
+	@SuppressWarnings(&quot;deprecation&quot;)
+	public void cleanAndCorrectFileFromRepo(Git repository, Ref tag, RevCommit commit) {
+		Map&lt;ObjectId, String&gt; names;
+		try {
+<span class="fc" id="L62">			names = repository.nameRev().add(tag.getObjectId()).addPrefix(&quot;refs/tags/&quot;).call();</span>
+<span class="fc" id="L63">			ObjectLoader loader = repository.getRepository().open(tag.getObjectId());</span>
+<span class="fc" id="L64">			String string = new String(loader.getBytes());</span>
+<span class="fc" id="L65">			tagDescription.add(</span>
+<span class="fc" id="L66">					string.substring(string.lastIndexOf(&quot;----&quot;) + 1).replace(&quot;---&quot;, &quot;&quot;).trim().replaceAll(&quot; +&quot;, &quot; &quot;));</span>
+
+<span class="fc" id="L68">			PersonIdent authorIdent = commit.getAuthorIdent();</span>
+<span class="fc" id="L69">			Date authorDate = authorIdent.getWhen();</span>
+<span class="fc" id="L70">			fileTimeStamp.add(authorDate.toGMTString());</span>
+<span class="fc" id="L71">			fileName.add(&quot;covid19spreading.rdf&quot;);</span>
+<span class="fc" id="L72">			fileTag.add(names.get(tag.getObjectId()));</span>
+<span class="fc" id="L73">			spreadVisualizationlink</span>
+<span class="fc" id="L74">					.add(&quot;http://visualdataweb.de/webvowl/#iri=https://raw.githubusercontent.com/vbasto-iscte/ESII1920/&quot;</span>
+<span class="fc" id="L75">							+ tag.getObjectId().getName() + &quot;/covid19spreading.rdf&quot;);</span>
+<span class="pc" id="L76">		} catch (MissingObjectException | JGitInternalException | GitAPIException e) {</span>
+<span class="nc" id="L77">			System.err.println(&quot;Could not correctly retrieve all the tags &quot;);</span>
+<span class="nc" id="L78">			e.printStackTrace();</span>
+<span class="nc" id="L79">		} catch (IOException e) {</span>
+<span class="nc" id="L80">			System.err.println(&quot;Could not open the Ref Object: &quot; + tag);</span>
+<span class="nc" id="L81">			e.printStackTrace();</span>
+		}
+
+<span class="fc" id="L84">	}</span>
+
+	/**
+	 * Adds to the list containing all data that will become the table that will be
+	 * visualized in the HTML Page.
+	 */
+	public void fillTables() {
+<span class="fc" id="L91">		listToHTMLTable.add(fileTimeStamp);</span>
+<span class="fc" id="L92">		listToHTMLTable.add(fileName);</span>
+<span class="fc" id="L93">		listToHTMLTable.add(fileTag);</span>
+<span class="fc" id="L94">		listToHTMLTable.add(tagDescription);</span>
+<span class="fc" id="L95">		listToHTMLTable.add(spreadVisualizationlink);</span>
+<span class="fc" id="L96">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

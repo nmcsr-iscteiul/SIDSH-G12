@@ -1,0 +1,5 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+covid-graph-spread,covid_graph_spread,ReadFileFromRepository,70,132,2,10,29,29,2,9,0,5
+covid-graph-spread,covid_graph_spread,FormatFileToList,14,142,0,0,6,29,0,4,0,4
+covid-graph-spread,covid_graph_spread,CreateHtmlPage,14,129,0,4,6,29,0,6,0,4
+covid-graph-spread,main,Main,37,0,0,0,7,0,2,0,2,0

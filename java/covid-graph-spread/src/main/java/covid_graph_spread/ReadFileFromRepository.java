@@ -18,13 +18,13 @@ import org.eclipse.jgit.revwalk.RevWalk;
  * those and if they have a same id, meaning that a commit has a tag then it
  * will call the responsible class to deal with the Tags.
  * 
- * @author João Pinto
+ * @author Joï¿½o Pinto
  *
  */
 public class ReadFileFromRepository {
 
 	private Git git;
-	private FillHTMLTableFields prepareHTMLFields = new FillHTMLTableFields();
+	private FormatFileToList prepareHTMLFields = new FormatFileToList();
 	private static final String REMOTE_REPOSITORY_URL = "https://github.com/vbasto-iscte/ESII1920";
 
 	/**

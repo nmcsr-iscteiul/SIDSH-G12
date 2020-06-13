@@ -14,8 +14,6 @@ class ReadFileFromRepositoryTest {
 		assertDoesNotThrow(
 	            ()->{
 	            	rd.getHtmlTable();
-	            //do whatever you want to do here
-	            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
 	            });
 	}
 
@@ -25,8 +23,6 @@ class ReadFileFromRepositoryTest {
 		assertDoesNotThrow(
 	            ()->{
 	            	rd.cloneRepository();
-	            //do whatever you want to do here
-	            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
 	            });
 	}
 
@@ -36,8 +32,6 @@ class ReadFileFromRepositoryTest {
 		assertThrows(Exception.class,
 	            ()->{
 	            	rd.showTags();
-	            //do whatever you want to do here
-	            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
 	            });
 	}
 
@@ -47,8 +41,6 @@ class ReadFileFromRepositoryTest {
 		assertThrows(Exception.class,
 	            ()->{
 	            	rd.checkIfCommitHasTags(null, null);
-	            //do whatever you want to do here
-	            //ex : objectName.thisMethodShoulThrowNullPointerExceptionForNullParameter(null);
 	            });
 	}
 

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReadFileFromRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">covid-graph-spread</a> &gt; <a href="index.source.html" class="el_package">covid_graph_spread</a> &gt; <span class="el_source">ReadFileFromRepository.java</span></div><h1>ReadFileFromRepository.java</h1><pre class="source lang-java linenums">package covid_graph_spread;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.LogCommand;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidRemoteException;
+import org.eclipse.jgit.api.errors.TransportException;
+import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
+
+/**
+ * Gets the remote repository and created a local temporary one. It will get all
+ * the commits from that repository and all the tags. It will compare both of
+ * those and if they have a same id, meaning that a commit has a tag then it
+ * will call the responsible class to deal with the Tags.
+ * 
+ * @author Jo�o Pinto
+ *
+ */
+<span class="fc" id="L24">public class ReadFileFromRepository {</span>
+
+	private Git git;
+<span class="fc" id="L27">	private FormatFileToList prepareHTMLFields = new FormatFileToList();</span>
+	private static final String REMOTE_REPOSITORY_URL = &quot;https://github.com/vbasto-iscte/ESII1920&quot;;
+
+	/**
+	 * It will do all the necessary operations in order to get the complete HTML
+	 * table, including cloning the remote repository, getting all commits that have
+	 * tags associated to them and fills the table.
+	 * 
+	 * @return List ready to be inserted into an HTML table
+	 */
+	public List&lt;List&lt;String&gt;&gt; getHtmlTable() {
+		try {
+<span class="fc" id="L39">			git = cloneRepository();</span>
+<span class="fc" id="L40">			Iterable&lt;RevCommit&gt; commits = git.log().all().call();</span>
+<span class="fc" id="L41">			List&lt;Ref&gt; list = showTags();</span>
+<span class="fc" id="L42">			checkIfCommitHasTags(commits, list);</span>
+<span class="fc" id="L43">			prepareHTMLFields.fillTables();</span>
+<span class="fc" id="L44">			return prepareHTMLFields.getListToHTMLTable();</span>
+<span class="nc" id="L45">		} catch (GitAPIException | IOException e) {</span>
+<span class="nc" id="L46">			System.err.println(&quot;Could not call the commits from the repo: &quot; + git);</span>
+<span class="nc" id="L47">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L49">		return null;</span>
+	}
+
+	/**
+	 * Clones the remote repository and makes a local, temporary one in the local
+	 * machine.
+	 * 
+	 * @return The now temporary local repository
+	 */
+	public Git cloneRepository() {
+		File localPath;
+		try {
+
+<span class="fc" id="L62">			localPath = File.createTempFile(&quot;TemporaryGitRepository&quot;, &quot;&quot;);</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">			if (!localPath.delete()) {</span>
+<span class="nc" id="L64">				throw new IOException(&quot;Could not delete temporary file &quot; + localPath);</span>
+			}
+<span class="fc" id="L66">			return Git.cloneRepository().setURI(REMOTE_REPOSITORY_URL).setDirectory(localPath).setProgressMonitor(null)</span>
+<span class="fc" id="L67">					.call();</span>
+<span class="nc" id="L68">		} catch (IOException e) {</span>
+<span class="nc" id="L69">			System.err.println(&quot;Error creating file temporary git repository at:&quot; + REMOTE_REPOSITORY_URL);</span>
+<span class="nc" id="L70">			e.printStackTrace();</span>
+<span class="nc" id="L71">		} catch (InvalidRemoteException e) {</span>
+<span class="nc" id="L72">			System.err</span>
+<span class="nc" id="L73">					.println(&quot;Invalid Remote when trying to clone the Remote Repository at: &quot; + REMOTE_REPOSITORY_URL);</span>
+<span class="nc" id="L74">			e.printStackTrace();</span>
+<span class="nc" id="L75">		} catch (TransportException e) {</span>
+<span class="nc" id="L76">			System.err.println(&quot;Error in the transport operation  when trying to clone the Remote Repository at: &quot;</span>
+					+ REMOTE_REPOSITORY_URL);
+<span class="nc" id="L78">			e.printStackTrace();</span>
+<span class="nc" id="L79">		} catch (GitAPIException e) {</span>
+<span class="nc" id="L80">			System.err.println(&quot;Error when trying to clone the Remote Repository at: &quot; + REMOTE_REPOSITORY_URL);</span>
+<span class="nc" id="L81">			e.printStackTrace();</span>
+<span class="nc" id="L82">		}</span>
+<span class="nc" id="L83">		return null;</span>
+	}
+
+	/**
+	 * It will get all tags from the repository - including the id.
+	 * 
+	 * @return List of tags
+	 */
+	public List&lt;Ref&gt; showTags() {
+<span class="fc" id="L92">		List&lt;Ref&gt; call = null;</span>
+		try {
+<span class="fc" id="L94">			call = git.tagList().call();</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">			for (Ref ref : call) {</span>
+<span class="fc" id="L96">				LogCommand log = git.log();</span>
+<span class="fc" id="L97">				Ref peeledRef = git.getRepository().getRefDatabase().peel(ref);</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">				if (peeledRef.getPeeledObjectId() != null) {</span>
+<span class="nc" id="L99">					log.add(peeledRef.getPeeledObjectId());</span>
+				} else {
+<span class="fc" id="L101">					log.add(ref.getObjectId());</span>
+				}
+<span class="fc" id="L103">			}</span>
+<span class="fc" id="L104">			return call;</span>
+<span class="nc" id="L105">		} catch (GitAPIException e) {</span>
+<span class="nc" id="L106">			System.err.println(&quot;Git exception from this git: &quot; + git);</span>
+<span class="nc" id="L107">			e.printStackTrace();</span>
+<span class="nc" id="L108">		} catch (IOException e) {</span>
+<span class="nc" id="L109">			System.err.println(&quot;I/O exception from the git repository &quot; + git);</span>
+<span class="nc" id="L110">			e.printStackTrace();</span>
+<span class="nc" id="L111">		}</span>
+<span class="nc" id="L112">		return null;</span>
+	}
+
+	/**
+	 * Compares a list of all the commits with the tags - if it has a tag
+	 * associated, it will call the method responsible to add to the list that will
+	 * in the end be a line in the html table.
+	 * 
+	 * @param commits List of the commits from the repository
+	 * @param tags    List of tags from the repository
+	 */
+	public void checkIfCommitHasTags(Iterable&lt;RevCommit&gt; commits, List&lt;Ref&gt; tags) {
+<span class="fc bfc" id="L124" title="All 2 branches covered.">		for (RevCommit commit : commits) {</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">			for (Ref tag : tags) {</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">				if (tag.getObjectId().getName().equals(commit.getId().getName())) {</span>
+<span class="fc" id="L127">					try (RevWalk walk = new RevWalk(this.git.getRepository())) {</span>
+<span class="fc" id="L128">						prepareHTMLFields.cleanAndCorrectFileFromRepo(this.git, tag, commit);</span>
+					}
+				}
+<span class="fc" id="L131">			}</span>
+<span class="fc" id="L132">		}</span>
+<span class="fc" id="L133">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
