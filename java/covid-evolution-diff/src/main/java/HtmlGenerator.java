@@ -7,11 +7,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 /**
  * Generates the html file that will be served by the WP-CMS. It shows two files and the difference between them (git diff)
  *
  * @author Bernardo Sequeira (bernardosequeir)
- *
  */
 public class HtmlGenerator {
     private List<String> newText;
@@ -20,6 +20,7 @@ public class HtmlGenerator {
 
     /**
      * Constructor for the class
+     *
      * @param oldText List of Strings with the contents of the "old" file of the diff
      * @param newText List of Strings with the contents of the "new" file of the diff
      */
@@ -31,10 +32,16 @@ public class HtmlGenerator {
     /**
      * This method adds the header of the wordpress site to match the
      * other pages of the site, also creates the html table and styles it.
-     * @throws IOException If the header file doesn't exist.
+     *
+     *
      */
-    public void addHeader() throws IOException {
-        String header = Files.readString(Paths.get("HTML/header.html"));
+    public void addHeader() {
+        String header = null;
+        try {
+            header = Files.readString(Paths.get("HTML/header.html"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String correctedHeader = header.replaceAll("Scientific Discoveries", "Evolution Diff");
         String documentPre = "<html><style> table, th, td { border: 1px solid black;} td {padding-left : 5px;} </style> </head> <body>";
         HtmlFormattedStrings.add(correctedHeader);
@@ -45,38 +52,39 @@ public class HtmlGenerator {
     /**
      * Combines the header, the contents of the files and the footer of the file.
      * Also runs the method that creates the html file, generateHtmlFile().
-     *
      */
     public void htmlFormatter() {
-        try {
-            addHeader();
-            HtmlFormattedStrings.add("<table>\n<tr><th>Old File</th><th>New File</th></tr>");
-            HtmlFormattedStrings.add("<tr><td>");
-            for(String s: oldText){
-                HtmlFormattedStrings.add(addHtmlTags(s));
-            }
-            HtmlFormattedStrings.add("</td>\n<td>");
-            for(String s : newText){
-                HtmlFormattedStrings.add(addHtmlTags(s));
-            }
-            HtmlFormattedStrings.add("</td>\n</tr>");
-            HtmlFormattedStrings.add("</table>");
-            addFooter();
-            for(String s: HtmlFormattedStrings)
-            System.out.println(s);
-            generateHtmlFile();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        addHeader();
+        HtmlFormattedStrings.add("<table>\n<tr><th>Old File</th><th>New File</th></tr>");
+        HtmlFormattedStrings.add("<tr><td>");
+        for (String s : oldText) {
+            HtmlFormattedStrings.add(addHtmlTags(s));
         }
+        HtmlFormattedStrings.add("</td>\n<td>");
+        for (String s : newText) {
+            HtmlFormattedStrings.add(addHtmlTags(s));
+        }
+        HtmlFormattedStrings.add("</td>\n</tr>");
+        HtmlFormattedStrings.add("</table>");
+        addFooter();
+        for (String s : HtmlFormattedStrings)
+            System.out.println(s);
+        generateHtmlFile();
+
     }
 
     /**
      * This method adds the footer of the wordpress site to match the
      * other pages of the site, also ends the html table and the body of the html.
-     * @throws IOException If the footer file doesn't exist.
      */
-    private void addFooter() throws IOException {
-        String footer = Files.readString(Paths.get("HTML/footer.html"));
+    private void addFooter() {
+        String footer = null;
+        try {
+            footer = Files.readString(Paths.get("HTML/footer.html"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         HtmlFormattedStrings.add(footer);
     }
 
@@ -89,16 +97,16 @@ public class HtmlGenerator {
      * @return The line that was provided but formatted.
      */
     private String addHtmlTags(String line) {
-        if(line.contains("<")){
-            line = line.replace("<" ,"< ");
+        if (line.contains("<")) {
+            line = line.replace("<", "< ");
         }
-        if(line.contains("+++")){
+        if (line.contains("+++")) {
             line = "<span style=\"color:green\">" + line + "</span>";
         }
-        if(line.contains("---")){
+        if (line.contains("---")) {
             line = "<span style=\"color:red\">" + line + "</span>";
         }
-        if (line.length() > 2){
+        if (line.length() > 2) {
             line = line + "<br>";
         }
         return line;
@@ -106,16 +114,19 @@ public class HtmlGenerator {
 
     /**
      * Writes the contents of the html page to a file in disk.
-     * @throws IOException If it's unable to create the file or if it can't write to it.
      */
-    private void generateHtmlFile() throws IOException {
+    private void generateHtmlFile() {
         File f = new File("HTML/covid-evolution-diff.html");
-        BufferedWriter bw = new BufferedWriter(new FileWriter(f),20000);
-
-        for (String html : HtmlFormattedStrings) {
-            bw.write(html);
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(f), 20000);
+            for (String html : HtmlFormattedStrings) {
+                bw.write(html);
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        bw.close();
     }
 
 
