@@ -41,6 +41,8 @@ only when it is in production.
 
 
 ## Installation Steps
+1. Guarantee that you have Docker installed on your machine (see https://docs.docker.com/get-docker/ for further explanation on its installation)
+2. Simply click on the start file! (start.bat if you're on a Windows machine and start.sh if you're on a Linux machine)
 
 
 ## Python API Explained
