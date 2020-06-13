@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Generates the html file that will be served by the WP-CMS. It shows two files and the difference between them (git diff)
+ * Generates the html file that will be served by the WP-CMS. It shows two files
+ * and the difference between them (git diff)
  *
  * @author Bernardo Sequeira (bernardosequeir)
+ *
  */
 public class HtmlGenerator {
     private final List<String> newText;
@@ -19,9 +21,11 @@ public class HtmlGenerator {
 
     /**
      * Constructor for the class
-     *
-     * @param oldText List of Strings with the contents of the "old" file of the diff
-     * @param newText List of Strings with the contents of the "new" file of the diff
+     * 
+     * @param oldText List of Strings with the contents of the "old" file of the
+     *                diff
+     * @param newText List of Strings with the contents of the "new" file of the
+     *                diff
      */
     public HtmlGenerator(List<String> oldText, List<String> newText) {
         this.newText = newText;
@@ -29,10 +33,10 @@ public class HtmlGenerator {
     }
 
     /**
-     * This method adds the header of the wordpress site to match the
-     * other pages of the site, also creates the html table and styles it.
-     *
-     *
+     * This method adds the header of the wordpress site to match the other pages of
+     * the site, also creates the html table and styles it.
+     * 
+     * @throws IOException If the header file doesn't exist.
      */
     public void addHeader() {
         String header = null;
@@ -54,31 +58,36 @@ public class HtmlGenerator {
     /**
      * Combines the header, the contents of the files and the footer of the file.
      * Also runs the method that creates the html file, generateHtmlFile().
+     *
      */
     public void htmlFormatter() {
-
-        addHeader();
-        HtmlFormattedStrings.add("<table>\n<tr><th>Old File</th><th>New File</th></tr>");
-        HtmlFormattedStrings.add("<tr><td>");
-        for (String s : oldText) {
-            HtmlFormattedStrings.add(addHtmlTags(s));
+        try {
+            addHeader();
+            HtmlFormattedStrings.add("<table>\n<tr><th>Old File</th><th>New File</th></tr>");
+            HtmlFormattedStrings.add("<tr><td>");
+            for (String s : oldText) {
+                HtmlFormattedStrings.add(addHtmlTags(s));
+            }
+            HtmlFormattedStrings.add("</td>\n<td>");
+            for (String s : newText) {
+                HtmlFormattedStrings.add(addHtmlTags(s));
+            }
+            HtmlFormattedStrings.add("</td>\n</tr>");
+            HtmlFormattedStrings.add("</table>");
+            addFooter();
+            for (String s : HtmlFormattedStrings)
+                System.out.println(s);
+            generateHtmlFile();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        HtmlFormattedStrings.add("</td>\n<td>");
-        for (String s : newText) {
-            HtmlFormattedStrings.add(addHtmlTags(s));
-        }
-        HtmlFormattedStrings.add("</td>\n</tr>");
-        HtmlFormattedStrings.add("</table>");
-        addFooter();
-        for (String s : HtmlFormattedStrings)
-            System.out.println(s);
-        generateHtmlFile();
-
     }
 
     /**
-     * This method adds the footer of the wordpress site to match the
-     * other pages of the site, also ends the html table and the body of the html.
+     * This method adds the footer of the wordpress site to match the other pages of
+     * the site, also ends the html table and the body of the html.
+     * 
+     * @throws IOException If the footer file doesn't exist.
      */
     public void addFooter() {
         String footer = null;
@@ -91,14 +100,15 @@ public class HtmlGenerator {
     }
 
     /**
-     * This method adds the html tags so the file contents can be displayed on the html page.
-     * It separates the opening of tags (<) beacuse they would get parsed as html comments otherwise.
-     * Also checks if the lines contain either "+++" or "---" and colors those lines accordingly.
+     * This method adds the html tags so the file contents can be displayed on the
+     * html page. It separates the opening of tags (<) beacuse they would get parsed
+     * as html comments otherwise. Also checks if the lines contain either "+++" or
+     * "---" and colors those lines accordingly.
      *
      * @param line The String that contains the text line to be formatted.
      * @return The line that was provided but formatted.
      */
-    public  String addHtmlTags(String line) {
+    public String addHtmlTags(String line) {
         if (line.contains("<")) {
             line = line.replace("<", "< ");
         }
@@ -116,6 +126,9 @@ public class HtmlGenerator {
 
     /**
      * Writes the contents of the html page to a file in disk.
+     * 
+     * @throws IOException If it's unable to create the file or if it can't write to
+     *                     it.
      */
     public void generateHtmlFile() {
         File f = new File("HTML/covid-evolution-diff.html");
@@ -129,7 +142,7 @@ public class HtmlGenerator {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        bw.close();
     }
-
 
 }

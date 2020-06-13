@@ -31,7 +31,15 @@ only when it is in production.
 ## Errors and faults in the Implementation
 ### 1. Wordpress CM
 
+&nbsp;There was a general problem with plugins: I couldn't find plugins that did exactly what was asked in the requirement. I found some that were payed and some that were free but I coulnd't find a way to make them work as they were supposed too.
+
+- Covid Wiki isn't using a plugin, but regular Wordpress posts. However it allows for pretty much everyting that is asked in the requirement.
+- Join Us: I could not find a way to make the plugin (Pie register) to allow the user to add Keywords of interest - he can only choose from the predefined ones.
+- Covid Scientific Discoveries Repository: the admin can add files through the page but he can't delete/change them - I couldn't find a plugin that allowed that. To solve this I added a button that redirected to the Wordpress dashboard were the admin can delete or change the files directly.
+- WebSite Analytics: I coulnd't find a plugin that allowed for analytics on the website to be displayed on a page. To solve this I put a button that redirected (only the admin user) to the wordpress dashboard where he can see the analytics. (I also added some analytics screenshots that display what it would look like to the user if the plugin worked on the page).
+
 ### 3. Covid Scientific Discoveries
+- For JUnit to work there must be a PDF file named '178-1-53.pdf' inside /SIDSH-G12/java/covid-sci-discoveries/HTML/Covid_Scientific_Discoveries_Repository/
 
 ### 4. Covid Graph Spread
 
@@ -41,7 +49,15 @@ only when it is in production.
 
 
 ## Installation Steps
+1. Guarantee that you have Docker installed on your machine (see https://docs.docker.com/get-docker/ for further explanation on its installation)
+2. Simply click on the start file! (start.bat if you're on a Windows machine and start.sh if you're on a Linux machine)
 
+## Wordpress Users
+
+- Admin username: 'nuno-admin'
+- Admin password: 'nuno-admin'
+- Member username: 'nuno-member'
+- Member password: 'nuno-member'
 
 ## Python API Explained
 &nbsp;This simple Python API uses the Flask module to enable the Wordpress Website to "trigger" the Java Applications.
