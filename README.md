@@ -30,8 +30,13 @@ only when it is in production.
 
 ## Errors and faults in the Implementation
 ### 1. Wordpress CM
-&nbsp;There was a general problem when trying to find Plugins that would do exactly what was asked in the requirement - despite 2 weeks of searching. There were some plugins that would do what was asked, but they were payed.
-- Covid Wiki
+
+&nbsp;There was a general problem with plugins: there were some things that could not be done through wordpress plugins, some could but had to be payed and some could, were free, but I coulnd't find a way to make them work as it was supposed too.
+
+- Covid Wiki isn't using a plugin, but regular Wordpress posts. However it allows for pretty much everyting that is asked in the requirement.
+- Join Us: I could not find a way to make the plugin (Pie register) to allow the user to add Keywords of interest - he can only choose from the predefined ones.
+- Covid Scientific Discoveries Repository: the admin can add files through the page but he can't delete/change them - I couldn't find a plugin that allowed that. To solve this I added a button that redirected to the Wordpress dashboard were the admin can delete or change the files directly.
+- WebSite Analytics: I coulnd't find a plugin that allowed for analytics on the website to be displayed on a page. To solve this I put a button that redirected (only the admin user) to the wordpress dashboard where he can see the analytics. (I also added some analytics screenshots that display what it would look like to the user if the plugin worked on the page).
 
 ### 3. Covid Scientific Discoveries
 - For JUnit to work there must be a PDF file named '178-1-53.pdf' inside /SIDSH-G12/java/covid-sci-discoveries/HTML/Covid_Scientific_Discoveries_Repository/
@@ -48,10 +53,11 @@ only when it is in production.
 2. Simply click on the start file! (start.bat if you're on a Windows machine and start.sh if you're on a Linux machine)
 
 ## Wordpress Users
-Admin username: 'nuno-admin'
-Admin password: 'nuno-admin'
-Member username: 'nuno-member'
-Member password: 'nuno-member'
+
+&nbsp;Admin username: 'nuno-admin'
+&nbsp;Admin password: 'nuno-admin'
+&nbsp;Member username: 'nuno-member'
+&nbsp;Member password: 'nuno-member'
 
 ## Python API Explained
 &nbsp;This simple Python API uses the Flask module to enable the Wordpress Website to "trigger" the Java Applications.
