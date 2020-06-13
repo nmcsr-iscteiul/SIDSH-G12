@@ -64,6 +64,36 @@ public class App{
 	 */
 	String htmlEnd;
 	
+	/**This method will start by getting the files on the Covid_Scientific_Discoveries_Repository of the project, which will be a copy of the same repository of the website.<p>
+	 * It will execute the startExtract method for each file, and add its path to the respective ArrayList.<p>
+	 * Then it will create a String of the authors of the PDF document, translating it from DocumentAuthor to a readable format.<p>
+	 * And after all information is gathered it will used it to execute the getHTML method to create the HTML table. 
+	 * 
+	 * @throws IOException
+	 * @throws TimeoutException
+	 * @throws AnalysisException
+	 * @throws TransformationException
+	 * @throws InterruptedException
+	 */
+	public void startApp() throws IOException, TimeoutException, AnalysisException, TransformationException, InterruptedException {
+		File f = new File("HTML/Covid_Scientific_Discoveries_Repository/");
+		File[] listOfFiles = f.listFiles();		
+		for(File ff:listOfFiles) {
+			startExtract(ff);
+			filep.add(ff.getName());
+		}
+		for(int i=0; i<authors.size(); i++) {
+			String s = "";
+			for(DocumentAuthor auth:authors.get(i)) {
+				s = (s + auth.getName() + ". ");
+				
+			}
+			authorToS.add(s);
+		}
+		getHtml(title, journal, year, authorToS, filep);
+	}
+
+	
 	/**This method will receive a file extract the desired metadata and separate them in their own specified List<p> 
 	 * The PDF title metadata will go to the title arraylist.<p>
 	 * The PDF journal name metadata will go to the journal arraylist.<p>
@@ -108,7 +138,7 @@ public class App{
 		String headerColumn = "<table style=\"background-color: rgba(0, 0, 0, 0.6); color: white\"> <tr> <th>Article title</th> <th>Journal name</th> <th>Publication year</th> <th>Authors</th> </tr>";
 		list.add(headerColumn);
 		for(int i=0; i < title2.size(); i++) {
-		String htmlColumn = "<tr>"+ "<td><a href=localhost:8000/Covid_Scientific_Discoveries_Repository/" + filep2.get(i)+">"+ title2.get(i)+"</a></td> <td>"+journal2.get(i)+"<td>"+year2.get(i)+"<td>"+authorToS2.get(i)+"</td>";
+		String htmlColumn = "<tr>"+ "<td><a href="+ "Covid_Scientific_Discoveries_Repository/" + filep2.get(i)+">"+ title2.get(i)+"</a></td> <td>"+journal2.get(i)+"<td>"+year2.get(i)+"<td>"+authorToS2.get(i)+"</td>";
 		list.add(htmlColumn);
 		}
 		String documentPost = " </table></body></html>";
