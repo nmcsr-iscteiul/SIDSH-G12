@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -14,9 +13,9 @@ import java.util.List;
  * @author Bernardo Sequeira (bernardosequeir)
  */
 public class HtmlGenerator {
-    private List<String> newText;
-    private List<String> oldText;
-    private List<String> HtmlFormattedStrings = new ArrayList<>();
+    private final List<String> newText;
+    private final List<String> oldText;
+    private final List<String> HtmlFormattedStrings = new ArrayList<>();
 
     /**
      * Constructor for the class
@@ -42,7 +41,10 @@ public class HtmlGenerator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String correctedHeader = header.replaceAll("Scientific Discoveries", "Evolution Diff");
+        String correctedHeader = null;
+        if (header != null) {
+            correctedHeader = header.replaceAll("Scientific Discoveries", "Evolution Diff");
+        }
         String documentPre = "<html><style> table, th, td { border: 1px solid black;} td {padding-left : 5px;} </style> </head> <body>";
         HtmlFormattedStrings.add(correctedHeader);
         HtmlFormattedStrings.add(documentPre);
@@ -78,7 +80,7 @@ public class HtmlGenerator {
      * This method adds the footer of the wordpress site to match the
      * other pages of the site, also ends the html table and the body of the html.
      */
-    private void addFooter() {
+    public void addFooter() {
         String footer = null;
         try {
             footer = Files.readString(Paths.get("HTML/footer.html"));
@@ -96,7 +98,7 @@ public class HtmlGenerator {
      * @param line The String that contains the text line to be formatted.
      * @return The line that was provided but formatted.
      */
-    private String addHtmlTags(String line) {
+    public  String addHtmlTags(String line) {
         if (line.contains("<")) {
             line = line.replace("<", "< ");
         }
@@ -115,11 +117,11 @@ public class HtmlGenerator {
     /**
      * Writes the contents of the html page to a file in disk.
      */
-    private void generateHtmlFile() {
+    public void generateHtmlFile() {
         File f = new File("HTML/covid-evolution-diff.html");
-        BufferedWriter bw = null;
+        BufferedWriter bw;
         try {
-            bw = new BufferedWriter(new FileWriter(f), 20000);
+            bw = new BufferedWriter(new FileWriter(f));
             for (String html : HtmlFormattedStrings) {
                 bw.write(html);
             }

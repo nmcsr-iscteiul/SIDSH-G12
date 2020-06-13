@@ -1,4 +1,4 @@
-import org.bouncycastle.tsp.TSPUtil;
+
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
@@ -137,8 +137,8 @@ public class DiffGenerator {
      * @return the Lists of strings of both the new file and the old one.
      */
     public List<List<String>> calculateDiff(ArrayList<Ref> tagList, String fileName) {
-        List<String> oldLinesFromString = new ArrayList<>();
-        List<String> newLinesFromString = new ArrayList<>();
+        List<String> oldLinesFromString;
+        List<String> newLinesFromString;
 
         AbstractTreeIterator oldTreeParser = prepareTreeParser(getRepo(), tagList.get(2).getObjectId().getName());
         AbstractTreeIterator newTreeParser = prepareTreeParser(getRepo(), tagList.get(1).getObjectId().getName());
@@ -147,8 +147,6 @@ public class DiffGenerator {
         newLinesFromString = getFileText(fileName, newTreeParser).lines().collect(Collectors.toList());
         List<String> diffStringStream = getDiffText(oldTreeParser, newTreeParser, fileName);
         generateFormattedTexts(diffStringStream, oldLinesFromString, newLinesFromString);
-        HtmlGenerator generator = new HtmlGenerator(newLinesFromString, oldLinesFromString);
-        generator.htmlFormatter();
 
         List<List<String>> formattedStringLists = new ArrayList<>();
         formattedStringLists.add(oldLinesFromString);
@@ -157,12 +155,11 @@ public class DiffGenerator {
     }
 
     /**
-     *
      * Calls the jGit functions that create the diff text, and formats it so it's easier to parse.
      *
      * @param oldTreeParser tree iterator of the oldest commit from where the diff will be calculated.
      * @param newTreeParser tree iterator fo the newest commit from where the diff will be calculated.
-     * @param fileName the name of the file from where the diff will be calculated.
+     * @param fileName      the name of the file from where the diff will be calculated.
      * @return a list of strings containing the text content of the diff.
      */
     public List<String> getDiffText(AbstractTreeIterator oldTreeParser, AbstractTreeIterator newTreeParser, String fileName) {
@@ -189,11 +186,13 @@ public class DiffGenerator {
         return stream.toString().lines().collect(Collectors.toList());
     }
 
-    /** Because the generated diff only presents us with the lines that have changed
+    /**
+     * Because the generated diff only presents us with the lines that have changed
      * and not the entire file, this method combines the diff text and both versions
      * of the file, and marks the differences on the entire files, so that the html
      * can present the whole of the files and their differences.
-     * @param diffStringStream the text generated from the diff.
+     *
+     * @param diffStringStream   the text generated from the diff.
      * @param oldLinesFromString the text from the oldest file.
      * @param newLinesFromString the text from the newest file.
      */
@@ -225,10 +224,10 @@ public class DiffGenerator {
 
     /**
      * @param repository The repository that you need the iterator from.
-     * @param commitId The commit that you want the iterator from.
+     * @param commitId   The commit that you want the iterator from.
      * @return an AbstractTreeIterator that allows you to access the files from a desired commit and repo.
      */
-    private static AbstractTreeIterator prepareTreeParser(Repository repository, String commitId) {
+    public static AbstractTreeIterator prepareTreeParser(Repository repository, String commitId) {
         try (RevWalk walk = new RevWalk(repository)) {
             RevCommit commit = walk.parseCommit(ObjectId.fromString(commitId));
             RevTree tree = walk.parseTree(commit.getTree().getId());

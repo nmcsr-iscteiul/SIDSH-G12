@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="covid-evolution-diff" target="1.11" />
+      <module name="covid-evolution-diff" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
