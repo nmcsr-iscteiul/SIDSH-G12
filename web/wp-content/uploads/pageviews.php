@@ -51,3 +51,12 @@
 24,0,1,http://localhost:8001/covid-graph-spread
 27,0,0,http://ubuntu:8000/covid-scientific-discoveries/
 33,0,1,http://localhost:8001/covid-graph-spread
+33,0,1,http://ubuntu:8000/covid-evolution/
+27,0,0,
+39,0,1,
+36,0,1,
+51,0,1,
+2,0,0,
+59,0,0,
+30,0,1,
+27,0,0,

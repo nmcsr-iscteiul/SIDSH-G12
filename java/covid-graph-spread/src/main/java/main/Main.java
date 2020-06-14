@@ -16,7 +16,7 @@ public class Main {
 	/**
 	 * Starts the main method of the Covid Graph Spread.
 	 */
-	public static void main() {
+	public static void main(String[] args) {
 		ReadFileFromRepository rd = new ReadFileFromRepository();
 		List<List<String>> htmlTableContentsList = rd.getHtmlTable();
 		CreateHtmlPage ct = new CreateHtmlPage();
