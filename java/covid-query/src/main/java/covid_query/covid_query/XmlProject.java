@@ -43,6 +43,8 @@ public class XmlProject {
 			XPath xpath = xpathFactory.newXPath();
 			XPathExpression expr = xpath.compile(query);
 
+			System.out.println("Query: " + query);
+
 			switch (query) {
 			  
 			case "/RDF/NamedIndividual/@*": 
@@ -54,7 +56,7 @@ public class XmlProject {
 				  } 
 				  break;
 			  
-			  case "//*[contains(@about,'Algarve')]/Testes/text()": 
+			  case "//*[contains(@about,Algarve)]/Testes/text()": 
 				  System.out.println("Query para obter o número de testes feitos no Algarve: "+ query); 
 				  expr = xpath.compile(query); 
 				  lista.add(expr.evaluate(doc, XPathConstants.STRING).toString());

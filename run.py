@@ -26,9 +26,10 @@ def spread():
 # Tomas
 @app.route("/covid-query", methods=['GET','POST'])
 def query():
-    data = request.form['data']
-    os.system('./java/covid-query/run.sh ' + request.form['data'])
-    return render_template('covid-query.html')
+    data = "\'"+request.form['data'] + "\'"
+    print (data)
+    os.system("rm -rf ./java/covid-query/repCopy && cd ./java/covid-query && mvn exec:java -Dexec.mainClass=covid_query.covid_query.App -Dexec.args=\" " + request.form['data'] + "\" && cd ../../ && cp ./java/covid-query/HTML/covid-queries.html ./templates/covid-queries.html")
+    return render_template('covid-queries.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

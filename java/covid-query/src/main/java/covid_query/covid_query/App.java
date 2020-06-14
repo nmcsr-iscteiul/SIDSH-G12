@@ -32,8 +32,7 @@ public class App
     public static void main( String[] args ) throws IOException, NoFilepatternException, GitAPIException
     {
     	String query = args[0];
-    	
-    	
+    	System.out.println("QUERY:"+ query);
     	///RDF/NamedIndividual/@*/
     	
    // 	String query = "/RDF/NamedIndividual/@*";
