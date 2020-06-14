@@ -7723,8 +7723,8 @@ msgstr ""
 #~ msgid "suse"
 #~ msgstr "SuSE Linux"
 
-#~ msgid "ubuntu"
-#~ msgstr "ubuntu"
+#~ msgid "localhost"
+#~ msgstr "localhost"
 
 # @ wp-slimstat
 #~ msgid "unix"
@@ -7860,7 +7860,7 @@ msgstr ""
 #~ msgstr "Symbian OS"
 
 #~ msgid "p-ubu"
-#~ msgstr "Ubuntu"
+#~ msgstr "localhost"
 
 # @ wp-slimstat
 #~ msgid "p-unk"

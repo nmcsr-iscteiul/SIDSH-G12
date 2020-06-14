@@ -853,8 +853,8 @@ define("moxie/core/utils/Env", [
 	            // GNU/Linux based
 	            /(mint)[\/\s\(]?(\w+)*/i,                                           // Mint
 	            /(mageia|vectorlinux)[;\s]/i,                                       // Mageia/VectorLinux
-	            /(joli|[kxln]?ubuntu|debian|[open]*suse|gentoo|arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk|linpus)[\/\s-]?([\w\.-]+)*/i,
-	                                                                                // Joli/Ubuntu/Debian/SUSE/Gentoo/Arch/Slackware
+	            /(joli|[kxln]?localhost|debian|[open]*suse|gentoo|arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk|linpus)[\/\s-]?([\w\.-]+)*/i,
+	                                                                                // Joli/localhost/Debian/SUSE/Gentoo/Arch/Slackware
 	                                                                                // Fedora/Mandriva/CentOS/PCLinuxOS/RedHat/Zenwalk/Linpus
 	            /(hurd|linux)\s?([\w\.]+)*/i,                                       // Hurd/Linux
 	            /(gnu)\s?([\w\.]+)*/i                                               // GNU

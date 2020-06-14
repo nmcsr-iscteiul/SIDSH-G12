@@ -384,7 +384,7 @@
 	"twitter-square",
 	"typo3",
 	"uber",
-	"ubuntu",
+	"localhost",
 	"uikit",
 	"umbraco",
 	"uniregistry",

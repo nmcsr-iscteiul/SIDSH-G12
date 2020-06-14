@@ -7121,8 +7121,8 @@ msgstr "filter opsional"
 #~ msgid "suse"
 #~ msgstr "suse"
 
-#~ msgid "ubuntu"
-#~ msgstr "ubuntu"
+#~ msgid "localhost"
+#~ msgstr "localhost"
 
 #~ msgid "unix"
 #~ msgstr "unix"

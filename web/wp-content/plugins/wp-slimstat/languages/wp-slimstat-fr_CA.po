@@ -7100,7 +7100,7 @@ msgstr "Supprimer tous les filtres"
 #~ msgstr "Symbian OS"
 
 #~ msgid "p-ubu"
-#~ msgstr "Ubuntu"
+#~ msgstr "localhost"
 
 #~ msgid "p-unk"
 #~ msgstr "Unknown"

@@ -148,7 +148,7 @@ function default_user_agent()
  *
  * First, the openssl.cafile and curl.cainfo php.ini settings are checked.
  * If those settings are not configured, then the common locations for
- * bundles found on Red Hat, CentOS, Fedora, Ubuntu, Debian, FreeBSD, OS X
+ * bundles found on Red Hat, CentOS, Fedora, localhost, Debian, FreeBSD, OS X
  * and Windows are checked. If any of these file locations are found on
  * disk, they will be utilized.
  *
@@ -163,7 +163,7 @@ function default_ca_bundle()
     static $cafiles = [
         // Red Hat, CentOS, Fedora (provided by the ca-certificates package)
         '/etc/pki/tls/certs/ca-bundle.crt',
-        // Ubuntu, Debian (provided by the ca-certificates package)
+        // localhost, Debian (provided by the ca-certificates package)
         '/etc/ssl/certs/ca-certificates.crt',
         // FreeBSD (provided by the ca_root_nss package)
         '/usr/local/share/certs/ca-root-nss.crt',

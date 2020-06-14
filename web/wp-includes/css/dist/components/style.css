@@ -133,7 +133,7 @@
 
 .components-autocomplete__result.components-button {
   margin-bottom: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, localhost, Cantarell, "Helvetica Neue", sans-serif;
   font-size: 13px;
   color: #555d66;
   display: flex;
@@ -158,7 +158,7 @@
     background: #f3f4f5; }
 
 .components-base-control {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, localhost, Cantarell, "Helvetica Neue", sans-serif;
   font-size: 13px; }
   .components-base-control .components-base-control__field {
     margin-bottom: 8px; }
@@ -2199,7 +2199,7 @@ body.is-dragging-components-draggable {
   fill: currentColor; }
 
 .components-drop-zone__content-text {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, localhost, Cantarell, "Helvetica Neue", sans-serif; }
 
 .components-drop-zone__provider {
   height: 100%; }
@@ -2225,7 +2225,7 @@ body.is-dragging-components-draggable {
 .components-dropdown-menu__menu {
   width: 100%;
   padding: 7px 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, localhost, Cantarell, "Helvetica Neue", sans-serif;
   font-size: 13px;
   line-height: 1.4; }
   .components-dropdown-menu__menu .components-dropdown-menu__menu-item,
@@ -2982,7 +2982,7 @@ body.is-dragging-components-draggable {
 
 .components-notice {
   display: flex;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, localhost, Cantarell, "Helvetica Neue", sans-serif;
   font-size: 13px;
   background-color: #e5f5fa;
   border-left: 4px solid #00a0d2;
@@ -3188,7 +3188,7 @@ body.is-dragging-components-draggable {
 .components-placeholder__instructions,
 .components-placeholder__label,
 .components-placeholder__fieldset {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, localhost, Cantarell, "Helvetica Neue", sans-serif;
   font-size: 13px; }
 
 .components-placeholder__label {
@@ -3210,7 +3210,7 @@ body.is-dragging-components-draggable {
   z-index: 1; }
   .components-placeholder__fieldset p,
   .components-placeholder__fieldset form p {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, localhost, Cantarell, "Helvetica Neue", sans-serif;
     font-size: 13px; }
 
 .components-placeholder__fieldset.is-column-layout,
@@ -3730,7 +3730,7 @@ body.lockscroll {
     font-size: 16px; } }
 
 .components-snackbar {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, localhost, Cantarell, "Helvetica Neue", sans-serif;
   font-size: 13px;
   background-color: #32373c;
   border-radius: 4px;
@@ -3883,7 +3883,7 @@ body.lockscroll {
     padding: 5px 10px 5px 0; }
   .components-toolbar__control.components-button[data-subscript]::after {
     content: attr(data-subscript);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, localhost, Cantarell, "Helvetica Neue", sans-serif;
     font-size: 13px;
     font-weight: 600;
     line-height: 12px;

@@ -3503,7 +3503,7 @@ msgstr ""
 #, fuzzy
 #| msgid "The geolocation database has been installed on your server."
 msgid "The Browscap data file has been installed on your server."
-msgstr "База данных геолокации была установлена на вашем сервере."
+msgstr "База данных геолокации была установлена ����а вашем сервере."
 
 #: ../languages/dynamic_strings.php:5 ../languages/dynamic_strings.php:8
 #: ../languages/dynamic_strings.php:457 ../languages/dynamic_strings.php:458
@@ -6648,8 +6648,8 @@ msgstr ""
 #~ msgid "suse"
 #~ msgstr "SuSE"
 
-#~ msgid "ubuntu"
-#~ msgstr "Ubuntu"
+#~ msgid "localhost"
+#~ msgstr "localhost"
 
 #~ msgid "unix"
 #~ msgstr "Unix"
@@ -6754,7 +6754,7 @@ msgstr ""
 #~ msgstr "Symbian OS"
 
 #~ msgid "p-ubu"
-#~ msgstr "Ubuntu"
+#~ msgstr "localhost"
 
 #~ msgid "p-unk"
 #~ msgstr "Unknown"

@@ -393,7 +393,7 @@ class slim_uadetector {
 		else if ( preg_match( '/((?:Free|Open|Net)BSD)\s?(?:[ix]?[386]+)?\s?([0-9\.]+)?/', $_os, $match ) > 0 ) {
 			return array( strtolower( $match[ 1 ] . ( !empty( $match[ 2 ] ) ? ' ' . $match[ 2 ] : '' ) ), 0 );
 		}
-		else if ( preg_match( '/(?:(i[0-9]{3})\s)?Linux\s*((?:i[0-9]{3})?\s*(?:[0-9]\.[0-9]{1,2}\.[0-9]{1,2})?\s*(?:[ix][0-9_]{3,})?)?(?:.+[\s\(](Android|CentOS|Debian|Fedora|Gentoo|Mandriva|PCLinuxOS|SuSE|[KX]?ubuntu)[\s\/\-\)]+(\d+[a-z0-9\.]*)?)?/i', $_os ) > 0 || preg_match( '/Linux/i', $_os ) > 0 ) {
+		else if ( preg_match( '/(?:(i[0-9]{3})\s)?Linux\s*((?:i[0-9]{3})?\s*(?:[0-9]\.[0-9]{1,2}\.[0-9]{1,2})?\s*(?:[ix][0-9_]{3,})?)?(?:.+[\s\(](Android|CentOS|Debian|Fedora|Gentoo|Mandriva|PCLinuxOS|SuSE|[KX]?localhost)[\s\/\-\)]+(\d+[a-z0-9\.]*)?)?/i', $_os ) > 0 || preg_match( '/Linux/i', $_os ) > 0 ) {
 			return array( self::_get_linux_os_version( $_os ), 0 );
 		}
 		else if ( preg_match( '/(Mac_PowerPC|Macintosh)/', $_os ) > 0 ) {
@@ -468,7 +468,7 @@ class slim_uadetector {
 		else if ( preg_match( '/Red\s?Hat^[a-z]/i', $_os ) ) {
 			return 'redhat';
 		}
-		else if ( preg_match( '#([kx]?Ubuntu)[^a-z]?(\d+[\.0-9a-z]*)?#i', $_os, $match ) > 0 ) {
+		else if ( preg_match( '#([kx]?localhost)[^a-z]?(\d+[\.0-9a-z]*)?#i', $_os, $match ) > 0 ) {
 			if ( stristr( $_os, 'Xandros' ) !== false ) {
 				return 'xandros';
 			}

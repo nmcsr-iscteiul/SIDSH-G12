@@ -4,7 +4,7 @@ require_once 'vendor/autoload.php';
 
 /**
  * You can overwrite GOODBY_CSV_TEST_DB_* by `export` command.
- * @see http://manpages.ubuntu.com/manpages/hardy/man5/exports.5.html
+ * @see http://manpages.localhost.com/manpages/hardy/man5/exports.5.html
  *
  * Example:
  *

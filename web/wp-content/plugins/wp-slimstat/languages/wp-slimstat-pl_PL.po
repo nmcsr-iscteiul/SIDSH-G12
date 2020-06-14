@@ -7062,8 +7062,8 @@ msgstr ""
 #~ msgid "suse"
 #~ msgstr "SuSE"
 
-#~ msgid "ubuntu"
-#~ msgstr "Ubuntu"
+#~ msgid "localhost"
+#~ msgstr "localhost"
 
 #~ msgid "unix"
 #~ msgstr "Unix"

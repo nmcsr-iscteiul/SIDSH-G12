@@ -40823,7 +40823,7 @@ function with_notices_objectSpread(target) { for (var i = 1; i < arguments.lengt
 }));
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/components/build-module/text/font-family.js
-var fontFamily = "font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto,\nOxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif;";
+var fontFamily = "font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto,\nOxygen-Sans, localhost, Cantarell, \"Helvetica Neue\", sans-serif;";
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/components/build-module/text/mixins.js
 

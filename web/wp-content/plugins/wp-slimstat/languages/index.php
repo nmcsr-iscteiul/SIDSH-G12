@@ -515,7 +515,7 @@ class wp_slimstat_i18n {
 				'sunos' => __( 'Sun OS', 'wp-slimstat' ),
 				'suse' => __( 'SuSE Linux', 'wp-slimstat' ),
 				'symbianos' => __( 'Symbian OS', 'wp-slimstat' ),
-				'ubuntu' => __( 'Ubuntu', 'wp-slimstat' ),
+				'localhost' => __( 'localhost', 'wp-slimstat' ),
 				'unix' => __( 'Unix', 'wp-slimstat' ),
 				'unknown' => __( 'Unknown', 'wp-slimstat' ),
 				'xandros' => __( 'Xandros Linux', 'wp-slimstat' ),

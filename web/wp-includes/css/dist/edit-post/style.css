@@ -984,7 +984,7 @@ body.admin-color-light .edit-post-layout__toogle-publish-panel-button, body.admi
   padding-top: 50px;
   flex: 1 1 auto; }
   .edit-post-visual-editor .components-button {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, localhost, Cantarell, "Helvetica Neue", sans-serif; }
   @supports ((position: -webkit-sticky) or (position: sticky)) {
     .edit-post-visual-editor {
       flex-basis: 100%; } }
@@ -1296,7 +1296,7 @@ body.block-editor-page {
   .components-modal__frame input[type="number"],
   .components-modal__frame select,
   .components-modal__frame textarea {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, localhost, Cantarell, "Helvetica Neue", sans-serif;
     padding: 6px 8px;
     box-shadow: 0 0 0 transparent;
     transition: box-shadow 0.1s linear;

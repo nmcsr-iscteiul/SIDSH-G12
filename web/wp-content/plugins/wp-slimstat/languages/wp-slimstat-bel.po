@@ -6846,7 +6846,7 @@ msgstr ""
 #~ msgstr "Symbian OS"
 
 #~ msgid "p-ubu"
-#~ msgstr "Linux Ubuntu"
+#~ msgstr "Linux localhost"
 
 #~ msgid "p-unk"
 #~ msgstr "невядомы"

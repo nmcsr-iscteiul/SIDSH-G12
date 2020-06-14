@@ -3427,7 +3427,7 @@ function _default_wp_die_handler( $message, $title = '', $args = array() ) {
 		body {
 			background: #fff;
 			color: #444;
-			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, localhost, Cantarell, "Helvetica Neue", sans-serif;
 			margin: 2em auto;
 			padding: 1em 2em;
 			max-width: 700px;
