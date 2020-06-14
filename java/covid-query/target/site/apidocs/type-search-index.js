@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"covid_query.covid_query","l":"App"},{"p":"covid_query.covid_query","l":"QueryFixer"},{"p":"covid_query.covid_query","l":"XmlProject"}]
