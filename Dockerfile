@@ -24,4 +24,11 @@ RUN apt-get update && \
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
 RUN export JAVA_HOME
 
+# Write shell files
+RUN echo -e '#!/bin/bash' > ./java/covid-sci-discoveries/run.sh
+RUN echo "rm -rf /usr/src/app/java/covid-sci-discoveries/HTML/Covid_Scientific_Discoveries_Repository/* && cp -a /usr/src/app/web/wp-content/uploads/.pdf /usr/src/app/java/covid-sci-discoveries/HTML/Covid_Scientific_Discoveries_Repository && ls /usr/src/app/java/covid-sci-discoveries/HTML/Covid_Scientific_Discoveries_Repository/ && cp /usr/src/app/templates/header.html /usr/src/app/java/covid-sci-discoveries/HTML/ && cp /usr/src/app/templates/footer.html /usr/src/app/java/covid-sci-discoveries/HTML/ && cd /usr/src/app/java/covid-sci-discoveries/ && mvn exec:java -Dexec.mainClass=covid_sci_discoveries.covid_sci_discoveries.Main && rm -rf /usr/src/app/web/Covid_Scientific_Discoveries_Repository/ && cp -a /usr/src/app/java/covid-sci-discoveries/HTML/Covid_Scientific_Discoveries_Repository/. /usr/src/app/web/Covid_Scientific_Discoveries_Repository/ && cp -a /usr/src/app/java/covid-sci-discoveries/HTML/covid-sci-discoveries.html /usr/src/app/templates/" >> ./java/covid-sci-discoveries/run.sh
+
+RUN echo -e '#!/bin/bash' > ./java/covid-graph-spread/run.sh
+RUN echo "cd /usr/src/app/java/covid-graph-spread/ && mvn exec:java -Dexec.mainClass=main.Main && cp /usr/src/app/java/covid-graph-spread/HTML/covid-graph-spread.html /usr/src/app/templates/" >> ./java/covid-graph-spread/run.sh
+
 CMD ["python", "run.py"]
