@@ -60,3 +60,6 @@
 59,0,0,
 30,0,1,
 27,0,0,
+27,0,0,
+33,0,0,http://localhost:8001/covid-graph-spread
+24,0,0,http://ubuntu:8000/covid-evolution/

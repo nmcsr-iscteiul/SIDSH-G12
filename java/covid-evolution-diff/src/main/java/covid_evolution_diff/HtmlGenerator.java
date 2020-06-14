@@ -50,7 +50,7 @@ public class HtmlGenerator {
         if (header != null) {
             correctedHeader = header.replaceAll("Scientific Discoveries", "Evolution Diff");
         }
-        String documentPre = "<html><style> table, th, td { border: 1px solid black;} td {padding-left : 5px;} </style> </head> <body>";
+        String documentPre = "<html><style> table, th, td { border: 1px solid black; background:rgba(0,0,0,0.6); color: white} td {padding-left : 5px;} </style> </head> <body>";
         HtmlFormattedStrings.add(correctedHeader);
         HtmlFormattedStrings.add(documentPre);
 
@@ -110,10 +110,10 @@ public class HtmlGenerator {
             line = line.replace("<", "< ");
         }
         if (line.contains("+++")) {
-            line = "<span style=\"color:green\">" + line + "</span>";
+            line = "<span style=\"color:green; font-weight: bold;\">" + line + "</span>";
         }
         if (line.contains("---")) {
-            line = "<span style=\"color:red\">" + line + "</span>";
+            line = "<span style=\"color:red; font-weight: bold;\">" + line + "</span>";
         }
         if (line.length() > 2) {
             line = line + "<br>";
