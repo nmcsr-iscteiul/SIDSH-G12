@@ -54,7 +54,8 @@ only when it is in production.
 
 ## Installation Steps
 1. Guarantee that you have Docker installed on your machine (see https://docs.docker.com/get-docker/ for further explanation on its installation)
-2. Simply click on the start file! (start.bat if you're on a Windows machine and start.sh if you're on a Linux machine)
+2. Click on the start file (start.bat if you're on a Windows machine and start.sh if you're on a Linux machine)
+3. Access your website by opening the url http://localhost:8000 on your browser!
 
 ## Wordpress Users
 
@@ -67,5 +68,5 @@ only when it is in production.
 &nbsp;This simple Python API uses the Flask module to enable the Wordpress Website to "trigger" the Java Applications.
 &nbsp;Using the requisite for Covid Scientific Discoveries, it works like this:
 1. Python listens for a GET request on http://localhost:8001/covid-sci-discoveries;
-2. When a user goes to the website and clicks the button with the link in the first point the GET request is sent to that endpoint;
-3. When python receives the request it makes a system call to run the Java application and, when it's done, returns to the user the output: an HTML Page
+2. When a user goes to the website and clicks the button with that URL it sends a GET request to the Java Projects Container;
+3. When python receives the request it makes a system call to run the Java application and, when it's done, returns an HTML page to the user.
