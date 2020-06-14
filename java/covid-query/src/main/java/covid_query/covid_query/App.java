@@ -1,5 +1,4 @@
 package covid_query.covid_query;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -19,39 +18,49 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
-
-/**
- * Hello world!
+/** Cria uma instancia App que vai aceder ao repositorio indicado e retirar o ficheiro rdf, gerando um html com o resultado da query
+ * 
+ * @author Tomas Godinho
  *
  */
-
-
-
 public class App 
 {
+	/**Atributo que guarda a query que da entrada na App
+	 * 
+	 */
+	private String query;
+	/**Flag que vira true apos ser retirado o ficheiro rdf do repositorio
+	 * 
+	 */
+	private boolean fileFlag = false;
+	/**Recebe a string query como argumento, retira o ficheiro rdf mais recente do repositorio, cria uma instancia XmlProject que ira tratar a query e criar um ficheiro html
+	 * 
+	 * @param args
+	 * @throws IOException
+	 * @throws NoFilepatternException
+	 * @throws GitAPIException
+	 */
     public static void main( String[] args ) throws IOException, NoFilepatternException, GitAPIException
     {
     	String query = args[0];
-    	System.out.println("QUERY:"+ query);
-    	///RDF/NamedIndividual/@*/
-    	
-   // 	String query = "/RDF/NamedIndividual/@*";
-    //	String query = "//*[contains(@about,'Algarve')]/Infecoes/text()";
-        System.out.println( "Hello World!" );
+    	QueryFixer fix = new QueryFixer(query);
+    	query = fix.getQuery();
+        System.out.println( "Iniciando covid-query.." );
         App a = new App();
+        a.setQuery(query);
         a.getRDFFile();
-        XmlProject xml = new XmlProject(query);
+        XmlProject xml = new XmlProject(a.query);
         xml.run();
-       // XmlProject.main("/RDF/NamedIndividual/@*");
         xml.generateHTML();
-        
     }
-    
   
-    
-    //APAGAR PASTA REPCOPY NO BASH FILE  
+    /**acede ao repositorio indicado e copia o ficheiro covid19spreading.rdf na pasta repCopy, garantindo a versao mais recente ao usar o master branch. 
+     * 
+     * @throws InvalidRemoteException
+     * @throws TransportException
+     * @throws GitAPIException
+     */
     public void getRDFFile() throws InvalidRemoteException, TransportException, GitAPIException{
-    	
     	Git repo = Git.cloneRepository()
     	          .setURI("https://github.com/vbasto-iscte/ESII1920")
     	          .setDirectory(new File("repCopy/."))
@@ -60,37 +69,31 @@ public class App
     	          .setCloneSubmodules(true)
     	          .setNoCheckout(true)
     	          .call();
-
     	         repo.checkout().setStartPoint("origin/master").addPath("covid19spreading.rdf").call();
+    	         fileFlag = true;
     }
-    
-    public void getHtml(List<String> title2, List<String> journal2, List<String> year2, List<String> authorToS2, List<String> filep2) throws IOException{
-        List<String> list = new ArrayList<String>();
-        String header = Files.readString(Paths.get("HTML/header.html"));
-        String documentPre = "<html><style> table, th, td { border: 1px solid black; </style> </head> <body>";
-        list.add(header);
-        list.add(documentPre);
-        String headerColumn = "<table style=\"background-color: rgba(0, 0, 0, 0.6); color: white\"> <tr> <th>Article title</th> <th>Journal name</th> <th>Publication year</th> <th>Authors</th> </tr>";
-        list.add(headerColumn);
-        for(int i=0; i < title2.size(); i++) {
-        String htmlColumn = "<tr>"+ "<td><a href="+ "Covid%20Scientific%20Discoveries%20Repository/" + filep2.get(i)+">"+ title2.get(i)+"</a></td> <td>"+journal2.get(i)+"<td>"+year2.get(i)+"<td>"+authorToS2.get(i)+"</td>";
-        list.add(htmlColumn);
-        }
-        String documentPost = " </table></body></html>";
-        list.add(documentPost );
-        String footer = Files.readString(Paths.get("HTML/footer.html"));
-        list.add(footer);
-        File f = new File("HTML/data.html");
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
-
-            for (String html : list) {
-                bw.write(html);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+/**Metodo para ler a Query
+ * 
+ * @return devolve query que deu entrada na App
+ */
+	public String getQuery() {
+		return query;
+	}
+	
+/**
+ * 
+ * @param query String que ira substituir a query
+ */
+	public void setQuery(String query) {
+	this.query = query;
+}
+/**Metodo que devolve o estado da fileFlag
+ * 
+ * @return Estado da fileFlag
+ */
+	public boolean isFileFlag() {
+		return fileFlag;
+	}
     
     
 }
