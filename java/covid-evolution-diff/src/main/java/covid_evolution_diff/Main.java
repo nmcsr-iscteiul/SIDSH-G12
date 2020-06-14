@@ -1,4 +1,5 @@
-import org.eclipse.jgit.api.Git;
+package covid_evolution_diff;
+
 import org.eclipse.jgit.lib.Ref;
 
 import java.util.ArrayList;

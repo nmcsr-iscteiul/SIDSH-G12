@@ -1,11 +1,8 @@
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRemoteException;
+import covid_evolution_diff.DiffGenerator;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

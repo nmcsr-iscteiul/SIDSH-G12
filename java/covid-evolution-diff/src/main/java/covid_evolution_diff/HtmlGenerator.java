@@ -1,3 +1,5 @@
+package covid_evolution_diff;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -74,8 +76,6 @@ public class HtmlGenerator {
             HtmlFormattedStrings.add("</td>\n</tr>");
             HtmlFormattedStrings.add("</table>");
             addFooter();
-            for (String s : HtmlFormattedStrings)
-                System.out.println(s);
             generateHtmlFile();
 
     }

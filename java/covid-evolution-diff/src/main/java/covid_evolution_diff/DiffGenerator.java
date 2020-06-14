@@ -1,10 +1,9 @@
+package covid_evolution_diff;
+
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
@@ -96,9 +95,6 @@ public class DiffGenerator {
         List<Ref> call = null;
         try {
             call = getGit().tagList().call();
-
-            for (Ref ref : call) {
-            }
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
@@ -129,7 +125,6 @@ public class DiffGenerator {
             ObjectLoader loader = getRepo().open(objectId);
             loader.copyTo(stream);
 
-
         } catch (IOException exception) {
             exception.printStackTrace();
         }
@@ -150,7 +145,6 @@ public class DiffGenerator {
         List<String> newLinesFromString;
         List<List<String>> formattedStringLists = new ArrayList<>();
 
-
         AbstractTreeIterator oldTreeParser = prepareTreeParser(getRepo(), tagList.get(2).getObjectId().getName());
         AbstractTreeIterator newTreeParser = prepareTreeParser(getRepo(), tagList.get(1).getObjectId().getName());
 
@@ -161,7 +155,6 @@ public class DiffGenerator {
 
         formattedStringLists.add(oldLinesFromString);
         formattedStringLists.add(newLinesFromString);
-
 
         return formattedStringLists;
     }
@@ -178,7 +171,8 @@ public class DiffGenerator {
      *                      calculated.
      * @return a list of strings containing the text content of the diff.
      */
-    public List<String> getDiffText(AbstractTreeIterator oldTreeParser, AbstractTreeIterator newTreeParser, String fileName) {
+    public List<String> getDiffText(AbstractTreeIterator oldTreeParser, AbstractTreeIterator newTreeParser,
+            String fileName) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         try {
             List<DiffEntry> diff = git.diff().setOldTree(oldTreeParser).setNewTree(newTreeParser)
@@ -187,7 +181,9 @@ public class DiffGenerator {
                 DiffFormatter formatter = new DiffFormatter(stream);
                 formatter.setRepository(getRepo());
                 formatter.format(entry);
+                formatter.close();
             }
+
         } catch (GitAPIException e) {
             e.printStackTrace();
         } catch (IOException exception) {
@@ -207,7 +203,7 @@ public class DiffGenerator {
      * @param newLinesFromString the text from the newest file.
      */
     public void generateFormattedTexts(List<String> diffStringStream, List<String> oldLinesFromString,
-                                       List<String> newLinesFromString) {
+            List<String> newLinesFromString) {
         for (String s : diffStringStream) {
             if (s.startsWith("-   ")) {
                 String stringToReplace = null;
@@ -237,7 +233,7 @@ public class DiffGenerator {
      * @param repository The repository that you need the iterator from.
      * @param commitId   The commit that you want the iterator from.
      * @return an AbstractTreeIterator that allows you to access the files from a
-     * desired commit and repo.
+     *         desired commit and repo.
      */
     public static AbstractTreeIterator prepareTreeParser(Repository repository, String commitId) {
         try (RevWalk walk = new RevWalk(repository)) {
