@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>App.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">covid-query</a> &gt; <a href="index.source.html" class="el_package">covid_query.covid_query</a> &gt; <span class="el_source">App.java</span></div><h1>App.java</h1><pre class="source lang-java linenums">package covid_query.covid_query;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidRemoteException;
+import org.eclipse.jgit.api.errors.NoFilepatternException;
+import org.eclipse.jgit.api.errors.TransportException;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+
+/** Cria uma instancia App que vai aceder ao repositorio indicado e retirar o ficheiro rdf, gerando um html com o resultado da query
+ * 
+ * @author Tomas Godinho
+ *
+ */
+<span class="fc" id="L26">public class App </span>
+{
+	/**Atributo que guarda a query que da entrada na App
+	 * 
+	 */
+	private String query;
+	/**Flag que vira true apos ser retirado o ficheiro rdf do repositorio
+	 * 
+	 */
+<span class="fc" id="L35">	private boolean fileFlag = false;</span>
+	/**Recebe a string query como argumento, retira o ficheiro rdf mais recente do repositorio, cria uma instancia XmlProject que ira tratar a query e criar um ficheiro html
+	 * 
+	 * @param args
+	 * @throws IOException
+	 * @throws NoFilepatternException
+	 * @throws GitAPIException
+	 */
+    public static void main( String[] args ) throws IOException, NoFilepatternException, GitAPIException
+    {
+<span class="nc" id="L45">    	String query = args[0];</span>
+<span class="nc" id="L46">    	QueryFixer fix = new QueryFixer(query);</span>
+<span class="nc" id="L47">    	query = fix.getQuery();</span>
+<span class="nc" id="L48">        System.out.println( &quot;Iniciando covid-query..&quot; );</span>
+<span class="nc" id="L49">        App a = new App();</span>
+<span class="nc" id="L50">        a.setQuery(query);</span>
+<span class="nc" id="L51">        a.getRDFFile();</span>
+<span class="nc" id="L52">        XmlProject xml = new XmlProject(a.query);</span>
+<span class="nc" id="L53">        xml.run();</span>
+<span class="nc" id="L54">        xml.generateHTML();</span>
+<span class="nc" id="L55">    }</span>
+  
+    /**acede ao repositorio indicado e copia o ficheiro covid19spreading.rdf na pasta repCopy, garantindo a versao mais recente ao usar o master branch. 
+     * 
+     * @throws InvalidRemoteException
+     * @throws TransportException
+     * @throws GitAPIException
+     */
+    public void getRDFFile() throws InvalidRemoteException, TransportException, GitAPIException{
+<span class="fc" id="L64">    	Git repo = Git.cloneRepository()</span>
+<span class="fc" id="L65">    	          .setURI(&quot;https://github.com/vbasto-iscte/ESII1920&quot;)</span>
+<span class="fc" id="L66">    	          .setDirectory(new File(&quot;repCopy/.&quot;))</span>
+<span class="fc" id="L67">    	          .setBranchesToClone(Arrays.asList(&quot;refs/heads/master&quot;))</span>
+<span class="fc" id="L68">    	          .setCloneAllBranches(false)</span>
+<span class="fc" id="L69">    	          .setCloneSubmodules(true)</span>
+<span class="fc" id="L70">    	          .setNoCheckout(true)</span>
+<span class="fc" id="L71">    	          .call();</span>
+<span class="fc" id="L72">    	         repo.checkout().setStartPoint(&quot;origin/master&quot;).addPath(&quot;covid19spreading.rdf&quot;).call();</span>
+<span class="fc" id="L73">    	         fileFlag = true;</span>
+<span class="fc" id="L74">    }</span>
+/**Metodo para ler a Query
+ * 
+ * @return devolve query que deu entrada na App
+ */
+	public String getQuery() {
+<span class="fc" id="L80">		return query;</span>
+	}
+	
+/**
+ * 
+ * @param query String que ira substituir a query
+ */
+	public void setQuery(String query) {
+<span class="fc" id="L88">	this.query = query;</span>
+<span class="fc" id="L89">}</span>
+/**Metodo que devolve o estado da fileFlag
+ * 
+ * @return Estado da fileFlag
+ */
+	public boolean isFileFlag() {
+<span class="fc" id="L95">		return fileFlag;</span>
+	}
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

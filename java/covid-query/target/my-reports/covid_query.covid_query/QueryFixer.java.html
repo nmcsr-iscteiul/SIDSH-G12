@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>QueryFixer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">covid-query</a> &gt; <a href="index.source.html" class="el_package">covid_query.covid_query</a> &gt; <span class="el_source">QueryFixer.java</span></div><h1>QueryFixer.java</h1><pre class="source lang-java linenums">package covid_query.covid_query;
+
+import javax.xml.xpath.XPathConstants;
+
+import org.apache.commons.lang3.StringUtils;
+import org.w3c.dom.NodeList;
+
+/**Classe encarregue de &quot;limpar&quot; as queries, ja que estas perdem &quot;''&quot; na transicao de html para java
+ * 
+ * @author Tomas Godinho
+ *
+ */
+public class QueryFixer {
+/**Atributo em que e armazenada a query de entrada e onde ira ser armazenada a query &quot;limpa&quot;
+ * 
+ */
+	private String query;
+/**Construtor da classe QueryFixer, que ira receber o query que deu entrada na App e correr o metodo para a &quot;limpar&quot;
+ * 
+ * @param s String de query que deu entrada na App
+ */
+<span class="fc" id="L22">	public QueryFixer(String s) {</span>
+<span class="fc" id="L23">		query = s;</span>
+<span class="fc" id="L24">		fixQuery();</span>
+<span class="fc" id="L25">	}</span>
+/**Metodo que retorna o parametro query que se encontra definido como private
+ * 
+ * @return parametro query que se encontra private
+ */
+	public String getQuery() {
+<span class="fc" id="L31">		return query;</span>
+	}
+/**metodo que opera sobre a query que deu entrada na App, devolvendo os simbolos &quot;''&quot; perdidos na transicao html para java
+ * 
+ */
+	public void fixQuery() {
+<span class="fc bfc" id="L37" title="All 5 branches covered.">		switch (this.query) {</span>
+
+		case &quot;/RDF/NamedIndividual/@*&quot;:
+<span class="fc" id="L40">			break;</span>
+		case &quot;//*[contains(@about,Algarve)]/Testes/text()&quot;:
+<span class="fc" id="L42">			query = &quot;//*[contains(@about,'Algarve')]/Testes/text()&quot;;</span>
+<span class="fc" id="L43">			break;</span>
+		case &quot;//*[contains(@about,Algarve)]/Infecoes/text()&quot;:
+<span class="fc" id="L45">			query = &quot;//*[contains(@about,'Algarve')]/Infecoes/text()&quot;;</span>
+<span class="fc" id="L46">			break;</span>
+		case &quot;//*[contains(@about,Algarve)]/Internamentos/text()&quot;:
+<span class="fc" id="L48">			query = &quot;//*[contains(@about,'Algarve')]/Internamentos/text()&quot;;</span>
+<span class="fc" id="L49">			break;</span>
+		default:
+			break;
+		}
+<span class="fc" id="L53">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>XmlProject.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">covid-query</a> &gt; <a href="index.source.html" class="el_package">covid_query.covid_query</a> &gt; <span class="el_source">XmlProject.java</span></div><h1>XmlProject.java</h1><pre class="source lang-java linenums">package covid_query.covid_query;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
+import org.apache.commons.lang3.StringUtils;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+
+/**Classe encarregue de tratar as queries que dao entrada na App e de gerar o ficheiro HTML com o resultado da query
+ * 
+ * @author Tomas Godinho
+ *
+ */
+public class XmlProject {
+	
+	/**Atributo que guarda a query que deu entrada na App
+	 * 
+	 */
+	private String query;
+	/**Atributo que indica se o html com a resposta da query ja foi gerado
+	 * 
+	 */
+<span class="fc" id="L36">	private boolean htmlFlag = false;</span>
+	
+	/**Atributo que guarda o(s) resultado(s) da query que deu entrada
+	 * 
+	 */
+<span class="fc" id="L41">	private ArrayList&lt;String&gt; lista = new ArrayList&lt;String&gt;();</span>
+	/**Construtor da classe XmlProject
+	 * 
+	 * @param query Atributo que guarda a query que deu entrada na App
+	 */
+<span class="fc" id="L46">	public XmlProject(String query) {</span>
+<span class="fc" id="L47">		this.query = query;</span>
+<span class="fc" id="L48">	}</span>
+	/**metodo que arranca o processo de analise da query, ao aceder ao ficheiro covid19spreading.rdf, e ao correr a query que deu entrada. Existe um controlo sobre essa query que devolve como resultado uma string especifica para avisar o utilizador
+	 * 
+	 */
+	public void run() {
+		try {
+<span class="nc" id="L54">			File inputFile = new File(&quot;repCopy/covid19spreading.rdf&quot;);</span>
+<span class="nc" id="L55">			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();</span>
+<span class="nc" id="L56">			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();</span>
+<span class="nc" id="L57">			Document doc = dBuilder.parse(inputFile);</span>
+<span class="nc" id="L58">			doc.getDocumentElement().normalize();</span>
+<span class="nc" id="L59">			XPathFactory xpathFactory = XPathFactory.newInstance();</span>
+<span class="nc" id="L60">			XPath xpath = xpathFactory.newXPath();</span>
+<span class="nc" id="L61">			XPathExpression expr = xpath.compile(query);</span>
+
+<span class="nc bnc" id="L63" title="All 5 branches missed.">			switch (query) {</span>
+			case &quot;/RDF/NamedIndividual/@*&quot;: 
+<span class="nc" id="L65">				  System.out.println(&quot;Query para obter a lista das regiões: &quot; + query);</span>
+<span class="nc" id="L66">				  NodeList nl = (NodeList) expr.evaluate(doc, XPathConstants.NODESET); </span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">				  for (int i = 0; i &lt; nl.getLength(); i++){</span>
+<span class="nc" id="L68">					  System.out.println(StringUtils.substringAfter(nl.item(i).getNodeValue(),&quot;#&quot;));</span>
+<span class="nc" id="L69">					  lista.add(StringUtils.substringAfter(nl.item(i).getNodeValue(),&quot;#&quot;) + &quot;&lt;br&gt;&quot;);</span>
+				  } 
+<span class="nc" id="L71">				  break;</span>
+			  case &quot;//*[contains(@about,'Algarve')]/Testes/text()&quot;: 
+<span class="nc" id="L73">				  System.out.println(&quot;Query para obter o número de testes feitos no Algarve: &quot;+ query); </span>
+<span class="nc" id="L74">				  expr = xpath.compile(query); </span>
+<span class="nc" id="L75">				  lista.add(expr.evaluate(doc, XPathConstants.STRING).toString());</span>
+<span class="nc" id="L76">				  System.out.println(expr.evaluate(doc, XPathConstants.STRING).toString()); </span>
+<span class="nc" id="L77">				  break;</span>
+			  case &quot;//*[contains(@about,'Algarve')]/Infecoes/text()&quot;: 
+<span class="nc" id="L79">				  System.out.println(&quot;Query para obter o número de infeções no Algarve: &quot; +query);</span>
+<span class="nc" id="L80">				  expr = xpath.compile(query); </span>
+<span class="nc" id="L81">				  System.out.println(expr.evaluate(doc, XPathConstants.STRING));</span>
+<span class="nc" id="L82">				  lista.add(expr.evaluate(doc, XPathConstants.STRING).toString());</span>
+<span class="nc" id="L83">				  break;</span>
+			  case &quot;//*[contains(@about,'Algarve')]/Internamentos/text()&quot;: 
+<span class="nc" id="L85">				  System.out.println(&quot;Query para obter o número de internamentos no Algarve: &quot;+ query); </span>
+<span class="nc" id="L86">				  expr = xpath.compile(query); </span>
+<span class="nc" id="L87">				  System.out.println(expr.evaluate(doc, XPathConstants.STRING));</span>
+<span class="nc" id="L88">				  lista.add(expr.evaluate(doc, XPathConstants.STRING).toString());</span>
+<span class="nc" id="L89">				  break;</span>
+<span class="nc" id="L90">			  default: System.out.println(&quot;Query invalida&quot;);</span>
+<span class="nc" id="L91">			  	lista.add(&quot;Query invalida&quot;);</span>
+			  	break;
+			}
+<span class="nc" id="L94">		} catch (Exception e) {</span>
+<span class="nc" id="L95">			e.printStackTrace();</span>
+<span class="nc" id="L96">		}</span>
+<span class="nc" id="L97">	}</span>
+
+	/**Metodo que gera o ficheiro HTML, atraves de Strings pre-concebidas e do resultado da query (lista)
+	 * 
+	 * @throws IOException
+	 */
+	public void generateHTML() throws IOException {
+<span class="fc" id="L104">		String tagStarts = &quot;&lt;html&gt;&lt;style&gt; table, th, td { border: 1px solid black; &lt;/style&gt; &lt;/head&gt; &lt;body&gt; O Resultado &quot;</span>
+				+ &quot;da sua query é: &lt;br&gt;&quot;;
+<span class="fc" id="L106">		String tagEnds =  &quot; &lt;/table&gt;&lt;/body&gt;&lt;/html&gt;&quot;;</span>
+		String header;
+<span class="fc" id="L108">		header = Files.readString(Paths.get(&quot;HTML/header.html&quot;));</span>
+<span class="fc" id="L109">		String footer = Files.readString(Paths.get(&quot;HTML/footer.html&quot;));</span>
+<span class="fc" id="L110">		File f = new File(&quot;HTML/covid-queries.html&quot;);</span>
+<span class="fc" id="L111">		try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {</span>
+<span class="fc" id="L112">			System.out.println(&quot;comecei a escrever a lista: &quot; + lista);</span>
+<span class="fc" id="L113">			bw.write(header);</span>
+<span class="fc" id="L114">			bw.write(tagStarts);</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">			if(!lista.isEmpty()) {</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">				for (String queryResults : lista) {</span>
+<span class="nc" id="L117">					bw.write(queryResults);</span>
+<span class="nc" id="L118">				}</span>
+			}
+<span class="fc" id="L120">			bw.write(tagEnds);</span>
+<span class="fc" id="L121">			bw.write(footer);</span>
+<span class="nc" id="L122">        } catch (IOException e) {</span>
+<span class="nc" id="L123">            e.printStackTrace();</span>
+<span class="fc" id="L124">        }</span>
+<span class="fc" id="L125">		setHtmlFlag(true);</span>
+<span class="fc" id="L126">	}</span>
+	
+	/**indica o estado da flag html
+	 * 
+	 * @return estado da flag html
+	 */
+	public boolean isHtmlFlag() {
+<span class="fc" id="L133">		return htmlFlag;</span>
+	}
+	/**estipula o estado da flag html
+	 * 
+	 * @param htmlFlag estado 
+	 */
+	public void setHtmlFlag(boolean htmlFlag) {
+<span class="fc" id="L140">		this.htmlFlag = htmlFlag;</span>
+<span class="fc" id="L141">	}</span>
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
