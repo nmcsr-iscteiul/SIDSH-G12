@@ -9,7 +9,7 @@ import covid_graph_spread.ReadFileFromRepository;
  * versions - git tags and with the help of an external website, show the
  * differences in the file.
  * 
- * @author Jo�o Pinto
+ * @author Joao Pinto
  *
  */
 public class Main {

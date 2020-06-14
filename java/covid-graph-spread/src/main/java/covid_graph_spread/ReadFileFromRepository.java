@@ -18,7 +18,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
  * those and if they have a same id, meaning that a commit has a tag then it
  * will call the responsible class to deal with the Tags.
  * 
- * @author Jo�o Pinto
+ * @author Joao Pinto
  *
  */
 public class ReadFileFromRepository {

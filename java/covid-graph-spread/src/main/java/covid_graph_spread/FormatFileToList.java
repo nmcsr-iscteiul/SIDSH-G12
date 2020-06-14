@@ -21,7 +21,7 @@ import org.eclipse.jgit.revwalk.RevCommit;
  * remote repository. It will add per each tag one file timestamp, one file
  * name, one file tag, one tag description and one spread visualization link.
  * 
- * @author Jo�o Pinto
+ * @author Joao Pinto
  *
  */
 public class FormatFileToList {

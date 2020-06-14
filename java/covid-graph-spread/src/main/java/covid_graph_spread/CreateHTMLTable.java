@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * This class will make an HTML table from a concatenation of a given header, a table that it will build and a footer. It will also do some tweaking of the HTML style of the page.
- * @author Frederico Correia, João Pinto
+ * @author Frederico Correia, Joao Pinto
  *
  */
 public class CreateHTMLTable {
@@ -28,7 +28,7 @@ public class CreateHTMLTable {
 	 * along with some html formatation. It will fill the table according to the
 	 * number of different tags received.
 	 * 
-	 * @author Frederico Correia, João Pinto
+	 * @author Frederico Correia, Joao Pinto
 	 * @param fileTimeStamp Timestamps of the files
 	 * @param fileName Names of the files
 	 * @param fileTag Tags that have files in the commit the file was created/modified

@@ -14,7 +14,7 @@ import java.util.List;
  * table that it will build and a footer. It will also do some tweaking of the
  * HTML style of the page.
  * 
- * @author Frederico Correia, Jo�o Pinto
+ * @author Frederico Correia, Joao Pinto
  *
  */
 public class CreateHtmlPage {
@@ -32,7 +32,7 @@ public class CreateHtmlPage {
 	 * along with some html formatation. It will fill the table according to the
 	 * number of different tags received.
 	 * 
-	 * @author Frederico Correia, Jo�o Pinto
+	 * @author Frederico Correia, Joao Pinto
 	 * @param fileTimeStamp           Timestamps of the files
 	 * @param fileName                Names of the files
 	 * @param fileTag                 Tags that have files in the commit the file
