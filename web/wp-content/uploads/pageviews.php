@@ -41,3 +41,13 @@
 2,1,1,
 2,0,0,
 24,0,1,
+2,1,1,
+24,0,1,
+27,0,1,
+59,1,1,http://localhost:8001/covid-sci-discoveries
+153,0,1,http://ubuntu:8000/covid-scientific-discoveries-repository/
+2,0,0,
+59,0,1,
+24,0,1,http://localhost:8001/covid-graph-spread
+27,0,0,http://ubuntu:8000/covid-scientific-discoveries/
+33,0,1,http://localhost:8001/covid-graph-spread
