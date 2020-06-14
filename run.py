@@ -24,7 +24,7 @@ def spread():
     return render_template('covid-graph-spread.html')
 
 # Tomas
-@app.route("/covid-query", methods=['GET','POST'])
+@app.route("/covid-query", methods=['POST'])
 def query():
     data = "\'"+request.form['data'] + "\'"
     print (data)

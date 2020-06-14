@@ -10,8 +10,8 @@ pipeline {
         '''
         sh '''cd ./java/covid-sci-discoveries && mvn compile
         '''
-        //sh '''cd ./java/covid-query && mvn compile
-        //'''
+        sh '''cd ./java/covid-query && mvn compile
+        '''
       }
     }
 
@@ -23,8 +23,8 @@ pipeline {
         '''
         sh '''cd ./java/covid-sci-discoveries && mvn test
         '''
-        //sh '''cd ./java/covid-query && mvn test
-        //'''
+        sh '''cd ./java/covid-query && mvn test
+        '''
       }
     }
 
@@ -36,8 +36,8 @@ pipeline {
         '''
         sh '''cd ./java/covid-sci-discoveries && mvn javadoc:javadoc
         '''
-        //sh '''cd ./java/covid-query && mvn compile
-        //'''
+        sh '''cd ./java/covid-query && mvn javadoc:javadoc
+        '''
       }
     }
 

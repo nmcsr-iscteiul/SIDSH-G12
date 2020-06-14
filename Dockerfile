@@ -27,6 +27,6 @@ RUN export JAVA_HOME
 RUN cd ./java/covid-evolution-diff && mvn compile
 RUN cd ./java/covid-graph-spread && mvn compile
 RUN cd ./java/covid-sci-discoveries && mvn compile
-#RUN cd ./java/covid-query && mvn compile
+RUN cd ./java/covid-query && mvn compile
 
 CMD ["python", "run.py"]
