@@ -38,6 +38,8 @@ only when it is in production.
 - Covid Scientific Discoveries Repository: the admin can add files through the page but he can't delete/change them - I couldn't find a plugin that allowed that. To solve this I added a button that redirected to the Wordpress dashboard were the admin can delete or change the files directly.
 - WebSite Analytics: I coulnd't find a plugin that allowed for analytics on the website to be displayed on a page. To solve this I put a button that redirected (only the admin user) to the wordpress dashboard where he can see the analytics. (I also added some analytics screenshots that display what it would look like to the user if the plugin worked on the page).
 
+- 
+
 ### 3. Covid Scientific Discoveries
 - The admin uploads the pdf files to the directory '/web/wp-content/uploads/'. Therefore the pdfs files will be copied from that directory and not the 'Covid Scientific Discoveries Repository' folder.
 - For JUnit to work there must be a PDF file named '178-1-53.pdf' inside /SIDSH-G12/java/covid-sci-discoveries/HTML/Covid_Scientific_Discoveries_Repository/
