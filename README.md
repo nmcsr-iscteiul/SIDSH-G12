@@ -48,6 +48,9 @@ only when it is in production.
 ### 4. Covid Graph Spread
 
 ### 5. Covid Queries
+-The query form is only a line in which the user inputs a xml query, instead of multiple form fields;
+-The java code is only ready to process 4 different xml queries, the rest are answered as being invalid;
+-The query result on html is not css-formatted and might be hard to see without selecting the text. 
 
 ### 6. Covid Evolution Diff
 
