@@ -1,5 +1,5 @@
 # G12 | SID Software House (SIDSH) - Continuous Delivery Project
-<img src="/images/image.png"/>
+<img src="/pictures/image.png"/>
 
 ## Project Description
 &nbsp;With this project SIDSH intends to adopt a software development discipline for the company (group) to
