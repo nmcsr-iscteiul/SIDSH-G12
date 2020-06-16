@@ -28,7 +28,7 @@ def spread():
 def query():
     data = "\'"+request.form['data'] + "\'"
     print (data)
-    os.system("rm -rf ./java/covid-query/repCopy && cd ./java/covid-query && mvn exec:java -Dexec.mainClass=covid_query.covid_query.App -Dexec.args=\" " + request.form['data'] + "\" && cd ../../ && cp ./java/covid-query/HTML/covid-queries.html ./templates/covid-queries.html")
+    os.system("rm -rf ./java/covid-query/repCopy && cd ./java/covid-query && mvn exec:java -Dexec.mainClass=covid_query.covid_query.App -Dexec.args=\" " + request.form['data'] + "\" && cd ../../ && rm -rf ./java/covid-query/repCopy && cp ./java/covid-query/HTML/covid-queries.html ./templates/covid-queries.html")
     return render_template('covid-queries.html')
 
 if __name__ == '__main__':
