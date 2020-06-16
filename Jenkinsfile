@@ -23,7 +23,7 @@ pipeline {
         '''
         sh '''cd ./java/covid-sci-discoveries && mvn test
         '''
-        sh '''cd ./java/covid-query && mvn test
+        sh '''rm -rf ./java/covid-query/repCopy && cd ./java/covid-query && mvn test
         '''
       }
     }
